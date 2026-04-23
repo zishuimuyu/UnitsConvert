@@ -112,11 +112,11 @@
 ### 基本用法
 
 ```java
-import com.zishuimuyu.science.units.UnitUtils;
-import com.zishuimuyu.science.units.ValueWithUnit;
-import com.zishuimuyu.science.units.accelerate.UAccelerate_g;
-import com.zishuimuyu.science.units.force.UForce_N;
-import com.zishuimuyu.science.units.mass.UMass_Kg;
+import cn.nlte.science.units.UnitUtils;
+import cn.nlte.science.units.ValueWithUnit;
+import cn.nlte.science.units.accelerate.UAccelerate_g;
+import cn.nlte.science.units.force.UForce_N;
+import cn.nlte.science.units.mass.UMass_Kg;
 
 public class Example {
     public static void main(String[] args) {
@@ -150,35 +150,38 @@ System.out.println("Stress: " + stress.getValue() + stress.getUnit().getDescript
 ### 温度转换示例
 
 ```java
-import com.zishuimuyu.science.units.temperature.UTemperature_C;
-import com.zishuimuyu.science.units.temperature.UTemperature_F;
+import cn.nlte.science.units.temperature.UTemperature_C;
+import cn.nlte.science.units.temperature.UTemperature_F;
 
 // 摄氏度转华氏度
 ValueWithUnit tempC = new ValueWithUnit(25.0, new UTemperature_C());
-        ValueWithUnit tempF = tempC.convertTo(new UTemperature_F());
-System.out.
-
-        println("Temperature: "+tempF.getValue() +"°F");
+ValueWithUnit tempF = tempC.convertTo(new UTemperature_F());
+System.out.println("Temperature: " + tempF.getValue() + "°F");
 ```
 
 ### 复合单位运算
 
 ```java
-import com.zishuimuyu.science.units.length.ULength_m;
-import com.zishuimuyu.science.units.time.UTime_s;
+import cn.nlte.science.units.length.ULength_m;
+import cn.nlte.science.units.time.UTime_s;
 
 // 计算速度
 ValueWithUnit distance = new ValueWithUnit(100.0, new ULength_m());
-        ValueWithUnit time = new ValueWithUnit(10.0, new UTime_s());
-        ValueWithUnit velocity = distance.divide(time);
-System.out.
-
-        println("Velocity: "+velocity.getValue() +" "+velocity.
-
-        getUnit().
-
-        getStandardFormat());
+ValueWithUnit time = new ValueWithUnit(10.0, new UTime_s());
+ValueWithUnit velocity = distance.divide(time);
+System.out.println("Velocity: " + velocity.getValue() + " " + velocity.getUnit().getStandardFormat());
 ```
+
+## 设计模式
+
+### 1. 工厂模式
+通过`UnitUtils.getUnit()`方法获取单位实例，实现单例管理，提高性能并减少内存开销。
+
+### 2. 模板方法模式
+`DerivedUnit`定义了单位的基本行为，具体单位类实现细节。
+
+### 3. 单例模式
+单位实例通过工厂方法管理，避免重复创建，提高性能。
 
 ## 技术特点
 
@@ -193,7 +196,7 @@ System.out.
 ```
 UnitsConvert/
 ├── src/
-│   └── com/nlte/science/units/
+│   └── cn/nlte/science/units/
 │       ├── BasicUnit.java              # 基本单位枚举
 │       ├── DerivedUnit.java            # 导出单位基类
 │       ├── UnitElement.java            # 单位元素类
@@ -211,7 +214,7 @@ UnitsConvert/
 │       ├── time/                       # 时间单位
 │       ├── velocity/                   # 速度单位
 │       └── volume/                     # 体积单位
-├── out/                                # 编译输出目录
+├── target/                             # 编译输出目录
 ├── lib/                                # 第三方库
 ├── nbproject/                          # NetBeans项目配置
 └── build.xml                           # Ant构建脚本
@@ -231,6 +234,194 @@ ant jar
 ant run
 ```
 
+## 第三方系统集成指南
+
+### 1. 构建JAR包
+
+首先需要将项目编译打包成JAR文件：
+
+```bash
+# 清理并重新编译
+ant clean
+ant compile
+
+# 打包成JAR文件
+ant jar
+```
+
+编译成功后，JAR文件将生成在 `dist/UnitsGBK.jar`。
+
+### 2. 在第三方项目中引用JAR包
+
+#### 方式一：直接引用JAR包
+
+1. 将 `dist/UnitsGBK.jar` 复制到你的项目中的 `lib` 目录
+2. 在你的IDE中添加该JAR包到项目依赖中
+3. 或者使用命令行编译时指定classpath：
+
+```bash
+javac -cp .:lib/UnitsGBK.jar YourClass.java
+java -cp .:lib/UnitsGBK.jar YourClass
+```
+
+#### 方式二：Maven项目集成
+
+如果你的项目使用Maven构建，可以将JAR包安装到本地Maven仓库：
+
+```bash
+# 安装到本地Maven仓库
+mvn install:install-file \
+  -Dfile=dist/UnitsGBK.jar \
+  -DgroupId=cn.nlte.science \
+  -DartifactId=unitsconvert \
+  -Dversion=1.0.0 \
+  -Dpackaging=jar
+```
+
+然后在你的 `pom.xml` 中添加依赖：
+
+```xml
+<dependency>
+    <groupId>cn.nlte.science</groupId>
+    <artifactId>unitsconvert</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+#### 方式三：Gradle项目集成
+
+如果你使用Gradle，同样先安装到本地Maven仓库，然后在 `build.gradle` 中添加：
+
+```gradle
+dependencies {
+    implementation 'cn.nlte.science:unitsconvert:1.0.0'
+}
+```
+
+### 3. 基本使用示例
+
+#### 导入必要的类
+
+```java
+import cn.nlte.science.units.UnitUtils;
+import cn.nlte.science.units.ValueWithUnit;
+import cn.nlte.science.units.length.ULength_m;
+import cn.nlte.science.units.mass.UMass_Kg;
+import cn.nlte.science.units.force.UForce_N;
+import cn.nlte.science.units.temperature.UTemperature_C;
+```
+
+#### 简单位转换
+
+```java
+// 创建带单位的数据
+ValueWithUnit length = new ValueWithUnit(100.0, new ULength_m());
+
+// 转换为厘米
+ValueWithUnit lengthInCm = length.convertTo(UnitUtils.getUnit("ULength_cm"));
+System.out.println("100米 = " + lengthInCm.getValue() + "厘米");
+```
+
+#### 复杂计算
+
+```java
+// 物理公式计算：F = m × a
+ValueWithUnit mass = new ValueWithUnit(2.0, new UMass_Kg());
+ValueWithUnit acceleration = new ValueWithUnit(9.8, UnitUtils.getUnit("UAccelerate_mPers2"));
+
+// 计算力
+ValueWithUnit force = mass.multiply(acceleration);
+
+// 转换为牛顿
+force = force.convertTo(new UForce_N());
+System.out.println("力: " + force.getValue() + " N");
+```
+
+#### 温度转换
+
+```java
+// 摄氏度转华氏度
+ValueWithUnit tempC = new ValueWithUnit(25.0, new UTemperature_C());
+ValueWithUnit tempF = tempC.convertTo(UnitUtils.getUnit("UTemperature_F"));
+System.out.println("25°C = " + tempF.getValue() + "°F");
+```
+
+### 4. 常见单位类名列表
+
+以下是常用的单位类名，可以通过 `UnitUtils.getUnit("类名")` 获取：
+
+**长度单位：**
+- `ULength_m` - 米
+- `ULength_cm` - 厘米
+- `ULength_mm` - 毫米
+- `ULength_Km` - 千米
+- `ULength_ft` - 英尺
+- `ULength_in` - 英寸
+
+**质量单位：**
+- `UMass_Kg` - 千克
+- `UMass_g` - 克
+- `UMass_t` - 吨
+- `UMass_lb` - 磅
+
+**力单位：**
+- `UForce_N` - 牛顿
+- `UForce_KN` - 千牛顿
+- `UForce_Kgf` - 千克力
+
+**压强单位：**
+- `UPressure_Pa` - 帕斯卡
+- `UPressure_MPa` - 兆帕
+- `UPressure_bar` - 巴
+
+**温度单位：**
+- `UTemperature_C` - 摄氏度
+- `UTemperature_F` - 华氏度
+- `UTemperature_K` - 开尔文
+
+### 5. 注意事项
+
+1. **包名**：确保导入正确的包名 `cn.nlte.science.units.*`
+2. **单位验证**：不同量纲的单位不能直接相加减，会抛出 `UnitsNotSameException`
+3. **工厂方法**：推荐使用 `UnitUtils.getUnit()` 方法获取单位实例，提高性能
+4. **精度控制**：项目使用 `double` 类型进行计算，注意浮点数精度问题
+5. **温度转换**：温度转换考虑了偏移量，确保转换的准确性
+
+### 6. 集成测试示例
+
+创建一个简单的测试类验证集成是否成功：
+
+```java
+import cn.nlte.science.units.UnitUtils;
+import cn.nlte.science.units.ValueWithUnit;
+import cn.nlte.science.units.length.ULength_m;
+
+public class IntegrationTest {
+    public static void main(String[] args) {
+        System.out.println("UnitsConvert 集成测试");
+        
+        // 测试基本功能
+        ValueWithUnit length = new ValueWithUnit(1.0, new ULength_m());
+        ValueWithUnit cm = length.convertTo(UnitUtils.getUnit("ULength_cm"));
+        
+        System.out.println("1米 = " + cm.getValue() + "厘米");
+        
+        if (Math.abs(cm.getValue() - 100.0) < 0.001) {
+            System.out.println("集成成功！");
+        } else {
+            System.out.println("集成失败！");
+        }
+    }
+}
+```
+
+### 7. 故障排除
+
+如果遇到类找不到的问题，请检查：
+1. JAR包是否正确添加到classpath
+2. 包名是否正确（`cn.nlte.science.units`）
+3. Java版本兼容性（项目使用Java 1.7编译）
+
 ## 许可证
 
 本项目采用Apache License Version 2.0协议发布。
@@ -239,12 +430,7 @@ ant run
 
 本源代码知识产权属于斯塔克工业（STK）所有。
 
-**官方网址：** 
- * <P>
- *
- *     http://www.stk.com
- *
- * <P>
+**官方网址：** http://www.stk.cn
 
 **公司简介：**
 STK主要服务于石油、化工、核电、建筑等传统企业，致力于传统行业的现代科技化转型，提供软件培训、软件研发（包括二次研发）、研发咨询、系统架构、高性能计算集群（HPC）搭建等一体化的专业服务。
@@ -263,12 +449,7 @@ STK主要服务于石油、化工、核电、建筑等传统企业，致力于�
 ## 联系方式
 
 如有问题或建议，请通过以下方式联系：
-- 官方网站：
- * <P>
- *
- *     http://www.stk.com
- *
- * <P>
+- 官方网站：http://www.stk.cn
 - 项目Issues：在GitHub上提交Issue
 
 ## 更新日志
