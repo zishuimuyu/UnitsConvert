@@ -1,4 +1,4 @@
-package testall;
+package com.zishuimuyu.science;
 
 import com.zishuimuyu.science.units.UnitUtils;
 import com.zishuimuyu.science.units.ValueWithUnit;
@@ -17,8 +17,8 @@ import com.zishuimuyu.science.units.mass.UMass_Kg;
  *   <li>使用工厂方法获取单位实例</li>
  * </ul>
  * <P>
- * 示例涵盖了质量、加速度、力、压力等不同类型物理量的单位转换。
- * 通过这个测试类可以了解如何在实际应用中使用单位转换库。
+ * 示例：测试质量、加速度、力等不同物理量的单位转换
+ * 通过该示例可以了解如何使用库中的各种单位转换功能。
  *
  * @author 紫水木鱼
  * @company 斯塔克工业（STK）
@@ -27,13 +27,15 @@ import com.zishuimuyu.science.units.mass.UMass_Kg;
 public class TestUse {
 
     /**
-     * 主方法，运行单位转换库的功能测试
+     * 测试程序入口点
      * <P>
      * 测试流程：
      * 1. 创建带单位的质量和加速度值
-     * 2. 计算力值（F = m * a）
-     * 3. 将力值转换为不同的单位制
-     * 4. 测试压力单位之间的转换
+     * 2. 计算数值（F = m * a）
+     * 3. 将数值转换为不同的单位制
+     * 4. 验证转换结果的准确性
+     *
+     * @param args 命令行参数，未使用
      */
     public static void main(String[] args) {
         // 定义带单位的数据 - 2.0千克的质量

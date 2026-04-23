@@ -196,101 +196,98 @@ System.out.println("Velocity: " + velocity.getValue() + " " + velocity.getUnit()
 ```
 UnitsConvert/
 ├── src/
-│   └── com/zishuimuyu/science/units/
-│       ├── BasicUnit.java              # 基本单位枚举
-│       ├── DerivedUnit.java            # 导出单位基类
-│       ├── UnitElement.java            # 单位元素类
-│       ├── ValueWithUnit.java          # 带单位数据类
-│       ├── UnitUtils.java              # 单位工具类
-│       ├── accelerate/                 # 加速度单位
-│       ├── area/                       # 面积单位
-│       ├── energy/                     # 能量单位
-│       ├── force/                      # 力单位
-│       ├── length/                     # 长度单位
-│       ├── mass/                       # 质量单位
-│       ├── power/                      # 功率单位
-│       ├── pressure/                   # 压强单位
-│       ├── temperature/                # 温度单位
-│       ├── time/                       # 时间单位
-│       ├── velocity/                   # 速度单位
-│       └── volume/                     # 体积单位
-├── target/                             # 编译输出目录
-├── lib/                                # 第三方库
-├── nbproject/                          # NetBeans项目配置
-└── build.xml                           # Ant构建脚本
+│   ├── main/
+│   │   └── java/
+│   │       └── com/zishuimuyu/science/units/
+│   │           ├── BasicUnit.java              # 基本单位枚举
+│   │           ├── DerivedUnit.java            # 导出单位基类
+│   │           ├── UnitElement.java            # 单位元素类
+│   │           ├── ValueWithUnit.java          # 带单位数据类
+│   │           ├── UnitUtils.java              # 单位工具类
+│   │           ├── accelerate/                 # 加速度单位
+│   │           ├── area/                       # 面积单位
+│   │           ├── energy/                     # 能量单位
+│   │           ├── force/                      # 力单位
+│   │           ├── length/                     # 长度单位
+│   │           ├── mass/                       # 质量单位
+│   │           ├── power/                      # 功率单位
+│   │           ├── pressure/                   # 压强单位
+│   │           ├── temperature/                # 温度单位
+│   │           ├── time/                       # 时间单位
+│   │           ├── velocity/                   # 速度单位
+│   │           └── volume/                     # 体积单位
+│   └── test/
+│       └── java/
+│           └── testall/
+│               └── TestUse.java                # 测试类
+├── pom.xml                                     # Maven配置文件
+├── target/                                     # 编译输出目录
+└── README.md                                   # 项目说明文档
 ```
 
 ## 构建和运行
 
-### 使用Ant构建
+### 使用Maven构建
 ```bash
-ant clean
-ant compile
-ant jar
+# 编译项目
+mvn clean compile
+
+# 运行测试
+mvn test
+
+# 打包项目
+mvn package
+
+# 安装到本地仓库
+mvn clean install
 ```
 
 ### 运行测试
 ```bash
-ant run
+mvn test
+# 或者运行特定测试类
+mvn test -Dtest=TestUse
 ```
 
 ## 第三方系统集成指南
 
-### 1. 构建JAR包
+### 1. Maven项目集成
 
-首先需要将项目编译打包成JAR文件：
-
-```bash
-# 清理并重新编译
-ant clean
-ant compile
-
-# 打包成JAR文件
-ant jar
-```
-
-编译成功后，JAR文件将生成在 `dist/UnitsConvert.jar`。
-
-### 2. 在第三方项目中引用JAR包
-
-#### 方式一：直接引用JAR包
-
-1. 将 `dist/UnitsConvert.jar` 复制到你的项目中的 `lib` 目录
-2. 在你的IDE中添加该JAR包到项目依赖中
-3. 或者使用命令行编译时指定classpath：
-
-```bash
-javac -cp .:lib/UnitsConvert.jar YourClass.java
-java -cp .:lib/UnitsConvert.jar YourClass
-```
-
-#### 方式二：Maven项目集成
-
-如果你的项目使用Maven构建，可以将JAR包安装到本地Maven仓库：
-
-```bash
-# 安装到本地Maven仓库
-mvn install:install-file \
-  -Dfile=dist/UnitsConvert.jar \
-  -DgroupId=com.zishuimuyu.science \
-  -DartifactId=unitsconvert \
-  -Dversion=1.0.0 \
-  -Dpackaging=jar
-```
-
-然后在你的 `pom.xml` 中添加依赖：
+由于项目已经迁移到Maven，您可以直接在您的 `pom.xml` 中添加依赖：
 
 ```xml
 <dependency>
     <groupId>com.zishuimuyu.science</groupId>
     <artifactId>unitsconvert</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 
-#### 方式三：Gradle项目集成
+为了在IDE中查看详细的API文档和注释，请同时添加Javadoc依赖：
 
-如果你使用Gradle，同样先安装到本地Maven仓库，然后在 `build.gradle` 中添加：
+```xml
+<dependency>
+    <groupId>com.zishuimuyu.science</groupId>
+    <artifactId>unitsconvert</artifactId>
+    <version>2.0.0</version>
+    <classifier>javadoc</classifier>
+    <scope>provided</scope>
+</dependency>
+```
+
+或者，如果您使用IDE（如IntelliJ IDEA或Eclipse），IDE通常会自动下载Javadoc和源码包以提供更好的代码补全和文档查看体验。
+
+**注意**：由于项目中的注释主要是中文文档而非标准Javadoc格式，自动生成的Javadoc包可能内容有限。但源码包（sources）包含了完整的中文注释，IDE能够更好地解析和显示这些注释。
+
+如果需要将此库安装到本地Maven仓库，可以执行：
+
+```bash
+mvn clean install
+```
+
+### 2. Gradle项目集成
+
+如果您使用Gradle，可以在 `build.gradle` 中添加：
 
 ```gradle
 dependencies {
@@ -298,7 +295,18 @@ dependencies {
 }
 ```
 
-### 3. 基本使用示例
+### 3. 传统项目集成（非Maven/Gradle）
+
+如果您无法使用Maven或Gradle进行依赖管理，可以手动构建JAR包：
+
+```bash
+# 构建JAR包
+mvn clean package
+```
+
+JAR文件将生成在 `target/` 目录下，您可以将其添加到您的项目类路径中。
+
+### 4. 基本使用示例
 
 #### 导入必要的类
 
@@ -346,7 +354,7 @@ ValueWithUnit tempF = tempC.convertTo(UnitUtils.getUnit("UTemperature_F"));
 System.out.println("25°C = " + tempF.getValue() + "°F");
 ```
 
-### 4. 常见单位类名列表
+### 5. 常见单位类名列表
 
 以下是常用的单位类名，可以通过 `UnitUtils.getUnit("类名")` 获取：
 
@@ -379,7 +387,7 @@ System.out.println("25°C = " + tempF.getValue() + "°F");
 - `UTemperature_F` - 华氏度
 - `UTemperature_K` - 开尔文
 
-### 5. 注意事项
+### 6. 注意事项
 
 1. **包名**：确保导入正确的包名 `com.zishuimuyu.science.units.*`
 2. **单位验证**：不同量纲的单位不能直接相加减，会抛出 `UnitsNotSameException`
@@ -387,7 +395,7 @@ System.out.println("25°C = " + tempF.getValue() + "°F");
 4. **精度控制**：项目使用 `double` 类型进行计算，注意浮点数精度问题
 5. **温度转换**：温度转换考虑了偏移量，确保转换的准确性
 
-### 6. 集成测试示例
+### 7. 集成测试示例
 
 创建一个简单的测试类验证集成是否成功：
 
@@ -415,12 +423,12 @@ public class IntegrationTest {
 }
 ```
 
-### 7. 故障排除
+### 8. 故障排除
 
 如果遇到类找不到的问题，请检查：
-1. JAR包是否正确添加到classpath
+1. 依赖是否正确添加到项目中
 2. 包名是否正确（`com.zishuimuyu.science.units`）
-3. Java版本兼容性（项目使用Java 1.7编译）
+3. Java版本兼容性（项目使用Java 8编译）
 
 ## 许可证
 
@@ -459,3 +467,5 @@ STK主要服务于石油、化工、核电、建筑等传统企业，致力于�
 - 包含国际单位制、英制单位、中国传统单位
 - 提供完整的单位运算功能
 - 支持自定义单位扩展
+- 项目已从NetBeans项目迁移到Maven项目结构
+- 支持现代Java构建和依赖管理
