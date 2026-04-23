@@ -112,11 +112,11 @@
 ### 基本用法
 
 ```java
-import cn.nlte.science.units.UnitUtils;
-import cn.nlte.science.units.ValueWithUnit;
-import cn.nlte.science.units.accelerate.UAccelerate_g;
-import cn.nlte.science.units.force.UForce_N;
-import cn.nlte.science.units.mass.UMass_Kg;
+import com.zishuimuyu.science.units.UnitUtils;
+import com.zishuimuyu.science.units.ValueWithUnit;
+import com.zishuimuyu.science.units.accelerate.UAccelerate_g;
+import com.zishuimuyu.science.units.force.UForce_N;
+import com.zishuimuyu.science.units.mass.UMass_Kg;
 
 public class Example {
     public static void main(String[] args) {
@@ -150,8 +150,8 @@ System.out.println("Stress: " + stress.getValue() + stress.getUnit().getDescript
 ### 温度转换示例
 
 ```java
-import cn.nlte.science.units.temperature.UTemperature_C;
-import cn.nlte.science.units.temperature.UTemperature_F;
+import com.zishuimuyu.science.units.temperature.UTemperature_C;
+import com.zishuimuyu.science.units.temperature.UTemperature_F;
 
 // 摄氏度转华氏度
 ValueWithUnit tempC = new ValueWithUnit(25.0, new UTemperature_C());
@@ -162,8 +162,8 @@ System.out.println("Temperature: " + tempF.getValue() + "°F");
 ### 复合单位运算
 
 ```java
-import cn.nlte.science.units.length.ULength_m;
-import cn.nlte.science.units.time.UTime_s;
+import com.zishuimuyu.science.units.length.ULength_m;
+import com.zishuimuyu.science.units.time.UTime_s;
 
 // 计算速度
 ValueWithUnit distance = new ValueWithUnit(100.0, new ULength_m());
@@ -196,7 +196,7 @@ System.out.println("Velocity: " + velocity.getValue() + " " + velocity.getUnit()
 ```
 UnitsConvert/
 ├── src/
-│   └── cn/nlte/science/units/
+│   └── com/zishuimuyu/science/units/
 │       ├── BasicUnit.java              # 基本单位枚举
 │       ├── DerivedUnit.java            # 导出单位基类
 │       ├── UnitElement.java            # 单位元素类
@@ -249,19 +249,19 @@ ant compile
 ant jar
 ```
 
-编译成功后，JAR文件将生成在 `dist/UnitsGBK.jar`。
+编译成功后，JAR文件将生成在 `dist/UnitsConvert.jar`。
 
 ### 2. 在第三方项目中引用JAR包
 
 #### 方式一：直接引用JAR包
 
-1. 将 `dist/UnitsGBK.jar` 复制到你的项目中的 `lib` 目录
+1. 将 `dist/UnitsConvert.jar` 复制到你的项目中的 `lib` 目录
 2. 在你的IDE中添加该JAR包到项目依赖中
 3. 或者使用命令行编译时指定classpath：
 
 ```bash
-javac -cp .:lib/UnitsGBK.jar YourClass.java
-java -cp .:lib/UnitsGBK.jar YourClass
+javac -cp .:lib/UnitsConvert.jar YourClass.java
+java -cp .:lib/UnitsConvert.jar YourClass
 ```
 
 #### 方式二：Maven项目集成
@@ -271,8 +271,8 @@ java -cp .:lib/UnitsGBK.jar YourClass
 ```bash
 # 安装到本地Maven仓库
 mvn install:install-file \
-  -Dfile=dist/UnitsGBK.jar \
-  -DgroupId=cn.nlte.science \
+  -Dfile=dist/UnitsConvert.jar \
+  -DgroupId=com.zishuimuyu.science \
   -DartifactId=unitsconvert \
   -Dversion=1.0.0 \
   -Dpackaging=jar
@@ -282,7 +282,7 @@ mvn install:install-file \
 
 ```xml
 <dependency>
-    <groupId>cn.nlte.science</groupId>
+    <groupId>com.zishuimuyu.science</groupId>
     <artifactId>unitsconvert</artifactId>
     <version>1.0.0</version>
 </dependency>
@@ -294,7 +294,7 @@ mvn install:install-file \
 
 ```gradle
 dependencies {
-    implementation 'cn.nlte.science:unitsconvert:1.0.0'
+    implementation 'com.zishuimuyu.science:unitsconvert:1.0.0'
 }
 ```
 
@@ -303,12 +303,12 @@ dependencies {
 #### 导入必要的类
 
 ```java
-import cn.nlte.science.units.UnitUtils;
-import cn.nlte.science.units.ValueWithUnit;
-import cn.nlte.science.units.length.ULength_m;
-import cn.nlte.science.units.mass.UMass_Kg;
-import cn.nlte.science.units.force.UForce_N;
-import cn.nlte.science.units.temperature.UTemperature_C;
+import com.zishuimuyu.science.units.UnitUtils;
+import com.zishuimuyu.science.units.ValueWithUnit;
+import com.zishuimuyu.science.units.length.ULength_m;
+import com.zishuimuyu.science.units.mass.UMass_Kg;
+import com.zishuimuyu.science.units.force.UForce_N;
+import com.zishuimuyu.science.units.temperature.UTemperature_C;
 ```
 
 #### 简单位转换
@@ -381,7 +381,7 @@ System.out.println("25°C = " + tempF.getValue() + "°F");
 
 ### 5. 注意事项
 
-1. **包名**：确保导入正确的包名 `cn.nlte.science.units.*`
+1. **包名**：确保导入正确的包名 `com.zishuimuyu.science.units.*`
 2. **单位验证**：不同量纲的单位不能直接相加减，会抛出 `UnitsNotSameException`
 3. **工厂方法**：推荐使用 `UnitUtils.getUnit()` 方法获取单位实例，提高性能
 4. **精度控制**：项目使用 `double` 类型进行计算，注意浮点数精度问题
@@ -392,9 +392,9 @@ System.out.println("25°C = " + tempF.getValue() + "°F");
 创建一个简单的测试类验证集成是否成功：
 
 ```java
-import cn.nlte.science.units.UnitUtils;
-import cn.nlte.science.units.ValueWithUnit;
-import cn.nlte.science.units.length.ULength_m;
+import com.zishuimuyu.science.units.UnitUtils;
+import com.zishuimuyu.science.units.ValueWithUnit;
+import com.zishuimuyu.science.units.length.ULength_m;
 
 public class IntegrationTest {
     public static void main(String[] args) {
@@ -419,7 +419,7 @@ public class IntegrationTest {
 
 如果遇到类找不到的问题，请检查：
 1. JAR包是否正确添加到classpath
-2. 包名是否正确（`cn.nlte.science.units`）
+2. 包名是否正确（`com.zishuimuyu.science.units`）
 3. Java版本兼容性（项目使用Java 1.7编译）
 
 ## 许可证

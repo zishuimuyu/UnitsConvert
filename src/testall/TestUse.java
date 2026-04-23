@@ -1,10 +1,10 @@
 package testall;
 
-import cn.nlte.science.units.UnitUtils;
-import cn.nlte.science.units.ValueWithUnit;
-import cn.nlte.science.units.accelerate.UAccelerate_g;
-import cn.nlte.science.units.force.UForce_N;
-import cn.nlte.science.units.mass.UMass_Kg;
+import com.zishuimuyu.science.units.UnitUtils;
+import com.zishuimuyu.science.units.ValueWithUnit;
+import com.zishuimuyu.science.units.accelerate.UAccelerate_g;
+import com.zishuimuyu.science.units.force.UForce_N;
+import com.zishuimuyu.science.units.mass.UMass_Kg;
 
 /**
  * 单位转换系统测试类
