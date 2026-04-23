@@ -1,26 +1,3 @@
-/*
- * 本源代码知识产权属于斯塔克工业（STK）所有。
- * <P>
- * 本项目以Apache License Version 2.0协议发布，鼓励代码共享和尊重原作者的著作权，
- * <P>
- * 同样允许代码修改，再发布（作为开源或商业软件）。
- * <P>
- * 在延伸的代码中（修改和有源代码衍生的代码中）需要带有原来代码中的协议，
- * <P>
- * 商标，不得以任何形式删去“斯塔克工业（STK）”的版权声明。
- * <P>
- * 斯塔克工业官方网址：
- * <P>
- *
- *     http://www.stk.cn
- *
- * <P>
- * STK主要服务于石油、化工、核电、建筑等传统企业，致力于传统行业的现代科技化转型，
- * <P>
- * 提供软件培训、软件研发（包括二次研发）、研发咨询、系统架构、高性能计算集群（HPC）搭建等一体化的专业服务。
- * <P>
- * 公司以“专于行业应用，用心铸造永恒”为核心价值。
- */
 package cn.nlte.science.units.mass;
 
 import cn.nlte.science.units.BasicUnit;
@@ -30,20 +7,76 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 质量单位：lb，磅
+ * 质量单位：lb（磅）
  * <P>
+ * 磅是英制质量单位，符号为lb。
+ * 1磅定义为0.45359237千克，这是一个精确的国际标准值。
+ * <P>
+ * 单位关系：
+ * <ul>
+ *   <li>1 lb = 0.45359237 Kg（千克）</li>
+ *   <li>1 lb = 453.59237 g（克）</li>
+ *   <li>1 lb = 16 oz（盎司）</li>
+ *   <li>1 st = 14 lb（英石）</li>
+ *   <li>1 short ton = 2000 lb（美吨）</li>
+ *   <li>1 long ton = 2240 lb（英吨）</li>
+ *   <li>1 Kg ≈ 2.205 lb</li>
+ * </ul>
+ * <P>
+ * 磅单位在美国、英国等使用英制单位的国家有广泛应用，
+ * 用于测量人体体重、食品重量、包裹重量等。
+ * 在国际贸易和航空等领域，磅也是常用的质量单位。
+ * <P>
+ * 该单位在使用英制系统的国家和地区常见。
  *
  * @author 紫水木鱼
+ * @company 斯塔克工业（STK）
+ * @date 2026年04月23日
  */
 public class UMass_lb extends DerivedUnit {
 
+    /**
+     * 基本单位元素列表
+     * <P>
+     * 定义磅单位的基本单位组成：
+     * - 质量单位千克(Kg)，指数为1
+     * <P>
+     * 磅是质量单位，1磅等于0.45359237千克，因此与千克具有相同的基本单位组成，
+     * 只是转换因子不同。
+     */
     private final static List<UnitElement> elementList = new ArrayList<>();
+    
+    /**
+     * 转换因子
+     * <P>
+     * 用于将磅数值转换为标准单位（千克）的数值。
+     * 由于1lb = 0.45359237Kg，所以factor = 0.45359237。
+     * 这是国际公认的磅与千克的精确转换系数。
+     */
     private final static double factor = 0.45359237;
+    
+    /**
+     * 附加偏移量
+     * <P>
+     * 质量单位之间通常只有倍数关系，无零点偏移，因此附加偏移量为0.0。
+     */
     private final static double additional = 0.0;
+    
+    /**
+     * 单位描述
+     * <P>
+     * 该单位的符号表示，用于显示和标识。
+     */
     private final static String description = "lb";
 
+    /**
+     * 静态初始化块
+     * <P>
+     * 初始化基本单位元素列表，建立磅单位与基本单位的关系。
+     * 磅是质量单位，由千克单位构成。
+     */
     static {
-        elementList.add(new UnitElement(BasicUnit.Kg, 1.0));
+        elementList.add(new UnitElement(BasicUnit.Kg, 1.0));  // 千克，指数1
     }
 
     public UMass_lb() {

@@ -1,26 +1,3 @@
-/*
- * 本源代码知识产权属于斯塔克工业（STK）所有。
- * <P>
- * 本项目以Apache License Version 2.0协议发布，鼓励代码共享和尊重原作者的著作权，
- * <P>
- * 同样允许代码修改，再发布（作为开源或商业软件）。
- * <P>
- * 在延伸的代码中（修改和有源代码衍生的代码中）需要带有原来代码中的协议，
- * <P>
- * 商标，不得以任何形式删去“斯塔克工业（STK）”的版权声明。
- * <P>
- * 斯塔克工业官方网址：
- * <P>
- *
- *     http://www.stk.cn
- *
- * <P>
- * STK主要服务于石油、化工、核电、建筑等传统企业，致力于传统行业的现代科技化转型，
- * <P>
- * 提供软件培训、软件研发（包括二次研发）、研发咨询、系统架构、高性能计算集群（HPC）搭建等一体化的专业服务。
- * <P>
- * 公司以“专于行业应用，用心铸造永恒”为核心价值。
- */
 package cn.nlte.science.units.area;
 
 import cn.nlte.science.units.BasicUnit;
@@ -30,22 +7,81 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 面积单位：ha，定义公顷的单位 1公顷=10000平方米
+ * 面积单位：ha（公顷）
  * <P>
+ * 公顷是面积的常用公制单位，符号为ha。
+ * 1公顷定义为10,000平方米的面积，相当于边长为100米的正方形的面积。
+ * <P>
+ * 单位关系：
+ * <ul>
+ *   <li>1 ha = 10,000 m²（平方米）</li>
+ *   <li>1 ha = 100 a（公亩）</li>
+ *   <li>1 ha = 0.01 km²（平方公里）</li>
+ *   <li>1 ha ≈ 2.471 acre（英亩）</li>
+ *   <li>1 km² = 100 ha</li>
+ *   <li>1 m² = 0.0001 ha</li>
+ * </ul>
+ * <P>
+ * 公顷单位广泛应用于农业、林业、土地规划、房地产等领域，
+ * 是测量中等规模土地面积的标准单位，特别适合表示农田、森林、公园等区域的面积。
+ * <P>
+ * 公顷一词源于法语"hectare"，是"hecto"（百）和"are"（公亩）的组合，表示100公亩。
  *
  * @author 紫水木鱼
+ * @company 斯塔克工业（STK）
+ * @date 2026年04月23日
  */
 public class UArea_ha extends DerivedUnit {
 
+    /**
+     * 基本单位元素列表
+     * <P>
+     * 定义公顷单位的基本单位组成：
+     * - 长度单位米(m)，指数为2
+     * <P>
+     * 公顷虽然不是基本单位，但在内部表示中仍然使用基本单位米，
+     * 通过转换因子factor来实现公顷到平方米的转换。
+     */
     private final static List<UnitElement> elementList = new ArrayList<>();
+    
+    /**
+     * 转换因子
+     * <P>
+     * 用于将公顷数值转换为标准单位（平方米）的数值。
+     * 由于1ha = 10,000m²，所以factor = 10,000.0。
+     * 这意味着1公顷等于10,000平方米。
+     */
     private final static double factor = 10000.0;
+    
+    /**
+     * 附加偏移量
+     * <P>
+     * 面积单位之间通常只有倍数关系，无零点偏移，因此附加偏移量为0.0。
+     */
     private final static double additional = 0.0;
+    
+    /**
+     * 单位描述
+     * <P>
+     * 该单位的符号表示，用于显示和标识。
+     */
     private final static String description = "ha";
 
+    /**
+     * 静态初始化块
+     * <P>
+     * 初始化基本单位元素列表。
+     * 由于公顷本质上是平方米的倍数单位，所以基本单位元素仍然是米的平方。
+     */
     static {
         elementList.add(new UnitElement(BasicUnit.m, 2.0));
     }
 
+    /**
+     * 构造方法
+     * <P>
+     * 创建公顷单位实例，初始化其描述、基本单位组成、转换因子和附加偏移量。
+     */
     public UArea_ha() {
         super(description, elementList, factor, additional);
     }

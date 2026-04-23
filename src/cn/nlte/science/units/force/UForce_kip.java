@@ -1,26 +1,3 @@
-/*
- * 本源代码知识产权属于斯塔克工业（NLTE）所有。
- * <P>
- * 本项目以Apache License Version 2.0协议发布，鼓励代码共享和尊重原作者的著作权，
- * <P>
- * 同样允许代码修改，再发布（作为开源或商业软件）。
- * <P>
- * 在延伸的代码中（修改和有源代码衍生的代码中）需要带有原来代码中的协议，
- * <P>
- * 商标，不得以任何形式删去“斯塔克工业（NLTE）”的版权声明。
- * <P>
- * 斯塔克工业官方网址：
- * <P>
- *
- *     http://www.stk.cn
- *
- * <P>
- * NLTE主要服务于石油、化工、核电、建筑等传统企业，致力于传统行业的现代科技化转型，
- * <P>
- * 提供软件培训、软件研发（包括二次研发）、研发咨询、系统架构、高性能计算集群（HPC）搭建等一体化的专业服务。
- * <P>
- * 公司以“专于行业应用，用心铸造永恒”为核心价值。
- */
 package cn.nlte.science.units.force;
 
 import cn.nlte.science.units.BasicUnit;
@@ -30,23 +7,81 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 力单位：kip，千磅力
+ * 力单位：kip（千磅力）
  * <P>
+ * 千磅力是英制单位制中的力单位，符号为kip。
+ * 1千磅力定义为1000磅力的力，常用于工程结构设计和建筑领域。
+ * <P>
+ * 单位关系：
+ * <ul>
+ *   <li>1 kip = 1000 lbf（磅力）</li>
+ *   <li>1 kip ≈ 4448.22 N（牛顿）</li>
+ *   <li>1 kip ≈ 4.448 kN（千牛顿）</li>
+ *   <li>1 kip ≈ 0.4536 tf（公吨力）</li>
+ *   <li>1 lbf = 0.001 kip</li>
+ * </ul>
+ * <P>
+ * 千磅力单位在美国等使用英制单位的国家有广泛应用，
+ * 主要用于土木工程、结构工程、建筑等领域，
+ * 特别是在测量大型建筑结构的承载能力、桥梁设计等方面。
+ * <P>
+ * kip是"kilo-pound"的缩写，代表千磅力单位。
  *
  * @author 紫水木鱼
+ * @company 斯塔克工业（STK）
+ * @date 2026年04月23日
  */
 public class UForce_kip extends DerivedUnit {
 
+    /**
+     * 基本单位元素列表
+     * <P>
+     * 定义千磅力单位的基本单位组成：
+     * - 质量单位千克(Kg)，指数为1
+     * - 长度单位米(m)，指数为1  
+     * - 时间单位秒(s)，指数为-2
+     * <P>
+     * 根据F=mg（重力公式），力 = 质量 × 重力加速度 = 质量 × 位移/时间²
+     * 因此力的单位为 Kg·m·s⁻²。千磅力与牛顿具有相同的基本单位组成，
+     * 只是转换因子不同（基于千磅质量和重力加速度的乘积）。
+     */
     private final static List<UnitElement> elementList = new ArrayList<>();
+    
+    /**
+     * 转换因子
+     * <P>
+     * 用于将千磅力数值转换为标准单位（牛顿）的数值。
+     * 由于1kip = 1000 lbf（磅力），该值通过计算磅力的转换因子乘以1000获得。
+     * 这意味着1千磅力等于1000磅力。
+     */
     private final static double factor;
+    
+    /**
+     * 附加偏移量
+     * <P>
+     * 力单位之间通常只有倍数关系，无零点偏移，因此附加偏移量为0.0。
+     */
     private final static double additional = 0.0;
+    
+    /**
+     * 单位描述
+     * <P>
+     * 该单位的符号表示，用于显示和标识。
+     */
     private final static String description = "kip";
 
+    /**
+     * 静态初始化块
+     * <P>
+     * 初始化转换因子和基本单位元素列表。
+     * 通过计算1000磅力的总值来确定千磅力的转换因子。
+     * 1千磅力等于1000磅力，因此转换因子为磅力转换因子的1000倍。
+     */
     static {
         factor = new UForce_lbf().getFactor() * 1000.0;
-        elementList.add(new UnitElement(BasicUnit.Kg, 1.0));
-        elementList.add(new UnitElement(BasicUnit.m, 1.0));
-        elementList.add(new UnitElement(BasicUnit.s, -2.0));
+        elementList.add(new UnitElement(BasicUnit.Kg, 1.0));  // 千克，指数1
+        elementList.add(new UnitElement(BasicUnit.m, 1.0));   // 米，指数1
+        elementList.add(new UnitElement(BasicUnit.s, -2.0));  // 秒，指数-2
     }
 
     public UForce_kip() {

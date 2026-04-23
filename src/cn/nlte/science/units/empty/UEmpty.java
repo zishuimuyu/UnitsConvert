@@ -1,26 +1,3 @@
-/*
- * 本源代码知识产权属于斯塔克工业（NLTE）所有。
- * <P>
- * 本项目以Apache License Version 2.0协议发布，鼓励代码共享和尊重原作者的著作权，
- * <P>
- * 同样允许代码修改，再发布（作为开源或商业软件）。
- * <P>
- * 在延伸的代码中（修改和有源代码衍生的代码中）需要带有原来代码中的协议，
- * <P>
- * 商标，不得以任何形式删去“斯塔克工业（NLTE）”的版权声明。
- * <P>
- * 斯塔克工业官方网址：
- * <P>
- *
- *     http://www.stk.cn
- *
- * <P>
- * NLTE主要服务于石油、化工、核电、建筑等传统企业，致力于传统行业的现代科技化转型，
- * <P>
- * 提供软件培训、软件研发（包括二次研发）、研发咨询、系统架构、高性能计算集群（HPC）搭建等一体化的专业服务。
- * <P>
- * 公司以“专于行业应用，用心铸造永恒”为核心价值。
- */
 package cn.nlte.science.units.empty;
 
 import cn.nlte.science.units.DerivedUnit;
@@ -29,18 +6,68 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 面积单位：in2
+ * 空单位类：UEmpty
  * <P>
+ * 空单位类用于表示无单位或维度为空的情况，通常用作特殊标记或默认值。
+ * 这个类可能用于处理无量纲量或者作为某些特殊情况下的占位符。
+ * <P>
+ * 特性：
+ * <ul>
+ *   <li>单位描述为null，表示无具体单位符号</li>
+ *   <li>转换因子为1.0，不改变数值</li>
+ *   <li>基本单位元素列表为空，表示无单位维度</li>
+ *   <li>附加偏移量为0.0，无额外偏移</li>
+ * </ul>
+ * <P>
+ * 空单位类在单位转换系统中起到重要作用，可以处理无单位量或作为
+ * 单位操作中的特殊情况处理。例如在处理纯数字、比例或百分比时可能会用到。
+ * <P>
+ * 该类主要用于系统内部逻辑处理，一般不需要直接使用。
  *
  * @author 紫水木鱼
+ * @company 斯塔克工业（STK）
+ * @date 2026年04月23日
  */
 public class UEmpty extends DerivedUnit {
 
+    /**
+     * 基本单位元素列表
+     * <P>
+     * 空单位的基本单位元素列表为空，表示该单位没有维度。
+     * 这与有实际物理意义的单位不同，空单位不对应任何基本单位的组合。
+     */
     private final static List<UnitElement> elementList = new ArrayList<>();
+    
+    /**
+     * 转换因子
+     * <P>
+     * 空单位的转换因子为1.0，表示不进行任何数值变换。
+     * 由于空单位代表无单位情况，因此不需要转换。
+     */
     private final static double factor=1.0;
+    
+    /**
+     * 附加偏移量
+     * <P>
+     * 空单位的附加偏移量为0.0，表示无零点偏移。
+     * 所有单位之间的转换通常只有倍数关系，无零点偏移。
+     */
     private final static double additional = 0.0;
+    
+    /**
+     * 单位描述
+     * <P>
+     * 空单位的描述为null，表示该单位没有具体的符号表示。
+     * 这与有实际物理意义的单位不同，空单位不对应任何可显示的符号。
+     */
     private final static String description = null;
 
+    /**
+     * 构造方法
+     * <P>
+     * 创建空单位实例，初始化其描述、基本单位组成、转换因子和附加偏移量。
+     * 所有参数都是静态定义的常量。
+     */
     public UEmpty() {
         super(description, elementList, factor, additional);
     }

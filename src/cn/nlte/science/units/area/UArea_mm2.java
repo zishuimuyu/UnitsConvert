@@ -1,26 +1,3 @@
-/*
- * 本源代码知识产权属于斯塔克工业（STK）所有。
- * <P>
- * 本项目以Apache License Version 2.0协议发布，鼓励代码共享和尊重原作者的著作权，
- * <P>
- * 同样允许代码修改，再发布（作为开源或商业软件）。
- * <P>
- * 在延伸的代码中（修改和有源代码衍生的代码中）需要带有原来代码中的协议，
- * <P>
- * 商标，不得以任何形式删去“斯塔克工业（STK）”的版权声明。
- * <P>
- * 斯塔克工业官方网址：
- * <P>
- *
- *     http://www.stk.cn
- *
- * <P>
- * STK主要服务于石油、化工、核电、建筑等传统企业，致力于传统行业的现代科技化转型，
- * <P>
- * 提供软件培训、软件研发（包括二次研发）、研发咨询、系统架构、高性能计算集群（HPC）搭建等一体化的专业服务。
- * <P>
- * 公司以“专于行业应用，用心铸造永恒”为核心价值。
- */
 package cn.nlte.science.units.area;
 
 import cn.nlte.science.units.BasicUnit;
@@ -31,23 +8,83 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 面积单位：mm2
+ * 面积单位：mm²（平方毫米）
  * <P>
+ * 平方毫米是面积的常用单位，符号为mm²。
+ * 1平方毫米定义为边长为1毫米的正方形所围成的面积。
+ * <P>
+ * 单位关系：
+ * <ul>
+ *   <li>1 mm² = 0.000001 m²（平方米）</li>
+ *   <li>1 mm² = 0.01 cm²（平方厘米）</li>
+ *   <li>1 mm² = 0.0001 dm²（平方分米）</li>
+ *   <li>1 cm² = 100 mm²</li>
+ *   <li>1 dm² = 10,000 mm²</li>
+ *   <li>1 m² = 1,000,000 mm²</li>
+ * </ul>
+ * <P>
+ * 平方毫米单位广泛应用于精密制造、微电子、材料科学等领域，
+ * 特别适用于测量极小的平面区域，如芯片面积、导线截面积、精密零件表面等。
+ * <P>
+ * 在微细加工和精密测量中，平方毫米是一个重要的面积单位。
  *
  * @author 紫水木鱼
+ * @company 斯塔克工业（STK）
+ * @date 2026年04月23日
  */
 public class UArea_mm2 extends DerivedUnit {
 
+    /**
+     * 基本单位元素列表
+     * <P>
+     * 定义平方毫米单位的基本单位组成：
+     * - 长度单位米(m)，指数为2
+     * <P>
+     * 虽然该单位是平方毫米，但在内部表示中仍然使用基本单位米，
+     * 通过转换因子factor来实现毫米到米的转换。
+     */
     private final static List<UnitElement> elementList = new ArrayList<>();
+    
+    /**
+     * 转换因子
+     * <P>
+     * 用于将平方毫米数值转换为标准单位（平方米）的数值。
+     * 由于1mm = 0.001m，所以1mm² = (0.001m)² = 0.000001m²，因此factor = 0.000001。
+     * 该值在静态初始化块中通过计算获得：factor = Math.pow(new ULength_mm().getFactor(), 2.0)
+     */
     private final static double factor;
+    
+    /**
+     * 附加偏移量
+     * <P>
+     * 面积单位之间通常只有倍数关系，无零点偏移，因此附加偏移量为0.0。
+     */
     private final static double additional = 0.0;
+    
+    /**
+     * 单位描述
+     * <P>
+     * 该单位的符号表示，用于显示和标识。
+     */
     private final static String description = "mm2";
 
+    /**
+     * 静态初始化块
+     * <P>
+     * 初始化转换因子和基本单位元素列表。
+     * 通过获取毫米长度单位的转换因子，然后计算其平方得到面积单位的转换因子。
+     * 由于平方毫米是二维单位，所以转换因子是长度单位转换因子的平方。
+     */
     static {
         factor = Math.pow(new ULength_mm().getFactor(), 2.0);
         elementList.add(new UnitElement(BasicUnit.m, 2.0));
     }
 
+    /**
+     * 构造方法
+     * <P>
+     * 创建平方毫米单位实例，初始化其描述、基本单位组成、转换因子和附加偏移量。
+     */
     public UArea_mm2() {
         super(description, elementList, factor, additional);
     }

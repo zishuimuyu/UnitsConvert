@@ -1,26 +1,3 @@
-/*
- * 本源代码知识产权属于斯塔克工业（NLTE）所有。
- * <P>
- * 本项目以Apache License Version 2.0协议发布，鼓励代码共享和尊重原作者的著作权，
- * <P>
- * 同样允许代码修改，再发布（作为开源或商业软件）。
- * <P>
- * 在延伸的代码中（修改和有源代码衍生的代码中）需要带有原来代码中的协议，
- * <P>
- * 商标，不得以任何形式删去“斯塔克工业（NLTE）”的版权声明。
- * <P>
- * 斯塔克工业官方网址：
- * <P>
- *
- *     http://www.stk.cn
- *
- * <P>
- * NLTE主要服务于石油、化工、核电、建筑等传统企业，致力于传统行业的现代科技化转型，
- * <P>
- * 提供软件培训、软件研发（包括二次研发）、研发咨询、系统架构、高性能计算集群（HPC）搭建等一体化的专业服务。
- * <P>
- * 公司以“专于行业应用，用心铸造永恒”为核心价值。
- */
 package cn.nlte.science.units.pressure;
 
 import cn.nlte.science.units.BasicUnit;
@@ -30,22 +7,80 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 压强单位：bar
+ * 压强单位：bar（巴）
  * <P>
+ * 巴是压强的非国际单位制单位，符号为bar。
+ * 1巴定义为100,000帕斯卡，近似等于标准大气压。
+ * <P>
+ * 单位关系：
+ * <ul>
+ *   <li>1 bar = 100,000 Pa（帕斯卡）</li>
+ *   <li>1 bar = 100 kPa（千帕）</li>
+ *   <li>1 bar ≈ 0.9869 atm（标准大气压）</li>
+ *   <li>1 bar = 14.504 psi（磅/平方英寸）</li>
+ *   <li>1 bar = 1.0197 kgf/cm²（公斤力/平方厘米）</li>
+ *   <li>1 atm ≈ 1.01325 bar</li>
+ * </ul>
+ * <P>
+ * 巴单位广泛应用于工程、气象学、海洋学等领域，
+ * 特别是在欧洲国家的工业应用中非常常见。
+ * 1巴约等于1个标准大气压，便于记忆和使用。
+ * <P>
+ * 毫巴（mbar）常用于气象学中表示气压。
  *
  * @author 紫水木鱼
+ * @company 斯塔克工业（STK）
+ * @date 2026年04月23日
  */
 public class UPressure_bar extends DerivedUnit {
 
+    /**
+     * 基本单位元素列表
+     * <P>
+     * 定义巴单位的基本单位组成：
+     * - 质量单位千克(Kg)，指数为1
+     * - 长度单位米(m)，指数为-1  
+     * - 时间单位秒(s)，指数为-2
+     * <P>
+     * 根据P=F/A（压强=力/面积），压强单位 = 力/面积 = (Kg·m·s⁻²)/m² = Kg·m⁻¹·s⁻²
+     * 巴与帕斯卡具有相同的基本单位组成，只是转换因子不同（100,000倍关系）。
+     */
     private final static List<UnitElement> elementList = new ArrayList<>();
+    
+    /**
+     * 转换因子
+     * <P>
+     * 用于将巴数值转换为标准单位（帕斯卡）的数值。
+     * 由于1bar = 100,000Pa，所以factor = 100000.0。
+     * 这意味着1巴等于100,000帕斯卡。
+     */
     private final static double factor = 100000.0;
+    
+    /**
+     * 附加偏移量
+     * <P>
+     * 压强单位之间通常只有倍数关系，无零点偏移，因此附加偏移量为0.0。
+     */
     private final static double additional = 0.0;
+    
+    /**
+     * 单位描述
+     * <P>
+     * 该单位的符号表示，用于显示和标识。
+     */
     private final static String description = "bar";
 
+    /**
+     * 静态初始化块
+     * <P>
+     * 初始化基本单位元素列表，建立巴单位与基本单位的关系。
+     * 根据P=F/A，压强单位由千克、米、秒三个基本单位按特定指数组合而成，
+     * 与帕斯卡单位具有相同的单位构成，仅数值上相差100,000倍。
+     */
     static {
-        elementList.add(new UnitElement(BasicUnit.Kg, 1.0));
-        elementList.add(new UnitElement(BasicUnit.m, -1.0));
-        elementList.add(new UnitElement(BasicUnit.s, -2.0));
+        elementList.add(new UnitElement(BasicUnit.Kg, 1.0));  // 千克，指数1
+        elementList.add(new UnitElement(BasicUnit.m, -1.0));  // 米，指数-1
+        elementList.add(new UnitElement(BasicUnit.s, -2.0));  // 秒，指数-2
     }
 
     public UPressure_bar() {

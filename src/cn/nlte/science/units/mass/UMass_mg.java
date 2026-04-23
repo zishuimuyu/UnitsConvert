@@ -1,26 +1,3 @@
-/*
- * 本源代码知识产权属于斯塔克工业（STK）所有。
- * <P>
- * 本项目以Apache License Version 2.0协议发布，鼓励代码共享和尊重原作者的著作权，
- * <P>
- * 同样允许代码修改，再发布（作为开源或商业软件）。
- * <P>
- * 在延伸的代码中（修改和有源代码衍生的代码中）需要带有原来代码中的协议，
- * <P>
- * 商标，不得以任何形式删去“斯塔克工业（STK）”的版权声明。
- * <P>
- * 斯塔克工业官方网址：
- * <P>
- *
- *     http://www.stk.cn
- *
- * <P>
- * NLTE主要服务于石油、化工、核电、建筑等传统企业，致力于传统行业的现代科技化转型，
- * <P>
- * 提供软件培训、软件研发（包括二次研发）、研发咨询、系统架构、高性能计算集群（HPC）搭建等一体化的专业服务。
- * <P>
- * 公司以“专于行业应用，用心铸造永恒”为核心价值。
- */
 package cn.nlte.science.units.mass;
 
 import cn.nlte.science.units.BasicUnit;
@@ -30,20 +7,75 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 质量单位：mg，毫克
+ * 质量单位：mg（毫克）
  * <P>
+ * 毫克是国际单位制中的质量单位，符号为mg。
+ * 1毫克定义为0.000001千克，即1千克的百万分之一。
+ * <P>
+ * 单位关系：
+ * <ul>
+ *   <li>1 mg = 1×10⁻⁶ Kg（千克）</li>
+ *   <li>1 mg = 0.001 g（克）</li>
+ *   <li>1 mg = 1000 μg（微克）</li>
+ *   <li>1 g = 1000 mg</li>
+ *   <li>1 kg = 1,000,000 mg</li>
+ *   <li>1 lb ≈ 453,592 mg</li>
+ * </ul>
+ * <P>
+ * 毫克单位在医药、化学、生物、珠宝等领域有广泛应用，
+ * 用于测量药物剂量、化学试剂、微量物质等。
+ * 在处方和实验中，毫克是一个重要的精密计量单位。
+ * <P>
+ * 该单位适合表示极小的质量。
  *
  * @author 紫水木鱼
+ * @company 斯塔克工业（STK）
+ * @date 2026年04月23日
  */
 public class UMass_mg extends DerivedUnit {
 
+    /**
+     * 基本单位元素列表
+     * <P>
+     * 定义毫克单位的基本单位组成：
+     * - 质量单位千克(Kg)，指数为1
+     * <P>
+     * 毫克是质量单位，1毫克等于1×10⁻⁶千克，因此与千克具有相同的基本单位组成，
+     * 只是转换因子不同。
+     */
     private final static List<UnitElement> elementList = new ArrayList<>();
+    
+    /**
+     * 转换因子
+     * <P>
+     * 用于将毫克数值转换为标准单位（千克）的数值。
+     * 由于1mg = 1×10⁻⁶Kg，所以factor = 1.0E-6。
+     * 这意味着1毫克等于0.000001千克。
+     */
     private final static double factor = 1.0E-6;
+    
+    /**
+     * 附加偏移量
+     * <P>
+     * 质量单位之间通常只有倍数关系，无零点偏移，因此附加偏移量为0.0。
+     */
     private final static double additional = 0.0;
+    
+    /**
+     * 单位描述
+     * <P>
+     * 该单位的符号表示，用于显示和标识。
+     */
     private final static String description = "mg";
 
+    /**
+     * 静态初始化块
+     * <P>
+     * 初始化基本单位元素列表，建立毫克单位与基本单位的关系。
+     * 毫克是质量单位，由千克单位构成。
+     */
     static {
-        elementList.add(new UnitElement(BasicUnit.Kg, 1.0));
+        elementList.add(new UnitElement(BasicUnit.Kg, 1.0));  // 千克，指数1
     }
 
     public UMass_mg() {

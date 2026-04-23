@@ -1,26 +1,3 @@
-/*
- * 本源代码知识产权属于斯塔克工业（STK）所有。
- * <P>
- * 本项目以Apache License Version 2.0协议发布，鼓励代码共享和尊重原作者的著作权，
- * <P>
- * 同样允许代码修改，再发布（作为开源或商业软件）。
- * <P>
- * 在延伸的代码中（修改和有源代码衍生的代码中）需要带有原来代码中的协议，
- * <P>
- * 商标，不得以任何形式删去“斯塔克工业（NLTE）”的版权声明。
- * <P>
- * 斯塔克工业官方网址：
- * <P>
- *
- *     http://www.stk.cn
- *
- * <P>
- * NLTE主要服务于石油、化工、核电、建筑等传统企业，致力于传统行业的现代科技化转型，
- * <P>
- * 提供软件培训、软件研发（包括二次研发）、研发咨询、系统架构、高性能计算集群（HPC）搭建等一体化的专业服务。
- * <P>
- * 公司以“专于行业应用，用心铸造永恒”为核心价值。
- */
 package cn.nlte.science.units.mass;
 
 import cn.nlte.science.units.BasicUnit;
@@ -30,20 +7,75 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 质量单位：liang，两
+ * 质量单位：liang（两）
  * <P>
+ * 两是中国传统的质量单位，符号为liang。
+ * 1两定义为0.05千克，即50克。
+ * <P>
+ * 单位关系：
+ * <ul>
+ *   <li>1 liang = 0.05 Kg（千克）</li>
+ *   <li>1 liang = 50 g（克）</li>
+ *   <li>1 liang = 10 qian（钱）</li>
+ *   <li>1 jin = 10 liang（斤）</li>
+ *   <li>1 Kg = 20 liang</li>
+ *   <li>1 lb ≈ 8.818 liang</li>
+ * </ul>
+ * <P>
+ * 两单位在中国传统商业、中医药、贵金属交易等领域有广泛应用，
+ * 特别是在中药配方、贵重金属称重等需要较精细计量的场合。
+ * 在中医药方中，药材的用量常常使用两作为单位。
+ * <P>
+ * 该单位在中医药和贵金属交易领域常见。
  *
  * @author 紫水木鱼
+ * @company 斯塔克工业（STK）
+ * @date 2026年04月23日
  */
 public class UMass_liang extends DerivedUnit {
 
+    /**
+     * 基本单位元素列表
+     * <P>
+     * 定义两单位的基本单位组成：
+     * - 质量单位千克(Kg)，指数为1
+     * <P>
+     * 两是质量单位，1两等于0.05千克，因此与千克具有相同的基本单位组成，
+     * 只是转换因子不同。
+     */
     private final static List<UnitElement> elementList = new ArrayList<>();
+    
+    /**
+     * 转换因子
+     * <P>
+     * 用于将两数值转换为标准单位（千克）的数值。
+     * 由于1liang = 0.05Kg = 50g，所以factor = 0.05。
+     * 这意味着1两等于0.05千克。
+     */
     private final static double factor = 0.05;
+    
+    /**
+     * 附加偏移量
+     * <P>
+     * 质量单位之间通常只有倍数关系，无零点偏移，因此附加偏移量为0.0。
+     */
     private final static double additional = 0.0;
+    
+    /**
+     * 单位描述
+     * <P>
+     * 该单位的符号表示，用于显示和标识。
+     */
     private final static String description = "liang";
 
+    /**
+     * 静态初始化块
+     * <P>
+     * 初始化基本单位元素列表，建立两单位与基本单位的关系。
+     * 两是质量单位，由千克单位构成。
+     */
     static {
-        elementList.add(new UnitElement(BasicUnit.Kg, 1.0));
+        elementList.add(new UnitElement(BasicUnit.Kg, 1.0));  // 千克，指数1
     }
 
     public UMass_liang() {

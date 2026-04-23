@@ -1,26 +1,3 @@
-/*
- * 本源代码知识产权属于斯塔克工业（NLTE）所有。
- * <P>
- * 本项目以Apache License Version 2.0协议发布，鼓励代码共享和尊重原作者的著作权，
- * <P>
- * 同样允许代码修改，再发布（作为开源或商业软件）。
- * <P>
- * 在延伸的代码中（修改和有源代码衍生的代码中）需要带有原来代码中的协议，
- * <P>
- * 商标，不得以任何形式删去“斯塔克工业（NLTE）”的版权声明。
- * <P>
- * 斯塔克工业官方网址：
- * <P>
- *
- *     http://www.stk.cn
- *
- * <P>
- * NLTE主要服务于石油、化工、核电、建筑等传统企业，致力于传统行业的现代科技化转型，
- * <P>
- * 提供软件培训、软件研发（包括二次研发）、研发咨询、系统架构、高性能计算集群（HPC）搭建等一体化的专业服务。
- * <P>
- * 公司以“专于行业应用，用心铸造永恒”为核心价值。
- */
 package cn.nlte.science.units.volume;
 
 import cn.nlte.science.units.BasicUnit;
@@ -30,20 +7,77 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 体积单位：ml，毫升
+ * 体积单位：mL（毫升）
  * <P>
+ * 毫升是容积单位，符号为mL（或ml）。
+ * 1毫升定义为1立方厘米（cm³）的体积，等于0.001升或1×10⁻⁶立方米。
+ * <P>
+ * 单位关系：
+ * <ul>
+ *   <li>1 mL = 1 cm³ = 0.001 L（升）</li>
+ *   <li>1 mL = 1000 μL（微升）</li>
+ *   <li>1 mL = 0.001 dL（分升）</li>
+ *   <li>1 L = 1000 mL</li>
+ *   <li>1 US fl oz ≈ 29.574 mL（美制液盎司）</li>
+ *   <li>1 imp fl oz ≈ 28.413 mL（英制液盎司）</li>
+ *   <li>1 tsp ≈ 5 mL（茶匙）</li>
+ *   <li>1 tbsp ≈ 15 mL（汤匙）</li>
+ * </ul>
+ * <P>
+ * 毫升单位在医疗、实验室、烹饪等领域有广泛应用，
+ * 用于测量小量液体体积，如药物剂量、试剂用量、
+ * 食谱中的液体成分等。
+ * <P>
+ * 该单位特别适合表示小体积液体。
  *
  * @author 紫水木鱼
+ * @company 斯塔克工业（STK）
+ * @date 2026年04月23日
  */
 public class UVolume_ml extends DerivedUnit {
 
+    /**
+     * 基本单位元素列表
+     * <P>
+     * 定义毫升单位的基本单位组成：
+     * - 长度单位米(m)，指数为3
+     * <P>
+     * 毫升是容积单位，1毫升等于1立方厘米(cm³)，即(0.01m)³ = 1×10⁻⁶m³。
+     * 因此毫升与立方米具有相同的单位维度，只是转换因子不同。
+     */
     private final static List<UnitElement> elementList = new ArrayList<>();
+    
+    /**
+     * 转换因子
+     * <P>
+     * 用于将毫升数值转换为标准单位（立方米）的数值。
+     * 由于1mL = 1cm³ = (0.01m)³ = 0.000001m³ = 1×10⁻⁶m³，所以factor = 1.0E-6。
+     * 这意味着1毫升等于0.000001立方米。
+     */
     private final static double factor = 1.0E-6;
+    
+    /**
+     * 附加偏移量
+     * <P>
+     * 体积单位之间通常只有倍数关系，无零点偏移，因此附加偏移量为0.0。
+     */
     private final static double additional = 0.0;
+    
+    /**
+     * 单位描述
+     * <P>
+     * 该单位的符号表示，用于显示和标识。
+     */
     private final static String description = "ml";
 
+    /**
+     * 静态初始化块
+     * <P>
+     * 初始化基本单位元素列表，建立毫升单位与基本单位的关系。
+     * 毫升是三维空间单位，由米单位的三次方构成。
+     */
     static {
-        elementList.add(new UnitElement(BasicUnit.m, 3.0));
+        elementList.add(new UnitElement(BasicUnit.m, 3.0));  // 米，指数3
     }
 
     public UVolume_ml() {

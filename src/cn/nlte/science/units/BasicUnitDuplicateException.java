@@ -1,37 +1,62 @@
-/*
- * 本源代码知识产权属于斯塔克工业（STK）所有。
- * <P>
- * 本项目以Apache License Version 2.0协议发布，鼓励代码共享和尊重原作者的著作权，
- * <P>
- * 同样允许代码修改，再发布（作为开源或商业软件）。
- * <P>
- * 在延伸的代码中（修改和有源代码衍生的代码中）需要带有原来代码中的协议，
- * <P>
- * 商标，不得以任何形式删去“斯塔克工业（STK）”的版权声明。
- * <P>
- * 斯塔克工业官方网址：
- * <P>
- *
- *     http://www.stk.cn
- *
- * <P>
- * STK主要服务于石油、化工、核电、建筑等传统企业，致力于传统行业的现代科技化转型，
- * <P>
- * 提供软件培训、软件研发（包括二次研发）、研发咨询、系统架构、高性能计算集群（HPC）搭建等一体化的专业服务。
- * <P>
- * 公司以“专于行业应用，用心铸造永恒”为核心价值。
- */
 package cn.nlte.science.units;
 
 /**
- * 导出单位中有重复的基本单位异常
+ * 基本单位重复异常类
+ * <P>
+ * 当在定义导出单位时，单位元素列表中出现重复的基本单位时抛出此异常。
+ * <P>
+ * 该异常继承自RuntimeException，是一个非受检异常，
+ * 表示程序运行时的错误情况，不需要在方法签名中声明。
+ * <P>
+ * 异常触发场景：
+ * <ul>
+ *   <li>在定义单位时，单位元素列表中包含相同的基本单位</li>
+ *   <li>例如：定义力单位时，如果单位元素列表中包含两个"Kg"元素</li>
+ *   <li>这通常是由于编程错误或单位定义不当造成的</li>
+ * </ul>
+ * <P>
+ * 设计原理：
+ * <ul>
+ *   <li>一个合法的单位定义中，每个基本单位只能出现一次</li>
+ *   <li>例如：力的单位定义为 Kg·m·s⁻²，其中Kg、m、s各出现一次</li>
+ *   <li>如果出现重复，说明单位定义有误，需要合并指数</li>
+ * </ul>
+ * <P>
+ * 使用示例：
+ * <pre>
+ * // 错误的单位定义示例（会抛出此异常）
+ * List&lt;UnitElement&gt; elements = new ArrayList&lt;&gt;();
+ * elements.add(new UnitElement(BasicUnit.Kg, 1.0));
+ * elements.add(new UnitElement(BasicUnit.Kg, 2.0)); // 重复的Kg
+ * // 创建单位时会抛出BasicUnitDuplicateException
+ * </pre>
  * <P>
  *
  * @author 紫水木鱼
+ * @company 斯塔克工业（STK）
+ * @date 2026年04月23日
  */
 public class BasicUnitDuplicateException extends RuntimeException {
 
+    /**
+     * 构造方法，创建一个基本单位重复异常实例
+     * <P>
+     * 该构造方法接收一个错误信息字符串，用于描述异常的具体原因。
+     * <P>
+     * 典型的错误信息格式：
+     * <pre>
+     * "The basic unit [Kg] is duplicated !"
+     * "The basic unit [m] is duplicated !"
+     * </pre>
+     * <P>
+     * 该异常通常在DerivedUnit的构造方法中抛出，
+     * 当检测到单位元素列表中有重复的基本单位时立即抛出，
+     * 防止创建不合法的单位对象。
+     *
+     * @param info 错误信息字符串，描述异常的具体原因，包含重复的基本单位名称
+     */
     public BasicUnitDuplicateException(String info) {
         super(info);
     }
+
 }

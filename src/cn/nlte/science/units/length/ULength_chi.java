@@ -1,26 +1,3 @@
-/*
- * 本源代码知识产权属于斯塔克工业（NLTE）所有。
- * <P>
- * 本项目以Apache License Version 2.0协议发布，鼓励代码共享和尊重原作者的著作权，
- * <P>
- * 同样允许代码修改，再发布（作为开源或商业软件）。
- * <P>
- * 在延伸的代码中（修改和有源代码衍生的代码中）需要带有原来代码中的协议，
- * <P>
- * 商标，不得以任何形式删去“斯塔克工业（NLTE）”的版权声明。
- * <P>
- * 斯塔克工业官方网址：
- * <P>
- *
- *     http://www.stk.cn
- *
- * <P>
- * NLTE主要服务于石油、化工、核电、建筑等传统企业，致力于传统行业的现代科技化转型，
- * <P>
- * 提供软件培训、软件研发（包括二次研发）、研发咨询、系统架构、高性能计算集群（HPC）搭建等一体化的专业服务。
- * <P>
- * 公司以“专于行业应用，用心铸造永恒”为核心价值。
- */
 package cn.nlte.science.units.length;
 
 import cn.nlte.science.units.BasicUnit;
@@ -30,20 +7,76 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 长度单位：chi，中国单位，1尺=1/3米
+ * 长度单位：chi（尺）
  * <P>
+ * 尺是中国传统的长度单位，符号为chi。
+ * 1尺定义为1/3米，约等于0.3333米。
+ * <P>
+ * 单位关系：
+ * <ul>
+ *   <li>1 chi = 1/3 m（米）≈ 0.3333 m</li>
+ *   <li>1 chi = 10 cun（寸）</li>
+ *   <li>1 chi = 100 fen（分）</li>
+ *   <li>1 zhang = 10 chi（丈）</li>
+ *   <li>1 li = 1500 chi（里）</li>
+ *   <li>1 m = 3 chi</li>
+ *   <li>1 ft ≈ 0.9144 chi</li>
+ * </ul>
+ * <P>
+ * 尺单位在中国传统文化、建筑、裁缝、工艺品制作等领域有广泛应用，
+ * 特别是在传统工艺和古典建筑中仍保留使用。
+ * 在古代中国的度量衡体系中，尺是非常重要的长度单位。
+ * <P>
+ * 该单位在中国传统文化领域常见。
  *
  * @author 紫水木鱼
+ * @company 斯塔克工业（STK）
+ * @date 2026年04月23日
  */
 public class ULength_chi extends DerivedUnit {
 
+    /**
+     * 基本单位元素列表
+     * <P>
+     * 定义尺单位的基本单位组成：
+     * - 长度单位米(m)，指数为1
+     * <P>
+     * 尺是长度单位，1尺等于1/3米，因此与米具有相同的基本单位组成，
+     * 只是转换因子不同。
+     */
     private final static List<UnitElement> elementList = new ArrayList<>();
+    
+    /**
+     * 转换因子
+     * <P>
+     * 用于将尺数值转换为标准单位（米）的数值。
+     * 由于1chi = 1/3m，所以factor = 1.0 / 3.0。
+     * 这意味着1尺等于1/3米。
+     */
     private final static double factor = 1.0 / 3.0;
+    
+    /**
+     * 附加偏移量
+     * <P>
+     * 长度单位之间通常只有倍数关系，无零点偏移，因此附加偏移量为0.0。
+     */
     private final static double additional = 0.0;
+    
+    /**
+     * 单位描述
+     * <P>
+     * 该单位的符号表示，用于显示和标识。
+     */
     private final static String description = "chi";
 
+    /**
+     * 静态初始化块
+     * <P>
+     * 初始化基本单位元素列表，建立尺单位与基本单位的关系。
+     * 尺是长度单位，由米单位构成。
+     */
     static {
-        elementList.add(new UnitElement(BasicUnit.m, 1.0));
+        elementList.add(new UnitElement(BasicUnit.m, 1.0));  // 米，指数1
     }
 
     public ULength_chi() {
