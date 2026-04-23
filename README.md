@@ -2,7 +2,7 @@
 
 ## 项目概述
 
-**UnitsConvert** 是一个专业的Java单位转换库，由北京新叶至恒软件技术有限公司（NLTE）开发，采用Apache License 2.0协议发布。该项目主要服务于石油、化工、核电、建筑等传统行业的工程计算需求。
+**UnitsConvert** 是一个专业的Java单位转换库，由斯塔克工业（STK）开发，采用Apache License 2.0协议发布。该项目主要服务于石油、化工、核电、建筑等传统行业的工程计算需求。
 
 ## 核心架构
 
@@ -112,25 +112,25 @@
 ### 基本用法
 
 ```java
-import cn.nlte.science.units.UnitUtils;
-import cn.nlte.science.units.ValueWithUnit;
-import cn.nlte.science.units.accelerate.UAccelerate_g;
-import cn.nlte.science.units.force.UForce_N;
-import cn.nlte.science.units.mass.UMass_Kg;
+import com.zishuimuyu.science.units.UnitUtils;
+import com.zishuimuyu.science.units.ValueWithUnit;
+import com.zishuimuyu.science.units.accelerate.UAccelerate_g;
+import com.zishuimuyu.science.units.force.UForce_N;
+import com.zishuimuyu.science.units.mass.UMass_Kg;
 
 public class Example {
     public static void main(String[] args) {
         // 定义带单位的数据
         ValueWithUnit mass = new ValueWithUnit(2.0, new UMass_Kg());
         ValueWithUnit accelerate = new ValueWithUnit(1.0, new UAccelerate_g());
-        
+
         // 带单位的数据计算（F = m × a）
         ValueWithUnit force = mass.multiply(accelerate);
-        
+
         // 转换为指定单位
         force = force.convertTo(new UForce_N());
         System.out.println("Force: " + force.getValue() + force.getUnit().getDescription());
-        
+
         // 使用工厂方法获取单位
         force = force.convertTo(UnitUtils.getUnit("UForce_KN"));
         System.out.println("Force: " + force.getValue() + force.getUnit().getDescription());
@@ -150,26 +150,34 @@ System.out.println("Stress: " + stress.getValue() + stress.getUnit().getDescript
 ### 温度转换示例
 
 ```java
-import cn.nlte.science.units.temperature.UTemperature_C;
-import cn.nlte.science.units.temperature.UTemperature_F;
+import com.zishuimuyu.science.units.temperature.UTemperature_C;
+import com.zishuimuyu.science.units.temperature.UTemperature_F;
 
 // 摄氏度转华氏度
 ValueWithUnit tempC = new ValueWithUnit(25.0, new UTemperature_C());
-ValueWithUnit tempF = tempC.convertTo(new UTemperature_F());
-System.out.println("Temperature: " + tempF.getValue() + "°F");
+        ValueWithUnit tempF = tempC.convertTo(new UTemperature_F());
+System.out.
+
+        println("Temperature: "+tempF.getValue() +"°F");
 ```
 
 ### 复合单位运算
 
 ```java
-import cn.nlte.science.units.length.ULength_m;
-import cn.nlte.science.units.time.UTime_s;
+import com.zishuimuyu.science.units.length.ULength_m;
+import com.zishuimuyu.science.units.time.UTime_s;
 
 // 计算速度
 ValueWithUnit distance = new ValueWithUnit(100.0, new ULength_m());
-ValueWithUnit time = new ValueWithUnit(10.0, new UTime_s());
-ValueWithUnit velocity = distance.divide(time);
-System.out.println("Velocity: " + velocity.getValue() + " " + velocity.getUnit().getStandardFormat());
+        ValueWithUnit time = new ValueWithUnit(10.0, new UTime_s());
+        ValueWithUnit velocity = distance.divide(time);
+System.out.
+
+        println("Velocity: "+velocity.getValue() +" "+velocity.
+
+        getUnit().
+
+        getStandardFormat());
 ```
 
 ## 技术特点
@@ -185,7 +193,7 @@ System.out.println("Velocity: " + velocity.getValue() + " " + velocity.getUnit()
 ```
 UnitsConvert/
 ├── src/
-│   └── cn/nlte/science/units/
+│   └── com/nlte/science/units/
 │       ├── BasicUnit.java              # 基本单位枚举
 │       ├── DerivedUnit.java            # 导出单位基类
 │       ├── UnitElement.java            # 单位元素类
@@ -229,12 +237,17 @@ ant run
 
 ## 版权信息
 
-本源代码知识产权属于北京新叶至恒软件技术有限公司（NLTE）所有。
+本源代码知识产权属于斯塔克工业（STK）所有。
 
-**官方网址：** http://www.nlte.cn
+**官方网址：** 
+ * <P>
+ *
+ *     http://www.stk.com
+ *
+ * <P>
 
 **公司简介：**
-NLTE主要服务于石油、化工、核电、建筑等传统企业，致力于传统行业的现代科技化转型，提供软件培训、软件研发（包括二次研发）、研发咨询、系统架构、高性能计算集群（HPC）搭建等一体化的专业服务。
+STK主要服务于石油、化工、核电、建筑等传统企业，致力于传统行业的现代科技化转型，提供软件培训、软件研发（包括二次研发）、研发咨询、系统架构、高性能计算集群（HPC）搭建等一体化的专业服务。
 
 **核心价值：** 专于行业应用，用心铸造永恒
 
@@ -250,7 +263,12 @@ NLTE主要服务于石油、化工、核电、建筑等传统企业，致力于�
 ## 联系方式
 
 如有问题或建议，请通过以下方式联系：
-- 官方网站：http://www.nlte.cn
+- 官方网站：
+ * <P>
+ *
+ *     http://www.stk.com
+ *
+ * <P>
 - 项目Issues：在GitHub上提交Issue
 
 ## 更新日志
