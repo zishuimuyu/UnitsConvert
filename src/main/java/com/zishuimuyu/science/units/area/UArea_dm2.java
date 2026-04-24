@@ -4,15 +4,16 @@ import com.zishuimuyu.science.units.BasicUnit;
 import com.zishuimuyu.science.units.DerivedUnit;
 import com.zishuimuyu.science.units.UnitElement;
 import com.zishuimuyu.science.units.length.ULength_dm;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 面积单位：dm²（平方分米）
- * <P>
+ * <p>
  * 平方分米是面积的常用单位，符号为dm²。
  * 1平方分米定义为边长为1分米的正方形所围成的面积。
- * <P>
+ * <p>
  * 单位关系：
  * <ul>
  *   <li>1 dm² = 0.01 m²（平方米）</li>
@@ -22,10 +23,10 @@ import java.util.List;
  *   <li>1 m² = 100 dm²</li>
  *   <li>1 ha（公顷）= 1,000,000 dm²</li>
  * </ul>
- * <P>
+ * <p>
  * 平方分米单位常用于中等规模的面积测量，如家具尺寸、小型房间面积、包装箱表面积等。
  * 在教育和日常生活中，平方分米是一个便于理解和使用的面积单位。
- * <P>
+ * <p>
  * 平方分米也被称为"公寸"，在某些地区仍有使用。
  *
  * @author 紫水木鱼
@@ -36,34 +37,34 @@ public class UArea_dm2 extends DerivedUnit {
 
     /**
      * 基本单位元素列表
-     * <P>
+     * <p>
      * 定义平方分米单位的基本单位组成：
      * - 长度单位米(m)，指数为2
-     * <P>
+     * <p>
      * 虽然该单位是平方分米，但在内部表示中仍然使用基本单位米，
      * 通过转换因子factor来实现分米到米的转换。
      */
     private final static List<UnitElement> elementList = new ArrayList<>();
-    
+
     /**
      * 转换因子
-     * <P>
+     * <p>
      * 用于将平方分米数值转换为标准单位（平方米）的数值。
      * 由于1dm = 0.1m，所以1dm² = (0.1m)² = 0.01m²，因此factor = 0.01。
      * 该值在静态初始化块中通过计算获得：factor = Math.pow(new ULength_dm().getFactor(), 2.0)
      */
     private final static double factor;
-    
+
     /**
      * 附加偏移量
-     * <P>
+     * <p>
      * 面积单位之间通常只有倍数关系，无零点偏移，因此附加偏移量为0.0。
      */
     private final static double additional = 0.0;
-    
+
     /**
      * 单位描述
-     * <P>
+     * <p>
      * 该单位的符号表示，用于显示和标识。
      */
     private final static String description = "dm2";
@@ -81,11 +82,14 @@ public class UArea_dm2 extends DerivedUnit {
     }
 
     /**
-     * 构造方法
-     * <P>
-     * 创建平方分米单位实例，初始化其描述、基本单位组成、转换因子和附加偏移量。
+     * 构造函数，创建一个平方分米面积单位(dm²)实例
+     * <p>
+     * 初始化平方分米面积单位，设置单位符号为"dm2"，基本单位组成为m²，
+     * 转换因子为0.01（即1dm² = 0.01m²），无附加偏移量。
      */
     public UArea_dm2() {
+        // 调用父类DerivedUnit的构造方法，初始化平方分米面积单位
+        // 参数依次为：单位描述("dm2")、基本单位元素列表([m^2])、转换因子(0.01)、附加偏移量(0.0)
         super(description, elementList, factor, additional);
     }
 

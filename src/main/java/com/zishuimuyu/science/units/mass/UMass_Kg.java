@@ -3,15 +3,16 @@ package com.zishuimuyu.science.units.mass;
 import com.zishuimuyu.science.units.BasicUnit;
 import com.zishuimuyu.science.units.DerivedUnit;
 import com.zishuimuyu.science.units.UnitElement;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 质量单位：Kg（千克）
- * <P>
+ * <p>
  * 千克是国际单位制中质量的基本单位，也是质量的SI基本单位。
  * 该类继承自DerivedUnit，实现了千克单位的具体定义。
- * <P>
+ * <p>
  * 单位定义：
  * <ul>
  *   <li>基本单位：千克（Kg）</li>
@@ -19,7 +20,7 @@ import java.util.List;
  *   <li>转换因子：1.0（千克是基本单位）</li>
  *   <li>偏移量：0.0</li>
  * </ul>
- * <P>
+ * <p>
  * 使用示例：
  * <pre>
  * // 创建千克单位
@@ -32,7 +33,7 @@ import java.util.List;
  * ValueWithUnit grams = mass.convertTo(new UMass_g());
  * // 结果：2500.0 g
  * </pre>
- * <P>
+ * <p>
  *
  * @author 紫水木鱼
  * @company 斯塔克工业（STK）
@@ -42,14 +43,14 @@ public class UMass_Kg extends DerivedUnit {
 
     /**
      * 单位元素列表，包含构成该单位的基本单位和对应的指数
-     * <P>
+     * <p>
      * 千克本身就是基本单位，所以基本单位是千克（Kg），指数为1.0，表示质量量纲。
      */
     private final static List<UnitElement> elementList = new ArrayList<>();
 
     /**
      * 转换因子，表示该单位相对于基本单位的倍数关系
-     * <P>
+     * <p>
      * factor = 1.0，表示千克是基本单位，转换因子为1。
      * 在单位转换时使用：value_in_base = value_in_kg * factor
      */
@@ -57,7 +58,7 @@ public class UMass_Kg extends DerivedUnit {
 
     /**
      * 偏移量，表示该单位相对于基本单位的零点偏移
-     * <P>
+     * <p>
      * additional = 0.0，表示千克和基本单位的零点相同。
      * 该参数主要用于温度等有绝对零点的单位转换。
      */
@@ -65,7 +66,7 @@ public class UMass_Kg extends DerivedUnit {
 
     /**
      * 单位的描述字符串
-     * <P>
+     * <p>
      * description = "Kg"，用于显示和标识该单位。
      */
     private final static String description = "Kg";
@@ -77,15 +78,19 @@ public class UMass_Kg extends DerivedUnit {
      * 千克本身就是基本单位，所以添加千克（Kg），指数为1.0。
      */
     static {
+        // 千克，指数1
         elementList.add(new UnitElement(BasicUnit.Kg, 1.0));
     }
 
     /**
-     * 构造方法，创建一个千克单位实例
-     * <P>
-     * 调用父类DerivedUnit的构造方法，传入单位的描述、元素列表、转换因子和偏移量。
+     * 构造函数，创建一个千克质量单位(Kg)实例
+     * <p>
+     * 初始化千克质量单位，设置单位符号为"Kg"，基本单位组成为Kg，
+     * 转换因子为1（即1Kg = 1Kg），无附加偏移量。
      */
     public UMass_Kg() {
+        // 调用父类DerivedUnit的构造方法，初始化千克质量单位
+        // 参数依次为：单位描述("Kg")、基本单位元素列表([Kg^1])、转换因子(1.0)、附加偏移量(0.0)
         super(description, elementList, factor, additional);
     }
 

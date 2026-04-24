@@ -38,25 +38,27 @@ public class TestUse {
      * @param args 命令行参数，未使用
      */
     public static void main(String[] args) {
-        // 定义带单位的数据 - 2.0千克的质量
+        // 创建一个带单位的质量值：2.0千克
         ValueWithUnit mass = new ValueWithUnit(2.0, new UMass_Kg());
-        // 定义带单位的数据 - 1.0重力加速度(g)
+        // 创建一个带单位的加速度值：1.0重力加速度(g)
         ValueWithUnit accelerate = new ValueWithUnit(1.0, new UAccelerate_g());
         
-        // 带单位的数据计算 - 质量乘以加速度得到力 (F = m * a)
+        // 执行带单位的数学运算：质量乘以加速度得到力 (F = m * a)
         ValueWithUnit force = mass.multiply(accelerate);
         
-        // 将结果转化为牛顿(N)单位制
+        // 将计算得到的力值转换为牛顿(N)单位制进行显示
         force = force.convertTo(new UForce_N());
         System.out.println("Force :" + force.getValue() + force.getUnit().getDescription());
         
-        // 采用工厂方法获取单位类，将力值转换为千牛顿(KN)
+        // 使用工厂方法获取单位实例，将力值转换为千牛顿(KN)单位制
         force = force.convertTo(UnitUtils.getUnit("UForce_KN"));
         System.out.println("Force :" + force.getValue() + force.getUnit().getDescription());
 
-        // 测试兆帕(MPa)与磅/平方英寸(lbf/in²)的压力单位转换
+        // 测试压力单位转换：创建1.0兆帕(MPa)的压力值并转换为磅/平方英寸(lbf/in²)
         ValueWithUnit stress = new ValueWithUnit(1.0, UnitUtils.getUnit("UPressure_MPa"));
+        // 将压力值从兆帕转换为磅/平方英寸
         stress = stress.convertTo(UnitUtils.getUnit("UPressure_lbfPerin2"));
+        // 输出转换结果
         System.out.println("Stress :" + stress.getValue() + stress.getUnit().getDescription());
     }
 }

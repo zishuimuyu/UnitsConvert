@@ -21,11 +21,14 @@ package com.zishuimuyu.science.units;
  * ValueWithUnit width = new ValueWithUnit(5.0, new ULength_m());
  *
  * // 进行运算
- * ValueWithUnit area = length.multiply(width); // 面积计算
- * ValueWithUnit total = length.add(width); // 长度相加
+ * ValueWithUnit area = length.multiply(width);
+ * // 面积计算
+ * ValueWithUnit total = length.add(width);
+ * // 长度相加
  *
  * // 单位转换
- * ValueWithUnit lengthCm = length.convertTo(new ULength_cm()); // 转换为厘米
+ * ValueWithUnit lengthCm = length.convertTo(new ULength_cm());
+ * // 转换为厘米
  * </pre>
  * <p>
  *
@@ -60,7 +63,9 @@ public final class ValueWithUnit {
      * @param unit  单位部分，表示该数值所属的单位
      */
     public ValueWithUnit(double value, DerivedUnit unit) {
+        // 初始化数值部分
         this.value = value;
+        // 初始化单位部分
         this.unit = unit;
     }
 
@@ -84,12 +89,13 @@ public final class ValueWithUnit {
      * @throws UnitsNotSameException 当两个数值的单位不属于同一量纲时抛出
      */
     public ValueWithUnit add(ValueWithUnit vwu) {
-        // 判断类型是否可加
+        // 检查两个单位是否属于同一量纲，如果不是则抛出异常
         if (!unit.isSameAs(vwu.getUnit())) {
             throw new UnitsNotSameException("The unit [" + unit.getStandardFormat() + "] is not the same as [" + vwu.getUnit().getStandardFormat() + "]!");
         }
-        // 转化类型
+        // 将另一个数值转换为与当前数值相同的单位，然后执行数值相加
         double newValue = value + vwu.convertTo(unit).getValue();
+        // 返回新的带单位数值实例，保持当前数值的单位
         return new ValueWithUnit(newValue, unit);
     }
 
@@ -113,12 +119,13 @@ public final class ValueWithUnit {
      * @throws UnitsNotSameException 当两个数值的单位不属于同一量纲时抛出
      */
     public ValueWithUnit sub(ValueWithUnit vwu) {
-        // 判断类型是否可加
+        // 检查两个单位是否属于同一量纲，如果不是则抛出异常
         if (!unit.isSameAs(vwu.getUnit())) {
             throw new UnitsNotSameException("The unit [" + unit.getStandardFormat() + "] is not the same as [" + vwu.getUnit().getStandardFormat() + "]!");
         }
-        // 转化类型
+        // 将另一个数值转换为与当前数值相同的单位，然后执行数值相减
         double newValue = value - vwu.convertTo(unit).getValue();
+        // 返回新的带单位数值实例，保持当前数值的单位
         return new ValueWithUnit(newValue, unit);
     }
 
@@ -140,10 +147,15 @@ public final class ValueWithUnit {
      * @return 相乘后的结果，单位为复合单位
      */
     public ValueWithUnit multiply(ValueWithUnit vwu) {
+        // 将当前数值转换为基本单位制下的数值（忽略偏移量）
         double value1 = this.getBasicValueWithoutAdditional();
+        // 将另一个数值转换为基本单位制下的数值（忽略偏移量）
         double value2 = vwu.getBasicValueWithoutAdditional();
+        // 执行数值相乘
         double newValue = value1 * value2;
+        // 将两个单位按照乘法规则组合成新的复合单位
         DerivedUnit newUni = unit.multiply(vwu.getUnit());
+        // 返回新的带单位数值实例，包含相乘后的数值和复合单位
         return new ValueWithUnit(newValue, newUni);
     }
 
@@ -165,10 +177,15 @@ public final class ValueWithUnit {
      * @return 相除后的结果，单位为复合单位
      */
     public ValueWithUnit divide(ValueWithUnit vwu) {
+        // 将当前数值转换为基本单位制下的数值（忽略偏移量）
         double value1 = this.getBasicValueWithoutAdditional();
+        // 将另一个数值转换为基本单位制下的数值（忽略偏移量）
         double value2 = vwu.getBasicValueWithoutAdditional();
+        // 执行数值相除
         double newValue = value1 / value2;
+        // 将两个单位按照除法规则组合成新的复合单位
         DerivedUnit newUni = unit.divide(vwu.getUnit());
+        // 返回新的带单位数值实例，包含相除后的数值和复合单位
         return new ValueWithUnit(newValue, newUni);
     }
 
@@ -190,9 +207,13 @@ public final class ValueWithUnit {
      * @return 幂运算后的结果
      */
     public ValueWithUnit power(double pow) {
+        // 将当前数值转换为基本单位制下的数值（忽略偏移量）
         double value1 = this.getBasicValueWithoutAdditional();
+        // 对基本单位制下的数值执行幂运算
         double newValue = Math.pow(value1, pow);
+        // 对当前单位执行相应的幂运算
         DerivedUnit newUni = unit.power(pow);
+        // 返回新的带单位数值实例，包含幂运算后的数值和单位
         return new ValueWithUnit(newValue, newUni);
     }
 
@@ -212,13 +233,15 @@ public final class ValueWithUnit {
      * @throws UnitsNotSameException 当目标单位与当前单位不属于同一量纲时抛出
      */
     public ValueWithUnit convertTo(DerivedUnit destUnit) {
-        // 检查量纲
+        // 检查目标单位与当前单位是否属于同一量纲，如果不是则抛出异常
         if (!unit.isSameAs(destUnit)) {
             throw new UnitsNotSameException("The unit [" + unit.getStandardFormat() + "] is not the same as [" + destUnit.getStandardFormat() + "]!");
         }
-        // 计算标准量纲的值，然后计算现有值
+        // 首先将当前数值转换为基本单位制下的数值（包含偏移量）
         double newValue = value * unit.getFactor() + unit.getAddition();
+        // 然后将基本单位制下的数值转换为目标单位下的数值（减去目标单位偏移量并除以目标单位因子）
         newValue = (newValue - destUnit.getAddition()) / destUnit.getFactor();
+        // 返回新的带单位数值实例，数值已转换为目标单位下的值
         return new ValueWithUnit(newValue, destUnit);
     }
 
@@ -240,13 +263,15 @@ public final class ValueWithUnit {
      * @throws UnitsNotSameException 当目标单位与当前单位不属于同一量纲时抛出
      */
     public ValueWithUnit convertToWithoutAdditional(DerivedUnit destUnit) {
-        // 检查量纲
+        // 检查目标单位与当前单位是否属于同一量纲，如果不是则抛出异常
         if (!unit.isSameAs(destUnit)) {
             throw new UnitsNotSameException("The unit [" + unit.getStandardFormat() + "] is not the same as [" + destUnit.getStandardFormat() + "]!");
         }
-        // 计算标准量纲的值，然后计算现有值
+        // 首先将当前数值转换为基本单位制下的数值（忽略偏移量）
         double newValue = value * unit.getFactor();
+        // 然后将基本单位制下的数值转换为目标单位下的数值（仅考虑倍数关系，忽略偏移量）
         newValue = (newValue) / destUnit.getFactor();
+        // 返回新的带单位数值实例，数值已转换为目标单位下的值（忽略偏移量）
         return new ValueWithUnit(newValue, destUnit);
     }
 
@@ -263,6 +288,7 @@ public final class ValueWithUnit {
      * @return 基本单位制下的数值
      */
     public double getBasicValue() {
+        // 将当前数值乘以单位的转换因子，再加上单位的偏移量，得到基本单位制下的数值
         return value * unit.getFactor() + unit.getAddition();
     }
 
@@ -280,6 +306,7 @@ public final class ValueWithUnit {
      * @return 基本单位制下的数值（忽略偏移量）
      */
     public double getBasicValueWithoutAdditional() {
+        // 将当前数值乘以单位的转换因子，忽略单位的偏移量，得到基本单位制下的数值
         return value * unit.getFactor();
     }
 

@@ -6,15 +6,16 @@ import com.zishuimuyu.science.units.UnitElement;
 import com.zishuimuyu.science.units.ValueWithUnit;
 import com.zishuimuyu.science.units.area.UArea_m2;
 import com.zishuimuyu.science.units.force.UForce_Kgf;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 压强单位：kgf/m²（公斤力/平方米）
- * <P>
+ * <p>
  * 公斤力每平方米是重力单位制中的压强单位，符号为kgf/m²。
  * 1公斤力每平方米定义为1公斤力作用在1平方米面积上所产生的压强。
- * <P>
+ * <p>
  * 单位关系：
  * <ul>
  *   <li>1 kgf/m² ≈ 9.80665 Pa（帕斯卡）</li>
@@ -23,12 +24,12 @@ import java.util.List;
  *   <li>1 atm ≈ 10,332 kgf/m²</li>
  *   <li>1 bar ≈ 10,197 kgf/m²</li>
  * </ul>
- * <P>
+ * <p>
  * 公斤力每平方米单位在某些工程领域有应用，
  * 特别是在一些亚洲国家的工程实践中，
  * 用于测量压力、应力等物理量。
  * 该单位基于公斤力，与牛顿制的帕斯卡存在固定换算关系。
- * <P>
+ * <p>
  * 在工程实践中，公斤力/平方厘米(kgf/cm²)更常用。
  *
  * @author 紫水木鱼
@@ -39,37 +40,37 @@ public class UPressure_KgfPerm2 extends DerivedUnit {
 
     /**
      * 基本单位元素列表
-     * <P>
+     * <p>
      * 定义公斤力每平方米单位的基本单位组成：
      * - 质量单位千克(Kg)，指数为1
-     * - 长度单位米(m)，指数为-1  
+     * - 长度单位米(m)，指数为-1
      * - 时间单位秒(s)，指数为-2
-     * <P>
+     * <p>
      * 根据P=F/A（压强=力/面积），压强单位 = 力/面积 = (Kg·m·s⁻²)/m² = Kg·m⁻¹·s⁻²
      * 公斤力每平方米与帕斯卡具有相同的基本单位组成，只是转换因子不同。
      */
     private final static List<UnitElement> elementList = new ArrayList<>();
-    
+
     /**
      * 转换因子
-     * <P>
+     * <p>
      * 用于将公斤力每平方米数值转换为标准单位（帕斯卡）的数值。
      * 由于1kgf/m² = 1kgf/m²，该值通过计算1公斤力除以1平方米得到。
      * 这意味着1公斤力每平方米约等于9.80665帕斯卡。
      * 该值通过ValueWithUnit类进行单位运算获得。
      */
     private final static double factor;
-    
+
     /**
      * 附加偏移量
-     * <P>
+     * <p>
      * 压强单位之间通常只有倍数关系，无零点偏移，因此附加偏移量为0.0。
      */
     private final static double additional = 0.0;
-    
+
     /**
      * 单位描述
-     * <P>
+     * <p>
      * 该单位的符号表示，用于显示和标识。
      */
     private final static String description = "Kgf/m^2";
@@ -85,12 +86,23 @@ public class UPressure_KgfPerm2 extends DerivedUnit {
     static {
         ValueWithUnit vwu = new ValueWithUnit(1.0, new UForce_Kgf());
         factor = vwu.divide(new ValueWithUnit(1.0, new UArea_m2())).getBasicValue();
-        elementList.add(new UnitElement(BasicUnit.Kg, 1.0));  // 千克，指数1
-        elementList.add(new UnitElement(BasicUnit.m, -1.0));  // 米，指数-1
-        elementList.add(new UnitElement(BasicUnit.s, -2.0));  // 秒，指数-2
+        // 添加千克基本单位，指数为1
+        elementList.add(new UnitElement(BasicUnit.Kg, 1.0));
+        // 添加米基本单位，指数为-1
+        elementList.add(new UnitElement(BasicUnit.m, -1.0));
+        // 添加秒基本单位，指数为-2
+        elementList.add(new UnitElement(BasicUnit.s, -2.0));
     }
 
+    /**
+     * 构造函数，创建一个公斤力每平方米压强单位(kgf/m²)实例
+     * <p>
+     * 初始化公斤力每平方米压强单位，设置单位符号为"Kgf/m^2"，基本单位组成为Kg·m⁻¹·s⁻²，
+     * 转换因子为9.80665（即1kgf/m² ≈ 9.80665Pa），无附加偏移量。
+     */
     public UPressure_KgfPerm2() {
+        // 调用父类DerivedUnit的构造方法，初始化公斤力每平方米压强单位
+        // 参数依次为：单位描述("Kgf/m^2")、基本单位元素列表([Kg^1, m^-1, s^-2])、转换因子(9.80665)、附加偏移量(0.0)
         super(description, elementList, factor, additional);
     }
 

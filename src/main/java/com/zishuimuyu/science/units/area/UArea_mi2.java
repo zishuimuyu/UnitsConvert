@@ -4,15 +4,16 @@ import com.zishuimuyu.science.units.BasicUnit;
 import com.zishuimuyu.science.units.DerivedUnit;
 import com.zishuimuyu.science.units.UnitElement;
 import com.zishuimuyu.science.units.length.ULength_mi;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 面积单位：mi²（平方英里）
- * <P>
+ * <p>
  * 平方英里是英制面积单位，符号为mi²。
  * 1平方英里定义为边长为1英里的正方形所围成的面积。
- * <P>
+ * <p>
  * 单位关系：
  * <ul>
  *   <li>1 mi² = 640 acres（英亩）</li>
@@ -22,11 +23,11 @@ import java.util.List;
  *   <li>1 mi² = 27,878,400 ft²（平方英尺）</li>
  *   <li>1 km² ≈ 0.3861 mi²</li>
  * </ul>
- * <P>
+ * <p>
  * 平方英里单位广泛应用于美国、英国等使用英制单位的国家，
  * 主要用于大规模的土地测量、地理区域划分、城市规划、国家面积统计等领域，
  * 适用于测量州、县、大型自然区域等大面积区域。
- * <P>
+ * <p>
  * 在地理和测绘领域，平方英里是重要的面积计量单位。
  *
  * @author 紫水木鱼
@@ -37,34 +38,34 @@ public class UArea_mi2 extends DerivedUnit {
 
     /**
      * 基本单位元素列表
-     * <P>
+     * <p>
      * 定义平方英里单位的基本单位组成：
      * - 长度单位米(m)，指数为2
-     * <P>
+     * <p>
      * 虽然该单位是平方英里，但在内部表示中仍然使用基本单位米，
      * 通过转换因子factor来实现英里到米的转换。
      */
     private final static List<UnitElement> elementList = new ArrayList<>();
-    
+
     /**
      * 转换因子
-     * <P>
+     * <p>
      * 用于将平方英里数值转换为标准单位（平方米）的数值。
      * 由于1mi = 1609.344m，所以1mi² = (1609.344m)² = 2,589,988.110336m²，因此factor ≈ 2,589,988。
      * 该值在静态初始化块中通过计算获得：factor = Math.pow(new ULength_mi().getFactor(), 2.0)
      */
     private final static double factor;
-    
+
     /**
      * 附加偏移量
-     * <P>
+     * <p>
      * 面积单位之间通常只有倍数关系，无零点偏移，因此附加偏移量为0.0。
      */
     private final static double additional = 0.0;
-    
+
     /**
      * 单位描述
-     * <P>
+     * <p>
      * 该单位的符号表示，用于显示和标识。
      */
     private final static String description = "mi2";
@@ -82,11 +83,14 @@ public class UArea_mi2 extends DerivedUnit {
     }
 
     /**
-     * 构造方法
-     * <P>
-     * 创建平方英里单位实例，初始化其描述、基本单位组成、转换因子和附加偏移量。
+     * 构造函数，创建一个平方英里面积单位(mi²)实例
+     * <p>
+     * 初始化平方英里面积单位，设置单位符号为"mi2"，基本单位组成为m²，
+     * 转换因子约为2589988（即1mi² ≈ 2589988m²），无附加偏移量。
      */
     public UArea_mi2() {
+        // 调用父类DerivedUnit的构造方法，初始化平方英里面积单位
+        // 参数依次为：单位描述("mi2")、基本单位元素列表([m^2])、转换因子(约为2589988)、附加偏移量(0.0)
         super(description, elementList, factor, additional);
     }
 

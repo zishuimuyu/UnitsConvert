@@ -3,15 +3,16 @@ package com.zishuimuyu.science.units.mass;
 import com.zishuimuyu.science.units.BasicUnit;
 import com.zishuimuyu.science.units.DerivedUnit;
 import com.zishuimuyu.science.units.UnitElement;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 质量单位：oz（盎司）
- * <P>
+ * <p>
  * 盎司是英制质量单位，符号为oz。
  * 1盎司定义为1/16磅，约等于28.35克。
- * <P>
+ * <p>
  * 单位关系：
  * <ul>
  *   <li>1 oz = 1/16 lb（磅）</li>
@@ -21,12 +22,12 @@ import java.util.List;
  *   <li>1 kg ≈ 35.27 oz</li>
  *   <li>1 troy oz（金衡盎司）≈ 1.097 oz（常衡盎司）</li>
  * </ul>
- * <P>
+ * <p>
  * 盎司单位在英语国家有广泛应用，
  * 用于测量食品重量、邮包重量、贵金属（如黄金、白银）等。
  * 在美国，食品包装上常标注盎司为单位。
  * 该单位特别适用于测量较轻的物品。
- * <P>
+ * <p>
  * 该单位在使用英制系统的国家和地区常见。
  *
  * @author 紫水木鱼
@@ -37,34 +38,34 @@ public class UMass_oz extends DerivedUnit {
 
     /**
      * 基本单位元素列表
-     * <P>
+     * <p>
      * 定义盎司单位的基本单位组成：
      * - 质量单位千克(Kg)，指数为1
-     * <P>
+     * <p>
      * 盎司是质量单位，1盎司等于1/16磅，因此与千克具有相同的基本单位组成，
      * 只是转换因子不同。
      */
     private final static List<UnitElement> elementList = new ArrayList<>();
-    
+
     /**
      * 转换因子
-     * <P>
+     * <p>
      * 用于将盎司数值转换为标准单位（千克）的数值。
      * 由于1oz = 1/16lb = (1/16)×0.45359237Kg，所以factor = new UMass_lb().getFactor() / 16.0。
      * 这意味着1盎司约等于0.02835千克。
      */
     private final static double factor;
-    
+
     /**
      * 附加偏移量
-     * <P>
+     * <p>
      * 质量单位之间通常只有倍数关系，无零点偏移，因此附加偏移量为0.0。
      */
     private final static double additional = 0.0;
-    
+
     /**
      * 单位描述
-     * <P>
+     * <p>
      * 该单位的符号表示，用于显示和标识。
      */
     private final static String description = "oz";
@@ -78,10 +79,19 @@ public class UMass_oz extends DerivedUnit {
      */
     static {
         factor = new UMass_lb().getFactor() / 16.0;
-        elementList.add(new UnitElement(BasicUnit.Kg, 1.0));  // 千克，指数1
+        // 添加千克基本单位，指数为1
+        elementList.add(new UnitElement(BasicUnit.Kg, 1.0));
     }
 
+    /**
+     * 构造函数，创建一个盎司质量单位(oz)实例
+     * <p>
+     * 初始化盎司质量单位，设置单位符号为"oz"，基本单位组成为千克，
+     * 转换因子约为0.02835（即1oz ≈ 0.02835Kg），无附加偏移量。
+     */
     public UMass_oz() {
+        // 调用父类DerivedUnit的构造方法，初始化盎司质量单位
+        // 参数依次为：单位描述("oz")、基本单位元素列表([Kg^1])、转换因子(约为0.02835)、附加偏移量(0.0)
         super(description, elementList, factor, additional);
     }
 

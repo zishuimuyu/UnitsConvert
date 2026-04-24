@@ -3,16 +3,17 @@ package com.zishuimuyu.science.units.energy;
 import com.zishuimuyu.science.units.BasicUnit;
 import com.zishuimuyu.science.units.DerivedUnit;
 import com.zishuimuyu.science.units.UnitElement;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 能量单位：kcal（千卡/大卡）
- * <P>
+ * <p>
  * 千卡是非国际单位制的能量单位，符号为kcal或Cal（大卡）。
  * 1千卡定义为将1千克水在1个大气压下提升1摄氏度所需的热量，
  * 等于1000卡路里。
- * <P>
+ * <p>
  * 单位关系：
  * <ul>
  *   <li>1 kcal = 1000 cal（卡路里）</li>
@@ -22,12 +23,12 @@ import java.util.List;
  *   <li>1 Wh ≈ 0.860 kcal（瓦时）</li>
  *   <li>1 J ≈ 0.000239 kcal</li>
  * </ul>
- * <P>
+ * <p>
  * 千卡单位在营养学、食品科学、运动医学等领域有广泛应用，
  * 用于测量食物的能量含量和人体活动消耗的能量。
  * 在许多国家，食品包装上标注的食物热量通常使用千卡（kcal），
  * 在美国有时也标记为"Calories"（大卡）。
- * <P>
+ * <p>
  * 该单位也被称为"大卡"以区别于"小卡"（calorie）。
  *
  * @author 紫水木鱼
@@ -38,36 +39,36 @@ public class UEnergy_Kcal extends DerivedUnit {
 
     /**
      * 基本单位元素列表
-     * <P>
+     * <p>
      * 定义千卡单位的基本单位组成：
      * - 质量单位千克(Kg)，指数为1
-     * - 长度单位米(m)，指数为2  
+     * - 长度单位米(m)，指数为2
      * - 时间单位秒(s)，指数为-2
-     * <P>
+     * <p>
      * 根据W=F·s（功=力×距离），能量单位 = 力×距离 = (Kg·m·s⁻²)·m = Kg·m²·s⁻²
      * 千卡与焦耳具有相同的基本单位组成，只是转换因子不同（1000倍卡路里的关系）。
      */
     private final static List<UnitElement> elementList = new ArrayList<>();
-    
+
     /**
      * 转换因子
-     * <P>
+     * <p>
      * 用于将千卡数值转换为标准单位（焦耳）的数值。
      * 由于1kcal = 1000cal，该值通过计算卡路里的转换因子乘以1000获得。
      * 这意味着1千卡等于1000卡路里，约等于4184焦耳。
      */
     private final static double factor;
-    
+
     /**
      * 附加偏移量
-     * <P>
+     * <p>
      * 能量单位之间通常只有倍数关系，无零点偏移，因此附加偏移量为0.0。
      */
     private final static double additional = 0.0;
-    
+
     /**
      * 单位描述
-     * <P>
+     * <p>
      * 该单位的符号表示，用于显示和标识。
      */
     private final static String description = "Kcal";
@@ -81,12 +82,23 @@ public class UEnergy_Kcal extends DerivedUnit {
      */
     static {
         factor = new UEnergy_cal().getFactor() * 1000.0;
-        elementList.add(new UnitElement(BasicUnit.Kg, 1.0));  // 千克，指数1
-        elementList.add(new UnitElement(BasicUnit.m, 2.0));   // 米，指数2
-        elementList.add(new UnitElement(BasicUnit.s, -2.0));  // 秒，指数-2
+        // 千克，指数1
+        elementList.add(new UnitElement(BasicUnit.Kg, 1.0));
+        // 米，指数2
+        elementList.add(new UnitElement(BasicUnit.m, 2.0));
+        // 秒，指数-2
+        elementList.add(new UnitElement(BasicUnit.s, -2.0));
     }
 
+    /**
+     * 构造函数，创建一个千卡能量单位(kcal)实例
+     * <p>
+     * 初始化千卡能量单位，设置单位符号为"Kcal"，基本单位组成为Kg·m²·s⁻²，
+     * 转换因子约为4184（即1kcal ≈ 4184J），无附加偏移量。
+     */
     public UEnergy_Kcal() {
+        // 调用父类DerivedUnit的构造方法，初始化千卡能量单位
+        // 参数依次为：单位描述("Kcal")、基本单位元素列表([Kg^1, m^2, s^-2])、转换因子(约为4184)、附加偏移量(0.0)
         super(description, elementList, factor, additional);
     }
 

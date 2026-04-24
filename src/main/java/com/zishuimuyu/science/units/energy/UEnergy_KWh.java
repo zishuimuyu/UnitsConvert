@@ -3,16 +3,17 @@ package com.zishuimuyu.science.units.energy;
 import com.zishuimuyu.science.units.BasicUnit;
 import com.zishuimuyu.science.units.DerivedUnit;
 import com.zishuimuyu.science.units.UnitElement;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 能量单位：kWh（千瓦时）
- * <P>
+ * <p>
  * 千瓦时是非国际单位制的能量单位，符号为kWh。
  * 1千瓦时定义为功率为1千瓦的电器在1小时内所消耗的电能，
  * 也常被称为"度"，是电力计量的常用单位。
- * <P>
+ * <p>
  * 单位关系：
  * <ul>
  *   <li>1 kWh = 3,600,000 J（焦耳）</li>
@@ -22,11 +23,11 @@ import java.util.List;
  *   <li>1 kWh ≈ 3412.14 BTU（英热单位）</li>
  *   <li>1 MWh = 1000 kWh（兆瓦时）</li>
  * </ul>
- * <P>
+ * <p>
  * 千瓦时单位在电力行业、家庭用电计量、能源统计等领域有广泛应用，
  * 是衡量电能消耗和发电量的主要单位。
  * 电费账单通常以千瓦时为单位进行计费。
- * <P>
+ * <p>
  * 1 kWh = 1 kW × 1 h = 1000 W × 3600 s = 3,600,000 J。
  *
  * @author 紫水木鱼
@@ -37,36 +38,36 @@ public class UEnergy_KWh extends DerivedUnit {
 
     /**
      * 基本单位元素列表
-     * <P>
+     * <p>
      * 定义千瓦时单位的基本单位组成：
      * - 质量单位千克(Kg)，指数为1
-     * - 长度单位米(m)，指数为2  
+     * - 长度单位米(m)，指数为2
      * - 时间单位秒(s)，指数为-2
-     * <P>
+     * <p>
      * 根据W=P·t（功=功率×时间），能量单位 = 功率×时间 = (Kg·m²·s⁻³)·s = Kg·m²·s⁻²
      * 千瓦时与焦耳具有相同的基本单位组成，只是转换因子不同。
      */
     private final static List<UnitElement> elementList = new ArrayList<>();
-    
+
     /**
      * 转换因子
-     * <P>
+     * <p>
      * 用于将千瓦时数值转换为标准单位（焦耳）的数值。
      * 由于1kWh = 1kW×1h = 1000W×3600s = 3,600,000J，所以factor = 3600000.0。
      * 这意味着1千瓦时等于3,600,000焦耳。
      */
     private final static double factor = 3600000.0;
-    
+
     /**
      * 附加偏移量
-     * <P>
+     * <p>
      * 能量单位之间通常只有倍数关系，无零点偏移，因此附加偏移量为0.0。
      */
     private final static double additional = 0.0;
-    
+
     /**
      * 单位描述
-     * <P>
+     * <p>
      * 该单位的符号表示，用于显示和标识。
      */
     private final static String description = "KWh";
@@ -79,12 +80,23 @@ public class UEnergy_KWh extends DerivedUnit {
      * 与焦耳单位具有相同的单位构成，仅数值上相差3,600,000倍。
      */
     static {
-        elementList.add(new UnitElement(BasicUnit.Kg, 1.0));  // 千克，指数1
-        elementList.add(new UnitElement(BasicUnit.m, 2.0));   // 米，指数2
-        elementList.add(new UnitElement(BasicUnit.s, -2.0));  // 秒，指数-2
+        // 千克，指数1
+        elementList.add(new UnitElement(BasicUnit.Kg, 1.0));
+        // 米，指数2
+        elementList.add(new UnitElement(BasicUnit.m, 2.0));
+        // 秒，指数-2
+        elementList.add(new UnitElement(BasicUnit.s, -2.0));
     }
 
+    /**
+     * 构造函数，创建一个千瓦时能量单位(kWh)实例
+     * <p>
+     * 初始化千瓦时能量单位，设置单位符号为"KWh"，基本单位组成为Kg·m²·s⁻²，
+     * 转换因子为3600000（即1kWh = 3600000J），无附加偏移量。
+     */
     public UEnergy_KWh() {
+        // 调用父类DerivedUnit的构造方法，初始化千瓦时能量单位
+        // 参数依次为：单位描述("KWh")、基本单位元素列表([Kg^1, m^2, s^-2])、转换因子(3600000.0)、附加偏移量(0.0)
         super(description, elementList, factor, additional);
     }
 
