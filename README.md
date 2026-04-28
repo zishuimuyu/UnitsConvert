@@ -46,7 +46,14 @@
 
 | 单位名称 | 符号 | 换算关系（米） | 应用场景 |
 |---------|------|---------------|----------|
+| 幺米 | ym | 10⁻²⁴m (尧分之一米) | 理论物理学、弦理论 |
+| 仄米 | zm | 10⁻²¹m | 理论物理学 |
+| 阿米 | am | 10⁻¹⁸m | 理论物理学 |
+| 飞米 | fm | 10⁻¹⁵m (千万亿分之一米) | 核物理学、原子核尺度测量 |
+| 皮米 | pm | 10⁻¹²m (万亿分之一米) | 原子物理学、化学键长 |
+| 纳米 | nm | 10⁻⁹m (十亿分之一米) | 纳米技术、分子生物学 |
 | 微米 | um | 10⁻⁶m (百万分之一米) | 微观尺度测量、细胞尺寸、精密加工 |
+| 埃格斯特朗 | Å | 10⁻¹⁰m | 原子物理学、晶体学、光谱学 |
 | 毫米 | mm | 10⁻³m (千分之一米) | 工程图纸、机械零件、日常精细测量 |
 | 厘米 | cm | 10⁻²m (百分之一米) | 日常生活、服装尺码、人体测量 |
 | 分米 | dm | 10⁻¹m (十分之一米) | 教育教学、简单测量 |
@@ -54,10 +61,18 @@
 | 英尺 | ft | 0.3048m | 建筑工程、高度测量 |
 | 码 | yd | 0.9144m | 体育场地、布料销售 |
 | 米 | m | 1m (基本单位) | 国际单位制基本单位、科学测量 |
+| 寻 | fathom | 1.8288m | 海洋深度测量、航海 |
+| 手宽 | hand | 0.1016m | 马匹高度测量 |
 | 跋 | fur | 201.168m | 传统土地测量 |
 | 千米 | Km | 10³m (一千米) | 地理距离、交通里程 |
+| 兆米 | Mm | 10⁶m (一百万米) | 大地测量、行星半径 |
+| 吉米 | Gm | 10⁹m (十亿米) | 天文学、行星间距离 |
 | 英里 | mi | 1609.344m | 长距离交通、航空航海 |
 | 海里 | nmi | 1852m | 航海航空导航 |
+| 天文单位 | AU | 149,597,870,700m | 天文学、太阳系距离测量 |
+| 光年 | ly | 9,460,730,472,580,800m | 天文学、宇宙距离测量 |
+| 秒差距 | pc | 30,856,775,814,913,700m | 天文学、恒星距离测量 |
+| 尧米 | Ym | 10²⁴m (尧米) | 宇宙学、可观测宇宙尺度 |
 
 **中国传统单位：**
 
@@ -388,6 +403,36 @@ UnitsConvert/
 │   │           ├── energy/                     # 能量单位
 │   │           ├── force/                      # 力单位
 │   │           ├── length/                     # 长度单位
+│   │           │   ├── ULength_AU.java         # 天文单位
+│   │           │   ├── ULength_Gm.java         # 吉米
+│   │           │   ├── ULength_MegaMeter.java  # 兆米
+│   │           │   ├── ULength_YottaMeter.java # 尧米
+│   │           │   ├── ULength_angstrom.java   # 埃格斯特朗
+│   │           │   ├── ULength_fathom.java     # 寻（海洋测量）
+│   │           │   ├── ULength_fm.java         # 飞米
+│   │           │   ├── ULength_hand.java       # 手宽（马高测量）
+│   │           │   ├── ULength_ly.java         # 光年
+│   │           │   ├── ULength_nm.java         # 纳米
+│   │           │   ├── ULength_pc.java         # 秒差距
+│   │           │   ├── ULength_pm.java         # 皮米
+│   │           │   ├── ULength_ym.java         # 幺米
+│   │           │   ├── ULength_Km.java
+│   │           │   ├── ULength_chi.java
+│   │           │   ├── ULength_cm.java
+│   │           │   ├── ULength_cun.java
+│   │           │   ├── ULength_dm.java
+│   │           │   ├── ULength_fen.java
+│   │           │   ├── ULength_ft.java
+│   │           │   ├── ULength_fur.java
+│   │           │   ├── ULength_in.java
+│   │           │   ├── ULength_li.java
+│   │           │   ├── ULength_m.java
+│   │           │   ├── ULength_mi.java
+│   │           │   ├── ULength_mm.java         # 毫米
+│   │           │   ├── ULength_nmi.java
+│   │           │   ├── ULength_um.java
+│   │           │   ├── ULength_yd.java
+│   │           │   └── ULength_zhang.java
 │   │           ├── mass/                       # 质量单位
 │   │           ├── power/                      # 功率单位
 │   │           ├── pressure/                   # 压强单位
@@ -541,9 +586,22 @@ System.out.println("25°C = " + tempF.getValue() + "°F");
 - `ULength_m` - 米
 - `ULength_cm` - 厘米
 - `ULength_mm` - 毫米
+- `ULength_MegaMeter` - 兆米
 - `ULength_Km` - 千米
+- `ULength_Gm` - 吉米
 - `ULength_ft` - 英尺
 - `ULength_in` - 英寸
+- `ULength_mi` - 英里
+- `ULength_nmi` - 海里
+- `ULength_ym` - 幺米
+- `ULength_nm` - 纳米
+- `ULength_um` - 微米
+- `ULength_pm` - 皮米
+- `ULength_fm` - 飞米
+- `ULength_angstrom` - 埃格斯特朗
+- `ULength_AU` - 天文单位
+- `ULength_ly` - 光年
+- `ULength_pc` - 秒差距
 
 **质量单位：**
 - `UMass_Kg` - 千克
