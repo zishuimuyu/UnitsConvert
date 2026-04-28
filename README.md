@@ -43,47 +43,47 @@
 
 ### 长度单位 (length)
 **国际单位：**
-- m, Km, cm, mm, dm, um, ft, in, yd, mi, nmi, fur
+- um, mm, cm, dm, m, Km, ft, in, yd, fur, mi, nmi
 
 **中国传统单位：**
-- chi（尺）、cun（寸）、fen（分）、li（里）、zhang（丈）
+- fen（分）、cun（寸）、chi（尺）、zhang（丈）、li（里）
 
 ### 质量单位 (mass)
 **国际单位：**
-- Kg, g, mg, t
+- mg, g, Kg, t
 
 **英制单位：**
-- lb, oz, st, dr, lt, UStf, ct
+- dr, oz, lb, ct, st, UStf, lt
 
 **中国传统单位：**
-- jin（斤）、liang（两）、qian（钱）、dan（担）、q（斤）、mu（亩）
+- qian（钱）、liang（两）、jin（斤）、q（斤）、dan（担）、mu（亩）
 
 ### 时间单位 (time)
-- s, ms, us, h, day, week
+- us, ms, s, h, day, week
 
 ### 温度单位 (temperature)
 - C（摄氏度）、F（华氏度）、K（开尔文）、Ra（兰氏度）、Re（列氏度）
 
 ### 力单位 (force)
-- N, KN, Kgf, lbf, dyn, gf, kip, tf, UStf
+- dyn, gf, lbf, N, Kgf, KN, kip, tf, UStf
 
 ### 压强单位 (pressure)
-- Pa, KPa, MPa, HPa, bar, mbar, atm, KgfPerm2, lbfPerft2, lbfPerin2, mmHg
+- Pa, HPa, KPa, mbar, mmHg, atm, bar, KgfPerm2, lbfPerft2, lbfPerin2, MPa
 
 ### 能量单位 (energy)
-- J, KJ, MJ, cal, Kcal, erg, Btn, KWh, Kgfm, ftlbf
+- erg, J, cal, ftlbf, Kgfm, KJ, Kcal, Btn, MJ, KWh
 
 ### 功率单位 (power)
-- W, KW, Hp, Ps, BtuPers, calPers, KcalPers, KgfmPers, ftlbfPers
+- pW, nW, uW, mW, W, KW, MW, GW, TW, Hp, Ps, BtuPers, calPers, KcalPers, KcalPerh, BtnPerh, KgfmPers, ftlbfPers, ftlbfPermin, ergPers
 
 ### 加速度单位 (accelerate)
-- m/s², g, ft/s², in/s²
+- in/s², ft/s², m/s², g
 
 ### 速度单位 (velocity)
-- m/s, Km/h, Km/s, ft/s, in/s, mi/h, kn, c（光速）
+- in/s, ft/s, mi/h, Km/h, m/s, Km/s, kn, c（光速）
 
 ### 体积单位 (volume)
-- m³, cm³, mm³, l, ml, cl, dl, dal, hl, ft³, in³, yd³
+- mm³, cm³, ml, cl, dl, l, dal, hl, ft³, in³, yd³, m³
 
 ## 核心功能特性
 
@@ -387,6 +387,28 @@ System.out.println("25°C = " + tempF.getValue() + "°F");
 - `UTemperature_F` - 华氏度
 - `UTemperature_K` - 开尔文
 
+**功率单位：**
+- `UPower_pW` - 皮瓦
+- `UPower_nW` - 纳瓦
+- `UPower_uW` - 微瓦
+- `UPower_mW` - 毫瓦
+- `UPower_W` - 瓦特
+- `UPower_KW` - 千瓦
+- `UPower_MW` - 兆瓦
+- `UPower_GW` - 吉瓦
+- `UPower_TW` - 太瓦
+- `UPower_Hp` - 马力
+- `UPower_Ps` - 公制马力
+- `UPower_BtuPers` - 英热单位/秒
+- `UPower_calPers` - 卡路里/秒
+- `UPower_KcalPers` - 千卡/秒
+- `UPower_KcalPerh` - 千卡/小时
+- `UPower_BtnPerh` - 英热单位/小时
+- `UPower_KgfmPers` - 公斤力·米/秒
+- `UPower_ftlbfPers` - 英尺·磅力/秒
+- `UPower_ftlbfPermin` - 英尺·磅力/分钟
+- `UPower_ergPers` - 尔格/秒
+
 ### 6. 注意事项
 
 1. **包名**：确保导入正确的包名 `com.zishuimuyu.science.units.*`
@@ -469,3 +491,4 @@ STK主要服务于石油、化工、核电、建筑等传统企业，致力于�
 - 支持自定义单位扩展
 - 项目已从NetBeans项目迁移到Maven项目结构
 - 支持现代Java构建和依赖管理
+- 功率单位现已支持从皮瓦(pW)到太瓦(TW)的完整范围，以及工程和物理常用单位如BTU/h、kcal/h、ft·lbf/min、erg/s等
