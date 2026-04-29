@@ -50,7 +50,7 @@ public class ULength_hand extends DerivedUnit {
      * 转换因子
      * <p>
      * 手宽单位的转换因子为0.1016。
-     * 1 hand = 4 inches = 0.1016 meters
+     * 1 hand = 4 in = 0.1016 m
      * 用于与其他长度单位进行数值转换。
      */
     private final static double factor = 0.1016;

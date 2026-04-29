@@ -49,7 +49,7 @@ public class ULength_MegaMeter extends DerivedUnit {
      * 转换因子
      * <p>
      * 兆米单位的转换因子为1.0E6。
-     * 1 Mm = 10⁶ meters
+     * 1 Mm = 10⁶ m
      * 用于与其他长度单位进行数值转换。
      */
     private final static double factor = 1.0E6;

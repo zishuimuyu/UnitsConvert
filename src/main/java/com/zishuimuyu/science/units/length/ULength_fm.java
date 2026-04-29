@@ -49,7 +49,7 @@ public class ULength_fm extends DerivedUnit {
      * 转换因子
      * <p>
      * 飞米单位的转换因子为1.0E-15。
-     * 1 fm = 10⁻¹⁵ meters
+     * 1 fm = 10⁻¹⁵ m
      * 用于与其他长度单位进行数值转换。
      */
     private final static double factor = 1.0E-15;

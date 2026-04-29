@@ -49,7 +49,7 @@ public class ULength_pm extends DerivedUnit {
      * 转换因子
      * <p>
      * 皮米单位的转换因子为1.0E-12。
-     * 1 pm = 10⁻¹² meters
+     * 1 pm = 10⁻¹² m
      * 用于与其他长度单位进行数值转换。
      */
     private final static double factor = 1.0E-12;

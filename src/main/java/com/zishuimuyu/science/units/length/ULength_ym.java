@@ -49,7 +49,7 @@ public class ULength_ym extends DerivedUnit {
      * 转换因子
      * <p>
      * 幺米单位的转换因子为1.0E-24。
-     * 1 ym = 10⁻²⁴ meters
+     * 1 ym = 10⁻²⁴ m
      * 用于与其他长度单位进行数值转换。
      */
     private final static double factor = 1.0E-24;

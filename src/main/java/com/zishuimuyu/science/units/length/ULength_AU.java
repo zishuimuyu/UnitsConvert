@@ -16,12 +16,12 @@ import java.util.List;
  * 单位关系：
  * <ul>
  *   <li>1 AU = 149,597,870.7 km（千米）</li>
- *   <li>1 AU ≈ 92,955,807.3 miles（英里）</li>
- *   <li>1 AU ≈ 499.0 light-seconds（光秒）</li>
- *   <li>1 AU ≈ 8.317 light-minutes（光分）</li>
- *   <li>1 AU ≈ 0.00001581 light-years（光年）</li>
- *   <li>1 AU ≈ 4.848×10⁻⁶ parsecs（秒差距）</li>
- *   <li>1 light-year ≈ 63,241 AU</li>
+ *   <li>1 AU ≈ 92,955,807.3 mi（英里）</li>
+ *   <li>1 AU ≈ 499.0 光秒</li>
+ *   <li>1 AU ≈ 8.317 光分</li>
+ *   <li>1 AU ≈ 0.00001581 光年</li>
+ *   <li>1 AU ≈ 4.848×10⁻⁶ pc（秒差距）</li>
+ *   <li>1 光年 ≈ 63,241 AU</li>
  * </ul>
  * <p>
  * 天文单位主要用于太阳系内的距离测量，如行星轨道半径、太阳系天体之间的距离等。

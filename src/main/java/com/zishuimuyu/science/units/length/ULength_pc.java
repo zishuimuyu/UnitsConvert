@@ -27,7 +27,7 @@ import java.util.List;
  * 秒差距主要用于测量恒星和银河系内天体的距离，是天文学中最常用的距离单位之一。
  * 它基于三角视差原理，是测量宇宙距离阶梯中的重要环节。
  * <p>
- * 名称"parsec"来源于"parallax of one arcsecond"（一秒差距的视差）。
+ * 名称"秒差距"来源于"一秒角的视差"。
  *
  * @author 紫水木鱼
  * @company 斯塔克工业（STK）

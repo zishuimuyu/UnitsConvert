@@ -50,7 +50,7 @@ public class ULength_mm extends DerivedUnit {
      * 转换因子
      * <p>
      * 毫米单位的转换因子为0.001。
-     * 1 mm = 10⁻³ meters
+     * 1 mm = 10⁻³ m
      * 用于与其他长度单位进行数值转换。
      */
     private final static double factor = 0.001;

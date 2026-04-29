@@ -49,7 +49,7 @@ public class ULength_Gm extends DerivedUnit {
      * 转换因子
      * <p>
      * 吉米单位的转换因子为1.0E9。
-     * 1 Gm = 10⁹ meters
+     * 1 Gm = 10⁹ m
      * 用于与其他长度单位进行数值转换。
      */
     private final static double factor = 1.0E9;

@@ -49,7 +49,7 @@ public class ULength_fathom extends DerivedUnit {
      * 转换因子
      * <p>
      * 寻单位的转换因子为1.8288。
-     * 1 fathom = 6 feet = 1.8288 meters
+     * 1 fathom = 6 ft = 1.8288 m
      * 用于与其他长度单位进行数值转换。
      */
     private final static double factor = 1.8288;

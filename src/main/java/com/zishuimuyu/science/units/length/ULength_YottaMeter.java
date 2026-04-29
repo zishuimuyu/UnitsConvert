@@ -49,7 +49,7 @@ public class ULength_YottaMeter extends DerivedUnit {
      * 转换因子
      * <p>
      * 尧米单位的转换因子为1.0E24。
-     * 1 Ym = 10²⁴ meters
+     * 1 Ym = 10²⁴ m
      * 用于与其他长度单位进行数值转换。
      */
     private final static double factor = 1.0E24;

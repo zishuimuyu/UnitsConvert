@@ -49,7 +49,7 @@ public class ULength_nm extends DerivedUnit {
      * 转换因子
      * <p>
      * 纳米单位的转换因子为1.0E-9。
-     * 1 nm = 10⁻⁹ meters
+     * 1 nm = 10⁻⁹ m
      * 用于与其他长度单位进行数值转换。
      */
     private final static double factor = 1.0E-9;

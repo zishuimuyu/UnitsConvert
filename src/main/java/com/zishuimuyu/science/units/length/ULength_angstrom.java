@@ -51,7 +51,7 @@ public class ULength_angstrom extends DerivedUnit {
      * 转换因子
      * <p>
      * 埃格斯特朗单位的转换因子为1.0E-10。
-     * 1 Å = 10⁻¹⁰ meters
+     * 1 Å = 10⁻¹⁰ m
      * 用于与其他长度单位进行数值转换。
      */
     private final static double factor = 1.0E-10;
