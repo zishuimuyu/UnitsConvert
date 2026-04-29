@@ -44,7 +44,7 @@ public class UForce_kip extends DerivedUnit {
      * <p>
      * 根据F=mg（重力公式），力 = 质量 × 重力加速度 = 质量 × 位移/时间²
      * 因此力的单位为 Kg·m·s⁻²。千磅力与牛顿具有相同的基本单位组成，
-     * 只是转换因子不同（基于千磅质量和重力加速度的乘积）。
+     * 只是转换因子不同（基于千磅质量 和重力加速度的乘积）。
      */
     private final static List<UnitElement> elementList = new ArrayList<>();
 
