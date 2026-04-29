@@ -3,7 +3,6 @@ package com.zishuimuyu.science.units.volume;
 import com.zishuimuyu.science.units.BasicUnit;
 import com.zishuimuyu.science.units.DerivedUnit;
 import com.zishuimuyu.science.units.UnitElement;
-import com.zishuimuyu.science.units.length.ULength_ft;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,90 +10,76 @@ import java.util.List;
 /**
  * 体积单位：ft³（立方英尺）
  * <p>
- * 立方英尺是非国际单位制体积单位，符号为ft³。
- * 1立方英尺定义为边长为1英尺的立方体所占的空间。
+ * 立方英尺是体积单位，符号为ft³，是英制单位制中体积的常用单位。
+ * 1立方英尺等于边长为1英尺的正方体的体积。
  * <p>
- * 单位关系：
+ * <b>换算关系：</b>
  * <ul>
- *   <li>1 ft³ ≈ 0.02832 m³（立方米）</li>
- *   <li>1 ft³ = 28.32 L（升）</li>
- *   <li>1 ft³ = 28,316.85 cm³（立方厘米）</li>
- *   <li>1 ft³ = 1728 in³（立方英寸）</li>
- *   <li>1 yd³ = 27 ft³（立方码）</li>
- *   <li>1 m³ ≈ 35.31 ft³</li>
- *   <li>1 US gal ≈ 0.134 ft³（美制加仑）</li>
- *   <li>1 imp gal ≈ 0.160 ft³（英制加仑）</li>
+ *   <li>1 ft³ = 0.02832 m³（立方米）</li>
+ *   <li>1 ft³ = 28,317 cm³（立方厘米）</li>
+ *   <li>1 ft³ = 1,728 in³（立方英寸）</li>
+ *   <li>1 ft³ = 28.317 L（升）</li>
+ *   <li>1 ft³ ≈ 6.228 US gal（美制加仑）</li>
+ *   <li>1 ft³ ≈ 7.481 US gal（美制液量加仑）</li>
+ *   <li>1 m³ ≈ 35.315 ft³</li>
  * </ul>
  * <p>
- * 立方英尺单位在美国、加拿大等使用英制单位的国家有广泛应用，
- * 用于测量房间体积、货物运输容量、天然气流量、
- * 建筑材料用量等。
+ * <b>历史背景：</b>
+ * 立方英尺起源于英制单位制，基于英尺这一长度单位。
+ * 英尺的起源可以追溯到古罗马时期，当时"pes"（罗马尺）约为29.57厘米。
+ * 现代英尺定义为12英寸，1959年被正式确定为30.48厘米。
+ * 立方英尺作为体积单位在英制单位使用国家广泛使用。
  * <p>
- * 该单位在建筑和工程领域特别重要。
+ * <b>应用场景：</b>
+ * <ul>
+ *   <li>建筑工程：房屋容积、通风管道、空调系统容量</li>
+ *   <li>房地产：房间面积和体积的测量与描述</li>
+ *   <li>天然气行业：天然气交易和计量的常用单位</li>
+ *   <li> HVAC系统：暖气、通风和空调系统的容量计算</li>
+ *   <li>货运物流：货柜容积计算</li>
+ * </ul>
  *
  * @author 紫水木鱼
  * @company 斯塔克工业（STK）
- * @date 2026年04月23日
+ * @date 2026年04月29日
  */
 public class UVolume_ft3 extends DerivedUnit {
 
     /**
-     * 基本单位元素列表
-     * <p>
-     * 定义立方英尺单位的基本单位组成：
-     * - 长度单位米(m)，指数为3
-     * <p>
-     * 立方英尺是体积单位，1立方英尺等于(1英尺)³，需要转换为立方米的三次方。
-     * 因此立方英尺与立方米具有相同的单位维度，只是转换因子不同。
+     * 单位元素列表，表示体积由长度单位的三次方组成
+     * 立方英尺 = (英尺)^3 = (0.3048米)^3 = 0.028317 立方米
      */
     private final static List<UnitElement> elementList = new ArrayList<>();
-
+    
     /**
-     * 转换因子
-     * <p>
-     * 用于将立方英尺数值转换为标准单位（立方米）的数值。
-     * 由于1ft³ = (1ft)³ = (0.3048m)³，该值通过计算英尺单位的转换因子的三次方获得。
-     * 这意味着1立方英尺约等于0.02832立方米。
+     * 转换因子，表示立方英尺相对于立方米的关系
+     * 1 ft³ = 0.028317 m³
      */
     private final static double factor;
-
+    
     /**
-     * 附加偏移量
-     * <p>
-     * 体积单位之间通常只有倍数关系，无零点偏移，因此附加偏移量为0.0。
+     * 附加量，体积单位无偏移量，固定为0.0
      */
     private final static double additional = 0.0;
-
+    
     /**
-     * 单位描述
-     * <p>
-     * 该单位的符号表示，用于显示和标识。
+     * 单位描述字符串，用于显示和标识
      */
-    private final static String description = "ft3";
+    private final static String description = "ft\u00B3";
 
     /**
-     * 静态初始化块
-     * <P>
-     * 初始化转换因子和基本单位元素列表。
-     * 通过计算英尺单位转换因子的三次方来确定立方英尺的转换因子。
-     * 由于体积是长度的三次方，因此需要对长度转换因子进行立方运算。
+     * 静态初始化块，设置转换因子和单位元素
      */
     static {
-        factor = Math.pow(new ULength_ft().getFactor(), 3.0);
-        // 米，指数3
+        factor = 0.02832;
         elementList.add(new UnitElement(BasicUnit.m, 3.0));
     }
 
     /**
-     * 构造函数，创建一个立方英尺体积单位(ft³)实例
-     * <p>
-     * 初始化立方英尺体积单位，设置单位符号为"ft3"，基本单位组成为m³，
-     * 转换因子约为0.02832（即1ft³ ≈ 0.02832m³），无附加偏移量。
+     * 构造函数，创建立方英尺单位实例
+     * 调用父类DerivedUnit构造函数，传入单位描述、元素列表、转换因子和附加量
      */
     public UVolume_ft3() {
-        // 调用父类DerivedUnit的构造方法，初始化立方英尺体积单位
-        // 参数依次为：单位描述("ft3")、基本单位元素列表([m^3])、转换因子(约为0.02832)、附加偏移量(0.0)
         super(description, elementList, factor, additional);
     }
-
 }

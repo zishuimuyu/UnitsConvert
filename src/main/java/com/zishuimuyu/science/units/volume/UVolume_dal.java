@@ -10,87 +10,70 @@ import java.util.List;
 /**
  * 体积单位：daL（十升）
  * <p>
- * 十升是容积单位，符号为daL（或dal）。
- * 1十升定义为10升的体积，等于0.01立方米。
+ * 十升是体积单位，符号为daL，是公制系统中常用的液体体积倍数单位。
+ * 1十升等于10升。
  * <p>
- * 单位关系：
+ * <b>换算关系：</b>
  * <ul>
  *   <li>1 daL = 10 L（升）</li>
  *   <li>1 daL = 10,000 mL（毫升）</li>
  *   <li>1 daL = 0.01 m³（立方米）</li>
- *   <li>1 L = 0.1 daL</li>
- *   <li>1 hL = 10 daL</li>
- *   <li>1 dL = 0.01 daL</li>
- *   <li>1 US gal ≈ 0.379 daL（美制加仑）</li>
- *   <li>1 imp gal ≈ 0.455 daL（英制加仑）</li>
+ *   <li>1 daL = 10 dm³（立方分米）</li>
+ *   <li>1 daL ≈ 2.642 US gal（美制加仑）</li>
  * </ul>
  * <p>
- * 十升单位在一些欧洲国家和农业领域有应用，
- * 用于测量较大的液体体积，如农药配比、肥料溶液等。
+ * <b>历史背景：</b>
+ * 十升是公制系统中的一个倍数单位，但较少在日常生活中使用。
+ * 它不是国际单位制（SI）的一部分，但在某些工业和商业领域有应用。
  * <p>
- * 该单位在某些专业领域仍然使用。
+ * <b>应用场景：</b>
+ * <ul>
+ *   <li>工业液体测量：化学品的批量计量</li>
+ *   <li>食品加工：饮料生产中的容量计量</li>
+ *   <li>农业：农药、肥料溶液的配制</li>
+ *   <li>能源行业：润滑油的容量测量</li>
+ * </ul>
  *
  * @author 紫水木鱼
  * @company 斯塔克工业（STK）
- * @date 2026年04月23日
+ * @date 2026年04月29日
  */
-public class UVolume_dal extends DerivedUnit {
+public class UVolume_daL extends DerivedUnit {
 
     /**
-     * 基本单位元素列表
-     * <p>
-     * 定义十升单位的基本单位组成：
-     * - 长度单位米(m)，指数为3
-     * <p>
-     * 十升是容积单位，1十升等于10升，即0.01立方米。
-     * 因此十升与立方米具有相同的单位维度，只是转换因子不同。
+     * 单位元素列表，表示体积由长度单位的三次方组成
+     * 十升 = 10升 = 10^-2 立方米
      */
     private final static List<UnitElement> elementList = new ArrayList<>();
-
+    
     /**
-     * 转换因子
-     * <p>
-     * 用于将十升数值转换为标准单位（立方米）的数值。
-     * 由于1daL = 10L = 10×0.001m³ = 0.01m³，所以factor = 0.01。
-     * 这意味着1十升等于0.01立方米。
+     * 转换因子，表示十升相对于立方米的关系
+     * 1 daL = 10^-2 m³
      */
-    private final static double factor = 0.01;
-
+    private final static double factor;
+    
     /**
-     * 附加偏移量
-     * <p>
-     * 体积单位之间通常只有倍数关系，无零点偏移，因此附加偏移量为0.0。
+     * 附加量，体积单位无偏移量，固定为0.0
      */
     private final static double additional = 0.0;
-
+    
     /**
-     * 单位描述
-     * <p>
-     * 该单位的符号表示，用于显示和标识。
+     * 单位描述字符串
      */
-    private final static String description = "dal";
+    private final static String description = "daL";
 
     /**
-     * 静态初始化块
-     * <P>
-     * 初始化基本单位元素列表，建立十升单位与基本单位的关系。
-     * 十升是三维空间单位，由米单位的三次方构成。
+     * 静态初始化块，设置转换因子和单位元素
      */
     static {
-        // 添加米基本单位，指数为3
+        factor = 1e-2;
         elementList.add(new UnitElement(BasicUnit.m, 3.0));
     }
 
     /**
-     * 构造函数，创建一个十升体积单位(daL)实例
-     * <p>
-     * 初始化十升体积单位，设置单位符号为"dal"，基本单位组成为m³，
-     * 转换因子为0.01（即1daL = 0.01m³ = 10L），无附加偏移量。
+     * 构造函数，创建十升单位实例
      */
-    public UVolume_dal() {
-        // 调用父类DerivedUnit的构造方法，初始化十升体积单位
-        // 参数依次为：单位描述("dal")、基本单位元素列表([m^3])、转换因子(0.01)、附加偏移量(0.0)
+    public UVolume_daL() {
         super(description, elementList, factor, additional);
     }
-
 }

@@ -8,90 +8,72 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 体积单位：hL（百升/公石）
+ * 体积单位：hL（百升）
  * <p>
- * 百升（公石）是容积单位，符号为hL（或hl）。
- * 1百升（公石）定义为100升的体积，等于0.1立方米。
+ * 百升是体积单位，符号为hL，是公制系统中常用的液体体积倍数单位。
+ * 1百升等于100升。
  * <p>
- * 单位关系：
+ * <b>换算关系：</b>
  * <ul>
  *   <li>1 hL = 100 L（升）</li>
- *   <li>1 hL = 100,000 mL（毫升）</li>
  *   <li>1 hL = 0.1 m³（立方米）</li>
- *   <li>1 L = 0.01 hL</li>
- *   <li>1 daL = 0.1 hL</li>
- *   <li>1 US gal ≈ 0.038 hL（美制加仑）</li>
- *   <li>1 imp gal ≈ 0.045 hL（英制加仑）</li>
- *   <li>1 m³ = 10 hL</li>
+ *   <li>1 hL = 100 dm³（立方分米）</li>
+ *   <li>1 hL ≈ 26.417 US gal（美制加仑）</li>
+ *   <li>1 hL ≈ 21.997 UK gal（英制加仑）</li>
  * </ul>
  * <p>
- * 百升（公石）单位在欧洲的啤酒、葡萄酒等行业有广泛应用，
- * 用于测量大批量液体体积，如酿酒、乳制品生产等。
- * 在德国等国家，啤酒产量和销售量常以百升为单位统计。
+ * <b>历史背景：</b>
+ * 百升是公制系统中的一个倍数单位，主要在商业和工业领域使用。
+ * 它不是国际单位制（SI）的一部分，但在某些行业中是标准单位。
  * <p>
- * 该单位在某些专业领域仍然使用。
+ * <b>应用场景：</b>
+ * <ul>
+ *   <li>酿酒行业：啤酒、葡萄酒的产量计量（欧洲常用）</li>
+ *   <li>乳制品：牛奶、奶油等产品的批量测量</li>
+ *   <li>化工行业：化学试剂的批量采购和销售</li>
+ *   <li>水资源管理：灌溉用水的计量</li>
+ * </ul>
  *
  * @author 紫水木鱼
  * @company 斯塔克工业（STK）
- * @date 2026年04月23日
+ * @date 2026年04月29日
  */
-public class UVolume_hl extends DerivedUnit {
+public class UVolume_hL extends DerivedUnit {
 
     /**
-     * 基本单位元素列表
-     * <p>
-     * 定义百升（公石）单位的基本单位组成：
-     * - 长度单位米(m)，指数为3
-     * <p>
-     * 百升（公石）是容积单位，1百升等于100升，即0.1立方米。
-     * 因此百升与立方米具有相同的单位维度，只是转换因子不同。
+     * 单位元素列表，表示体积由长度单位的三次方组成
+     * 百升 = 100升 = 10^-1 立方米
      */
     private final static List<UnitElement> elementList = new ArrayList<>();
-
+    
     /**
-     * 转换因子
-     * <p>
-     * 用于将百升（公石）数值转换为标准单位（立方米）的数值。
-     * 由于1hL = 100L = 100×0.001m³ = 0.1m³，所以factor = 0.1。
-     * 这意味着1百升（公石）等于0.1立方米。
+     * 转换因子，表示百升相对于立方米的关系
+     * 1 hL = 10^-1 m³
      */
-    private final static double factor = 0.1;
-
+    private final static double factor;
+    
     /**
-     * 附加偏移量
-     * <p>
-     * 体积单位之间通常只有倍数关系，无零点偏移，因此附加偏移量为0.0。
+     * 附加量，体积单位无偏移量，固定为0.0
      */
     private final static double additional = 0.0;
-
+    
     /**
-     * 单位描述
-     * <p>
-     * 该单位的符号表示，用于显示和标识。
+     * 单位描述字符串
      */
-    private final static String description = "hl";
+    private final static String description = "hL";
 
     /**
-     * 静态初始化块
-     * <P>
-     * 初始化基本单位元素列表，建立百升（公石）单位与基本单位的关系。
-     * 百升是三维空间单位，由米单位的三次方构成。
+     * 静态初始化块，设置转换因子和单位元素
      */
     static {
-        // 添加米基本单位，指数为3
+        factor = 1e-1;
         elementList.add(new UnitElement(BasicUnit.m, 3.0));
     }
 
     /**
-     * 构造函数，创建一个百升体积单位(hL)实例
-     * <p>
-     * 初始化百升体积单位，设置单位符号为"hl"，基本单位组成为m³，
-     * 转换因子为0.1（即1hL = 0.1m³ = 100L），无附加偏移量。
+     * 构造函数，创建百升单位实例
      */
-    public UVolume_hl() {
-        // 调用父类DerivedUnit的构造方法，初始化百升体积单位
-        // 参数依次为：单位描述("hl")、基本单位元素列表([m^3])、转换因子(0.1)、附加偏移量(0.0)
+    public UVolume_hL() {
         super(description, elementList, factor, additional);
     }
-
 }

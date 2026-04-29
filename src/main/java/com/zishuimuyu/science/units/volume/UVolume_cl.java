@@ -10,86 +10,70 @@ import java.util.List;
 /**
  * 体积单位：cL（厘升）
  * <p>
- * 厘升是容积单位，符号为cL（或cl）。
- * 1厘升定义为0.01升的体积，等于10毫升或1×10⁻⁵立方米。
+ * 厘升是体积单位，符号为cL，是公制系统中常用的液体体积分数单位。
+ * 1厘升等于1升的百分之一。
  * <p>
- * 单位关系：
+ * <b>换算关系：</b>
  * <ul>
  *   <li>1 cL = 0.01 L（升）</li>
  *   <li>1 cL = 10 mL（毫升）</li>
  *   <li>1 cL = 10 cm³（立方厘米）</li>
- *   <li>1 L = 100 cL</li>
- *   <li>1 dL = 10 cL</li>
- *   <li>1 US fl oz ≈ 2.957 cL（美制液盎司）</li>
- *   <li>1 imp fl oz ≈ 2.841 cL（英制液盎司）</li>
+ *   <li>1 cL ≈ 0.338 fl oz（美制液量盎司）</li>
+ *   <li>1 cL ≈ 0.352 UK fl oz（英制液量盎司）</li>
  * </ul>
  * <p>
- * 厘升单位在欧洲一些国家的酒类标签、烹饪食谱等领域有应用，
- * 用于测量中等量级的液体体积。
+ * <b>历史背景：</b>
+ * 厘升是公制系统中的一个导出单位，主要在欧洲国家使用。
+ * 它不是国际单位制（SI）的一部分，但在日常生活中仍有广泛应用。
  * <p>
- * 该单位在某些专业领域仍然使用。
+ * <b>应用场景：</b>
+ * <ul>
+ *   <li>酒类行业：葡萄酒、烈酒的容量标注（特别是在欧洲）</li>
+ *   <li>餐饮服务：鸡尾酒、饮料的容量计量</li>
+ *   <li>食品标签：部分欧洲国家的食品营养标签</li>
+ *   <li>医药领域：某些液体制剂的剂量表示</li>
+ * </ul>
  *
  * @author 紫水木鱼
  * @company 斯塔克工业（STK）
- * @date 2026年04月23日
+ * @date 2026年04月29日
  */
-public class UVolume_cl extends DerivedUnit {
+public class UVolume_cL extends DerivedUnit {
 
     /**
-     * 基本单位元素列表
-     * <p>
-     * 定义厘升单位的基本单位组成：
-     * - 长度单位米(m)，指数为3
-     * <p>
-     * 厘升是容积单位，1厘升等于0.01升，即1×10⁻⁵立方米。
-     * 因此厘升与立方米具有相同的单位维度，只是转换因子不同。
+     * 单位元素列表，表示体积由长度单位的三次方组成
+     * 厘升 = 0.01升 = 10毫升 = 10^-5 立方米
      */
     private final static List<UnitElement> elementList = new ArrayList<>();
-
+    
     /**
-     * 转换因子
-     * <p>
-     * 用于将厘升数值转换为标准单位（立方米）的数值。
-     * 由于1cL = 0.01L = 0.01×0.001m³ = 0.00001m³ = 1×10⁻⁵m³，所以factor = 0.00001。
-     * 这意味着1厘升等于0.00001立方米。
+     * 转换因子，表示厘升相对于立方米的关系
+     * 1 cL = 10^-5 m³
      */
-    private final static double factor = 0.00001;
-
+    private final static double factor;
+    
     /**
-     * 附加偏移量
-     * <p>
-     * 体积单位之间通常只有倍数关系，无零点偏移，因此附加偏移量为0.0。
+     * 附加量，体积单位无偏移量，固定为0.0
      */
     private final static double additional = 0.0;
-
+    
     /**
-     * 单位描述
-     * <p>
-     * 该单位的符号表示，用于显示和标识。
+     * 单位描述字符串
      */
-    private final static String description = "cl";
+    private final static String description = "cL";
 
     /**
-     * 静态初始化块
-     * <P>
-     * 初始化基本单位元素列表，建立厘升单位与基本单位的关系。
-     * 厘升是三维空间单位，由米单位的三次方构成。
+     * 静态初始化块，设置转换因子和单位元素
      */
     static {
-        // 添加米基本单位，指数为3
+        factor = 1e-5;
         elementList.add(new UnitElement(BasicUnit.m, 3.0));
     }
 
     /**
-     * 构造函数，创建一个厘升体积单位(cL)实例
-     * <p>
-     * 初始化厘升体积单位，设置单位符号为"cl"，基本单位组成为m³，
-     * 转换因子为1e-05（即1cL = 0.00001m³ = 0.01L），无附加偏移量。
+     * 构造函数，创建厘升单位实例
      */
-    public UVolume_cl() {
-        // 调用父类DerivedUnit的构造方法，初始化厘升体积单位
-        // 参数依次为：单位描述("cl")、基本单位元素列表([m^3])、转换因子(0.00001)、附加偏移量(0.0)
+    public UVolume_cL() {
         super(description, elementList, factor, additional);
     }
-
 }

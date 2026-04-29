@@ -10,87 +10,69 @@ import java.util.List;
 /**
  * 体积单位：dL（分升）
  * <p>
- * 分升是容积单位，符号为dL（或dl）。
- * 1分升定义为0.1升的体积，等于100毫升或1×10⁻⁴立方米。
+ * 分升是体积单位，符号为dL，是公制系统中常用的液体体积分数单位。
+ * 1分升等于1升的十分之一。
  * <p>
- * 单位关系：
+ * <b>换算关系：</b>
  * <ul>
  *   <li>1 dL = 0.1 L（升）</li>
  *   <li>1 dL = 100 mL（毫升）</li>
- *   <li>1 dL = 100 cm³（立方厘米）</li>
- *   <li>1 L = 10 dL</li>
- *   <li>1 cL = 0.1 dL</li>
- *   <li>1 daL = 10 dL</li>
- *   <li>1 US fl oz ≈ 0.296 dL（美制液盎司）</li>
- *   <li>1 imp fl oz ≈ 0.284 dL（英制液盎司）</li>
+ *   <li>1 dL = 0.1 dm³（立方分米）</li>
+ *   <li>1 dL ≈ 3.381 fl oz（美制液量盎司）</li>
  * </ul>
  * <p>
- * 分升单位在一些欧洲国家和实验室环境中有应用，
- * 用于测量中等量级的液体体积。
+ * <b>历史背景：</b>
+ * 分升是公制系统中的一个导出单位，主要在欧洲国家使用。
+ * 它不是国际单位制（SI）的一部分，但在日常生活中和某些行业中仍有应用。
  * <p>
- * 该单位在某些专业领域仍然使用。
+ * <b>应用场景：</b>
+ * <ul>
+ *   <li>医学检测：血液样本的容量（血糖测试等）</li>
+ *   <li>食品标签：部分欧洲国家的食品营养标签</li>
+ *   <li>酿酒业：啤酒、葡萄酒的容量计量</li>
+ *   <li>化学实验：培养基、试剂的配制</li>
+ * </ul>
  *
  * @author 紫水木鱼
  * @company 斯塔克工业（STK）
- * @date 2026年04月23日
+ * @date 2026年04月29日
  */
-public class UVolume_dl extends DerivedUnit {
+public class UVolume_dL extends DerivedUnit {
 
     /**
-     * 基本单位元素列表
-     * <p>
-     * 定义分升单位的基本单位组成：
-     * - 长度单位米(m)，指数为3
-     * <p>
-     * 分升是容积单位，1分升等于0.1升，即1×10⁻⁴立方米。
-     * 因此分升与立方米具有相同的单位维度，只是转换因子不同。
+     * 单位元素列表，表示体积由长度单位的三次方组成
+     * 分升 = 0.1升 = 100毫升 = 10^-4 立方米
      */
     private final static List<UnitElement> elementList = new ArrayList<>();
-
+    
     /**
-     * 转换因子
-     * <p>
-     * 用于将分升数值转换为标准单位（立方米）的数值。
-     * 由于1dL = 0.1L = 0.1×0.001m³ = 0.0001m³ = 1×10⁻⁴m³，所以factor = 0.0001。
-     * 这意味着1分升等于0.0001立方米。
+     * 转换因子，表示分升相对于立方米的关系
+     * 1 dL = 10^-4 m³
      */
-    private final static double factor = 0.0001;
-
+    private final static double factor;
+    
     /**
-     * 附加偏移量
-     * <p>
-     * 体积单位之间通常只有倍数关系，无零点偏移，因此附加偏移量为0.0。
+     * 附加量，体积单位无偏移量，固定为0.0
      */
     private final static double additional = 0.0;
-
+    
     /**
-     * 单位描述
-     * <p>
-     * 该单位的符号表示，用于显示和标识。
+     * 单位描述字符串
      */
-    private final static String description = "dl";
+    private final static String description = "dL";
 
     /**
-     * 静态初始化块
-     * <P>
-     * 初始化基本单位元素列表，建立分升单位与基本单位的关系。
-     * 分升是三维空间单位，由米单位的三次方构成。
+     * 静态初始化块，设置转换因子和单位元素
      */
     static {
-        // 米，指数3
+        factor = 1e-4;
         elementList.add(new UnitElement(BasicUnit.m, 3.0));
     }
 
     /**
-     * 构造函数，创建一个分升体积单位(dL)实例
-     * <p>
-     * 初始化分升体积单位，设置单位符号为"dl"，基本单位组成为m³，
-     * 转换因子为0.0001（即1dL = 0.0001m³ = 0.1L），无附加偏移量。
+     * 构造函数，创建分升单位实例
      */
-    public UVolume_dl() {
-        // 调用父类DerivedUnit的构造方法，初始化分升体积单位
-        // 参数依次为：单位描述("dl")、基本单位元素列表([m^3])、转换因子(0.0001)、附加偏移量(0.0)
+    public UVolume_dL() {
         super(description, elementList, factor, additional);
     }
-
 }

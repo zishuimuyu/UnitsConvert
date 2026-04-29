@@ -3,7 +3,6 @@ package com.zishuimuyu.science.units.volume;
 import com.zishuimuyu.science.units.BasicUnit;
 import com.zishuimuyu.science.units.DerivedUnit;
 import com.zishuimuyu.science.units.UnitElement;
-import com.zishuimuyu.science.units.length.ULength_in;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,89 +10,76 @@ import java.util.List;
 /**
  * 体积单位：in³（立方英寸）
  * <p>
- * 立方英寸是非国际单位制体积单位，符号为in³。
- * 1立方英寸定义为边长为1英寸的立方体所占的空间。
+ * 立方英寸是体积单位，符号为in³，是英制单位制中体积的常用单位。
+ * 1立方英寸等于边长为1英寸的正方体的体积。
  * <p>
- * 单位关系：
+ * <b>换算关系：</b>
  * <ul>
- *   <li>1 in³ ≈ 16.387 cm³（立方厘米）</li>
- *   <li>1 in³ ≈ 0.01639 L（升）</li>
- *   <li>1 in³ ≈ 1.639×10⁻⁵ m³（立方米）</li>
- *   <li>1 ft³ = 1728 in³（立方英尺）</li>
- *   <li>1 US gal ≈ 231 in³（美制加仑）</li>
- *   <li>1 imp gal ≈ 277.42 in³（英制加仑）</li>
- *   <li>1 mL ≈ 0.061 in³</li>
+ *   <li>1 in³ = 1.639×10⁻⁵ m³（立方米）</li>
+ *   <li>1 in³ = 16.387 cm³（立方厘米）</li>
+ *   <li>1 in³ = 16,387 mm³（立方毫米）</li>
+ *   <li>1 in³ = 0.01639 L（升）</li>
+ *   <li>1 in³ = 16.387 mL（毫升）</li>
+ *   <li>1 in³ = 1/1728 ft³（立方英尺）</li>
+ *   <li>1 m³ ≈ 61,024 in³</li>
  * </ul>
  * <p>
- * 立方英寸单位在美国等使用英制单位的国家有广泛应用，
- * 用于测量小体积物体、发动机排量、精密零件尺寸等。
- * 在机械工程和制造业中，立方英寸用于表示发动机的汽缸容积。
+ * <b>历史背景：</b>
+ * 立方英寸起源于英制单位制，基于英寸这一长度单位。
+ * 英寸的传统定义为国王拇指的宽度，或者3颗大麦粒首尾相连的长度。
+ * 现代英寸定义为1/12英尺，1959年被正式确定为2.54厘米。
+ * 立方英寸作为体积单位在英制单位使用国家广泛使用。
  * <p>
- * 该单位适合表示小体积空间。
+ * <b>应用场景：</b>
+ * <ul>
+ *   <li>机械工程：发动机排量、汽车引擎容量（如V8发动机）</li>
+ *   <li>水管工程：管道直径、水表容量</li>
+ *   <li>摄影器材：相机镜头滤镜尺寸</li>
+ *   <li>电子制造：电子元件封装尺寸</li>
+ *   <li>家具制造：抽屉、柜子内部容积</li>
+ * </ul>
  *
  * @author 紫水木鱼
  * @company 斯塔克工业（STK）
- * @date 2026年04月23日
+ * @date 2026年04月29日
  */
 public class UVolume_in3 extends DerivedUnit {
 
     /**
-     * 基本单位元素列表
-     * <p>
-     * 定义立方英寸单位的基本单位组成：
-     * - 长度单位米(m)，指数为3
-     * <p>
-     * 立方英寸是体积单位，1立方英寸等于(1英寸)³，需要转换为立方米的三次方。
-     * 因此立方英寸与立方米具有相同的单位维度，只是转换因子不同。
+     * 单位元素列表，表示体积由长度单位的三次方组成
+     * 立方英寸 = (英寸)^3 = (0.0254米)^3 = 1.639×10⁻⁵ 立方米
      */
     private final static List<UnitElement> elementList = new ArrayList<>();
-
+    
     /**
-     * 转换因子
-     * <p>
-     * 用于将立方英寸数值转换为标准单位（立方米）的数值。
-     * 由于1in³ = (1in)³ = (0.0254m)³，该值通过计算英寸单位的转换因子的三次方获得。
-     * 这意味着1立方英寸约等于1.639×10⁻⁵立方米。
+     * 转换因子，表示立方英寸相对于立方米的关系
+     * 1 in³ = 1.639×10⁻⁵ m³
      */
     private final static double factor;
-
+    
     /**
-     * 附加偏移量
-     * <p>
-     * 体积单位之间通常只有倍数关系，无零点偏移，因此附加偏移量为0.0。
+     * 附加量，体积单位无偏移量，固定为0.0
      */
     private final static double additional = 0.0;
-
+    
     /**
-     * 单位描述
-     * <p>
-     * 该单位的符号表示，用于显示和标识。
+     * 单位描述字符串，用于显示和标识
      */
-    private final static String description = "in3";
+    private final static String description = "in\u00B3";
 
     /**
-     * 静态初始化块
-     * <P>
-     * 初始化转换因子和基本单位元素列表。
-     * 通过计算英寸单位转换因子的三次方来确定立方英寸的转换因子。
-     * 由于体积是长度的三次方，因此需要对长度转换因子进行立方运算。
+     * 静态初始化块，设置转换因子和单位元素
      */
     static {
-        factor = Math.pow(new ULength_in().getFactor(), 3.0);
-        // 添加米基本单位，指数为3
+        factor = 1.639e-5;
         elementList.add(new UnitElement(BasicUnit.m, 3.0));
     }
 
     /**
-     * 构造函数，创建一个立方英寸体积单位(in³)实例
-     * <p>
-     * 初始化立方英寸体积单位，设置单位符号为"in3"，基本单位组成为m³，
-     * 转换因子约为1.639e-05（即1in³ ≈ 0.00001639m³），无附加偏移量。
+     * 构造函数，创建立方英寸单位实例
+     * 调用父类DerivedUnit构造函数，传入单位描述、元素列表、转换因子和附加量
      */
     public UVolume_in3() {
-        // 调用父类DerivedUnit的构造方法，初始化立方英寸体积单位
-        // 参数依次为：单位描述("in3")、基本单位元素列表([m^3])、转换因子(约为1.639e-05)、附加偏移量(0.0)
         super(description, elementList, factor, additional);
     }
-
 }
