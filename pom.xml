@@ -10,7 +10,7 @@
     <version>2.0.0</version>
     <packaging>jar</packaging>
 
-    <name>UnitsConvert</name>
+        <name>UnitsConvert</name>
     <description>UnitsConvert - 一个专业的Java单位转换库，支持长度、质量、时间、温度、力、压强、能量、功率、加速度、速度、体积等11个物理量类别的单位转换，包含国际单位制、英制单位和中国传统单位，适用于石油、化工、核电、建筑等传统行业的工程计算需求。</description>
 
     <properties>
@@ -20,8 +20,13 @@
     </properties>
 
     <dependencies>
-        <!-- Add any required dependencies here -->
-        <!-- For now, we'll keep it minimal since this appears to be a standalone unit conversion library -->
+        <!-- JUnit 4 for unit testing -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
