@@ -1,8 +1,47 @@
 # UnitsConvert - 专业单位转换库
 
-## 1.1 项目概述
+## 目录
+
+- [项目概述](#项目概述)
+- [快速开始](#快速开始)
+- [核心架构](#核心架构)
+- [单位分类体系](#单位分类体系)
+- [核心功能特性](#核心功能特性)
+- [API 速查表](#api-速查表)
+- [使用示例](#使用示例)
+- [设计模式](#设计模式)
+- [技术特点](#技术特点)
+- [项目结构](#项目结构)
+- [构建和运行](#构建和运行)
+- [单元测试与覆盖率](#单元测试与覆盖率)
+- [第三方系统集成指南](#第三方系统集成指南)
+- [集成测试示例](#集成测试示例)
+- [故障排除](#故障排除)
+- [许可证](#许可证)
+- [版权信息](#版权信息)
+- [贡献指南](#贡献指南)
+- [联系方式](#联系方式)
+- [更新日志](#更新日志)
+
+## 项目概述
 
 **UnitsConvert** 是一个专业的Java单位转换库，由斯塔克工业（STK）开发，采用Apache License 2.0协议发布。该项目主要服务于石油、化工、核电、建筑等传统行业的工程计算需求。
+
+## 快速开始
+
+三步上手：获取单位 → 绑定数值 → 换算。
+
+```java
+import com.zishuimuyu.science.units.UnitUtils;
+import com.zishuimuyu.science.units.ValueWithUnit;
+
+// 1 千米 → 换算为米
+ValueWithUnit km = new ValueWithUnit(1.0, UnitUtils.getUnit("ULength_Km"));
+ValueWithUnit m = km.convertTo(UnitUtils.getUnit("ULength_m"));
+System.out.println(m.getValue() + " " + m.getUnit().getDescription()); // 1000.0 m
+```
+
+> `UnitUtils.getUnit()` 传入的是**类名**（如 `"ULength_Km"`）；若加载失败返回 `null`，需判空。更多用法见下文[使用示例](#使用示例)。
 
 ## 核心架构
 
@@ -26,7 +65,7 @@
 - 支持单位复制和比较
 
 #### UnitElement - 单位元素类
-封装基本单位类型和指数，用于构建复合单位（如N = Kg·m·s⁻²）
+封装基本单位类型和指数，用于构建复合单位（如 `N = Kg·m·s⁻²`）
 
 #### ValueWithUnit - 带单位的数据类
 封装数值和单位，支持：
@@ -41,9 +80,7 @@
 
 项目按物理量分类，包含以下12个类别：
 
-### 1. 长度 (length) - 锚点单位: 米 (m) [共31个单位]
-
-**国际单位：**
+### 1. 长度 (length) - 锚点单位: 米 (`m`) [共32个单位]
 
 | 序号 | 单位名称 | 符号 | 换算关系（米） | 应用场景 |
 |------|---------|------|---------------|----------|
@@ -52,34 +89,35 @@
 | 3 | 阿米 | am | 10⁻¹⁸m | 理论物理学 |
 | 4 | 飞米 | fm | 10⁻¹⁵m | 核物理学、原子核尺度测量 |
 | 5 | 皮米 | pm | 10⁻¹²m | 原子物理学、化学键长 |
-| 6 | 纳米 | nm | 10⁻⁹m | 纳米技术、分子生物学 |
-| 7 | 微米 | um | 10⁻⁶m | 微观尺度测量、细胞尺寸 |
-| 8 | 毫米 | mm | 10⁻³m | 工程图纸、机械零件 |
-| 9 | 英寸 | in | 2.54×10⁻²m | 工业制造、屏幕尺寸 |
-| 10 | 厘米 | cm | 10⁻²m | 日常生活、服装尺码 |
-| 11 | 传统寸 | cun | 3.33×10⁻²m | 中国传统长度 |
-| 12 | 分米 | dm | 10⁻¹m | 教育教学 |
-| 13 | 传统尺 | chi | 0.333m | 中国传统长度 |
-| 14 | 英尺 | ft | 0.3048m | 建筑工程、高度测量 |
-| 15 | 码 | yd | 0.9144m | 体育场地、布料销售 |
-| 16 | 米 | m | 1m | 国际单位制基本单位 |
-| 17 | 传统丈 | zhang | 3.33m | 中国传统长度 |
-| 18 | 寻 | fathom | 1.8288m | 海洋深度测量 |
-| 19 | 传统引 | yin | 33.33m | 中国传统长度 |
-| 20 | 手宽 | hand | 0.1016m | 马匹高度测量 |
-| 21 | 跋 | fur | 201.168m | 传统土地测量 |
-| 22 | 传统里 | li | 500m | 中国传统长度、土地测量 |
-| 23 | 千米 | Km | 10³m | 地理距离、交通里程 |
-| 24 | 英里 | mi | 1609.344m | 长距离交通、航空航海 |
-| 25 | 海里 | nmi | 1852m | 航海航空导航 |
-| 26 | 兆米 | Mm | 10⁶m | 大地测量、行星半径 |
-| 27 | 吉米 | Gm | 10⁹m | 天文学、行星间距离 |
-| 28 | 天文单位 | AU | 1.5×10¹¹m | 天文学、太阳系距离 |
-| 29 | 光年 | ly | 9.46×10¹⁵m | 天文学、宇宙距离 |
-| 30 | 秒差距 | pc | 3.09×10¹⁶m | 天文学、恒星距离 |
-| 31 | 尧米 | Ym | 10²⁴m | 宇宙学 |
+| 6 | 埃 | Å | 10⁻¹⁰m | 原子物理、晶体学、化学键长 |
+| 7 | 纳米 | nm | 10⁻⁹m | 纳米技术、分子生物学 |
+| 8 | 微米 | um | 10⁻⁶m | 微观尺度测量、细胞尺寸 |
+| 9 | 毫米 | mm | 10⁻³m | 工程图纸、机械零件 |
+| 10 | 英寸 | in | 2.54×10⁻²m | 工业制造、屏幕尺寸 |
+| 11 | 传统分 | fen | 3.333×10⁻³m | 中国传统长度 |
+| 12 | 厘米 | cm | 10⁻²m | 日常生活、服装尺码 |
+| 13 | 传统寸 | cun | 3.333×10⁻²m | 中国传统长度（1/30 m） |
+| 14 | 分米 | dm | 10⁻¹m | 教育教学 |
+| 15 | 传统尺 | chi | 0.3333m | 中国传统长度（1/3 m） |
+| 16 | 英尺 | ft | 0.3048m | 建筑工程、高度测量 |
+| 17 | 码 | yd | 0.9144m | 体育场地、布料销售 |
+| 18 | 米 | m | 1m | 国际单位制基本单位 |
+| 19 | 传统丈 | zhang | 3.333m | 中国传统长度（10/3 m） |
+| 20 | 寻 | fathom | 1.8288m | 海洋深度测量 |
+| 21 | 手宽 | hand | 0.1016m | 马匹高度测量 |
+| 22 | 跋 | fur | 201.168m | 传统土地测量 |
+| 23 | 传统里 | li | 500m | 中国传统长度、土地测量 |
+| 24 | 千米 | Km | 10³m | 地理距离、交通里程 |
+| 25 | 英里 | mi | 1609.344m | 长距离交通、航空航海 |
+| 26 | 海里 | nmi | 1852m | 航海航空导航 |
+| 27 | 兆米 | Mm | 10⁶m | 大地测量、行星半径 |
+| 28 | 吉米 | Gm | 10⁹m | 天文学、行星间距离 |
+| 29 | 天文单位 | AU | 1.496×10¹¹m | 天文学、太阳系距离 |
+| 30 | 光年 | ly | 9.46×10¹⁵m | 天文学、宇宙距离 |
+| 31 | 秒差距 | pc | 3.086×10¹⁶m | 天文学、恒星距离 |
+| 32 | 尧米 | Ym | 10²⁴m | 宇宙学 |
 
-### 2. 面积 (area) - 锚点单位: 平方米 (m²) [共22个单位]
+### 2. 面积 (area) - 锚点单位: 平方米 (`m²`) [共24个单位]
 
 | 序号 | 单位名称 | 符号 | 换算关系（平方米） | 应用场景 |
 |------|---------|------|-------------------|----------|
@@ -88,25 +126,29 @@
 | 3 | 平方微米 | μm² | 10⁻¹²m² | 细胞生物学、材料科学 |
 | 4 | 平方毫米 | mm² | 10⁻⁶m² | 微小面积、精密加工 |
 | 5 | 平方厘米 | cm² | 10⁻⁴m² | 小面积测量、实验室 |
-| 6 | 平方分米 | dm² | 10⁻²m² | 中小面积测量 |
-| 7 | 平方英寸 | in² | 6.452×10⁻⁴m² | 精密工程、小面积 |
-| 8 | 平方米 | m² | 1m² | 国际单位制面积基本单位 |
-| 9 | 公亩/十米² | dam² | 10²m² | 中等面积测量、欧洲使用 |
-| 10 | 公亩 | a | 10²m² | 欧洲土地测量 |
-| 11 | 平方英尺 | ft² | 0.0929m² | 建筑、房地产 |
-| 12 | 平方码 | yd² | 0.8361m² | 美国建筑、纺织 |
-| 13 | 平方杆 | rd² | 25.293m² | 英制传统土地测量 |
-| 14 | 町 | cho | 991.736m² | 日本土地测量 |
-| 15 | 市亩 | mu | 666.67m² | 中国农业、土地测量 |
-| 16 | 公顷/百米² | ha | 10⁴m² | 农业、林业、土地规划 |
-| 17 | 顷 | qing | 6.67×10³m² | 中国传统大面积测量 |
-| 18 | 平方千米 | Km² | 10⁶m² | 大面积土地、地理测量 |
-| 19 | 平方英里 | mi² | 2.59×10⁶m² | 大面积土地、地理测量 |
-| 20 | 平方兆米 | Mm² | 10¹²m² | 地理学、天体物理 |
-| 21 | 光年平方 | ly² | 8.95×10³²m² | 天文学 |
-| 22 | 秒差距平方 | pc² | 9.52×10³²m² | 天文学、宇宙学 |
+| 6 | 平方英寸 | in² | 6.452×10⁻⁴m² | 精密工程、小面积 |
+| 7 | 平方分米 | dm² | 10⁻²m² | 中小面积测量 |
+| 8 | 平方英尺 | ft² | 0.0929m² | 建筑、房地产 |
+| 9 | 平方米 | m² | 1m² | 国际单位制面积基本单位 |
+| 10 | 平方码 | yd² | 0.8361m² | 美国建筑、纺织 |
+| 11 | 平方杆 | rd² | 25.293m² | 英制传统土地测量 |
+| 12 | 分（亩制） | fen | 66.667m² | 中国传统土地测量 |
+| 13 | 公亩 | a | 10²m² | 欧洲土地测量 |
+| 14 | 市亩 | mu | 666.67m² | 中国农业、土地测量 |
+| 15 | 町 | cho | 991.736m² | 日本土地测量 |
+| 16 | 英亩 | acre | 4046.86m² | 英制/美制土地测量 |
+| 17 | 公顷 | ha | 10⁴m² | 农业、林业、土地规划 |
+| 18 | 顷 | qing | 6.667×10⁴m² | 中国传统大面积测量 |
+| 19 | 平方千米 | Km² | 10⁶m² | 大面积土地、地理测量 |
+| 20 | 平方英里 | mi² | 2.59×10⁶m² | 大面积土地、地理测量 |
+| 21 | 平方兆米 | Mm² | 10¹²m² | 地理学、天体物理 |
+| 22 | 平方天文单位 | AU² | 2.238×10²²m² | 天文学、太阳系距离 |
+| 23 | 平方光年 | ly² | 8.95×10³¹m² | 天文学 |
+| 24 | 平方秒差距 | pc² | 9.52×10³²m² | 天文学、宇宙学 |
 
-### 3. 质量 (mass) - 锚点单位: 千克 (Kg) [共28个单位]
+> 注：英亩与常用面积单位的换算关系：`1 mi²（平方英里）= 640 acre（英亩）`，`1 acre = 4840 yd² = 4046.86 m² ≈ 0.4047 ha（公顷）`。源码中 `UArea_acre` 的因子由 `UArea_ft2` 推导（`1 acre = 43560 ft²`），与库内平方英尺定义保持一致。
+
+### 3. 质量 (mass) - 锚点单位: 千克 (`Kg`) [共30个单位]
 
 | 序号 | 单位名称 | 符号 | 换算关系（千克） | 应用场景 |
 |------|---------|------|------------------|----------|
@@ -116,7 +158,7 @@
 | 4 | 纳克 | ng | 10⁻¹²kg | 医学、药学、环境检测 |
 | 5 | 微克 | μg | 10⁻⁹kg | 精密化学、医学检验 |
 | 6 | 毫克 | mg | 10⁻⁶kg | 医药剂量、化学试剂 |
-| 7 | 原子质量单位 | u | 1.66×10⁻²⁷kg | 原子物理、生物化学 |
+| 7 | 原子质量单位 | u | 1.6605×10⁻²⁷kg | 原子物理、生物化学 |
 | 8 | 格令 | gr | 6.48×10⁻⁵kg | 珠宝、弹药 |
 | 9 | 打兰 | dr | 1.77×10⁻³kg | 药物计量、珠宝 |
 | 10 | 克 | g | 10⁻³kg | 日常食品、小件物品 |
@@ -125,21 +167,23 @@
 | 13 | 盎司 | oz | 2.84×10⁻²kg | 食品包装、贵金属 |
 | 14 | 钱 | qian | 5.0×10⁻³kg | 传统中药 |
 | 15 | 两 | liang | 5.0×10⁻²kg | 传统市场、中药 |
-| 16 | 斤 | jin/q | 0.5kg | 传统市场、日常购物 |
+| 16 | 斤 | jin | 0.5kg | 传统市场、日常购物 |
 | 17 | 磅 | lb | 0.4536kg | 体重测量、商品重量 |
 | 18 | 英石 | st | 6.35kg | 人体重量（英国） |
-| 19 | 担 | dan | 50kg | 农业产量、大宗货物 |
-| 20 | 公旦 | q | 100kg | 农业、商业 |
-| 21 | 千克 | Kg | 1kg | 国际单位制基本单位 |
-| 22 | 美吨 | UStf | 907.185kg | 美国货物运输 |
-| 23 | 长吨 | lt | 1016.047kg | 英国货物运输 |
-| 24 | 兆克 | Mg | 10³kg | 科学文献（等同吨） |
-| 25 | 吨 | t | 10³kg | 工业生产、货物运输 |
-| 26 | 月球质量 | ML | 7.34×10²²kg | 天文学、月球研究 |
-| 27 | 地球质量 | ME | 5.97×10²⁴kg | 天文学、行星科学 |
-| 28 | 太阳质量 | M☉ | 1.99×10³⁰kg | 天文学、宇宙学 |
+| 19 | 夸特 | quarter | 12.7kg | 英制传统（=28 lb，=2 st） |
+| 20 | 担 | dan | 50kg | 农业产量、大宗货物 |
+| 21 | 公担 | q | 100kg | 农业、商业（公担，符号 q） |
+| 22 | 公担 | q2 | 100kg | 公制质量（与 q 同值） |
+| 23 | 千克 | Kg | 1kg | 国际单位制基本单位 |
+| 24 | 美吨 | UStf | 907.185kg | 美国货物运输 |
+| 25 | 长吨 | lt | 1016.047kg | 英国货物运输 |
+| 26 | 兆克 | Mg | 10³kg | 科学文献（等同吨） |
+| 27 | 吨 | t | 10³kg | 工业生产、货物运输 |
+| 28 | 月球质量 | ML | 7.34×10²²kg | 天文学、月球研究 |
+| 29 | 地球质量 | ME | 5.97×10²⁴kg | 天文学、行星科学 |
+| 30 | 太阳质量 | M☉ | 1.99×10³⁰kg | 天文学、宇宙学 |
 
-### 4. 时间 (time) - 锚点单位: 秒 (s) [共22个单位]
+### 4. 时间 (time) - 锚点单位: 秒 (`s`) [共24个单位]
 
 | 序号 | 单位名称 | 符号 | 换算关系（秒） | 典型应用场景 |
 |------|---------|------|---------------|-------------|
@@ -155,24 +199,26 @@
 | 10 | 秒 | s | 1s | 日常时间、国际单位制 |
 | 11 | 分钟 | min | 60s | 会议、计时 |
 | 12 | 小时 | h | 3,600s | 工作时间、旅行 |
-| 13 | 天 | day | 86,400s | 日周期 |
-| 14 | 周 | week | 604,800s | 工作周期 |
-| 15 | 刻 | ke | 900s | 中国传统时间 |
-| 16 | 时辰 | shichen | 7,200s | 中国传统时间 |
-| 17 | 月 | month | ~2.63×10⁶s | 合同、结算 |
-| 18 | 季度 | quarter | ~7.89×10⁶s | 财务周期 |
-| 19 | 年 | year | ~3.16×10⁷s | 年龄、历史 |
-| 20 | 世纪 | century | ~3.16×10⁹s | 历史时期 |
-| 21 | 千年 | millennium | ~3.16×10¹⁰s | 文明发展 |
-| 22 | 百万年 | megaannum | ~3.16×10¹³s | 地质演化 |
+| 13 | 刻 | ke | 900s | 中国传统时间 |
+| 14 | 天 | day | 86,400s | 日周期 |
+| 15 | 时辰 | shichen | 7,200s | 中国传统时间 |
+| 16 | 周 | week | 604,800s | 工作周期 |
+| 17 | 双周 | fortnight | 1,209,600s | 英美传统时间 |
+| 18 | 朔望月 | lunarMonth | 2,551,443s | 历法、潮汐、天文 |
+| 19 | 月 | month | ~2.63×10⁶s | 合同、结算 |
+| 20 | 季度 | quarter | ~7.89×10⁶s | 财务周期 |
+| 21 | 年 | year | ~3.16×10⁷s | 年龄、历史 |
+| 22 | 世纪 | century | ~3.16×10⁹s | 历史时期 |
+| 23 | 千年 | millennium | ~3.16×10¹⁰s | 文明发展 |
+| 24 | 百万年 | megaannum | ~3.16×10¹³s | 地质演化 |
 
-### 5. 温度 (temperature) - 锚点单位: 开尔文 (K) [共10个单位]
+### 5. 温度 (temperature) - 锚点单位: 开尔文 (`K`) [共10个单位]
 
 | 序号 | 单位名称 | 符号 | 换算关系 | 应用场景 |
 |------|---------|------|----------|----------|
 | 1 | 列氏度 | Re | °Re = 4/5°C | 历史科学文献 |
 | 2 | 德氏度 | De | °C = 100 - °De × 2/3 | 18-19世纪俄罗斯 |
-| 3 | 湿球温度 | W | 与°C相同刻度 | 暖通空调、气象学 |
+| 3 | 湿球温度 | W | 与°C同刻度（数值随湿度而变，非固定换算单位） | 暖通空调、气象学 |
 | 4 | 摄氏度 | C | °C = K - 273.15 | 日常生活、气象、科学 |
 | 5 | 罗氏度 | Rø | °C = (°Rø - 7.5) × 40/21 | 18世纪航海、气象 |
 | 6 | 华氏度 | F | °F = 9/5°C + 32 | 美国日常生活 |
@@ -181,7 +227,7 @@
 | 9 | 开尔文 | K | K = °C + 273.15 | 科学研究、绝对零度 |
 | 10 | 普朗克温度 | TP | 1 TP = 1.42×10³² K | 宇宙学、理论物理极限 |
 
-### 6. 力 (force) - 锚点单位: 牛顿 (N) [共15个单位]
+### 6. 力 (force) - 锚点单位: 牛顿 (`N`) [共14个单位]
 
 | 序号 | 单位名称 | 符号 | 换算关系（牛顿） | 应用场景 |
 |------|---------|------|------------------|----------|
@@ -193,33 +239,32 @@
 | 6 | 磅力 | lbf | 4.448N | 工程力学、航空航天 |
 | 7 | 牛顿 | N | 1N | 国际单位制基本单位 |
 | 8 | 千克力 | Kgf | 9.807N | 工程技术、起重设备 |
-| 9 | 公斤力·米/秒² | kgf | 9.807N | 工程技术 |
-| 10 | 千牛顿 | KN | 10³N | 结构工程、大型机械 |
-| 11 | 英吨力 | STf | 8896.44N | 重型机械、建筑结构 |
-| 12 | 美吨力 | UStf | 8896.44N | 美国工程标准 |
-| 13 | 吨力 | tf | 9806.65N | 重型机械、起重能力 |
-| 14 | 千磅力 | kip | 4448.22N | 土木工程、建筑结构 |
-| 15 | 兆牛顿 | MN | 10⁶N | 大型结构工程、桥梁 |
+| 9 | 千牛顿 | KN | 10³N | 结构工程、大型机械 |
+| 10 | 短吨力 | STf | 8896.44N | 美制工程、起重设备（=2000 lbf，英制长吨力应约9964N） |
+| 11 | 美吨力 | UStf | 8896.44N | 美国工程标准 |
+| 12 | 吨力 | tf | 9806.65N | 重型机械、起重能力 |
+| 13 | 千磅力 | kip | 4448.22N | 土木工程、建筑结构 |
+| 14 | 兆牛顿 | MN | 10⁶N | 大型结构工程、桥梁 |
 
-### 7. 压强 (pressure) - 锚点单位: 帕斯卡 (Pa) [共13个单位]
+### 7. 压强 (pressure) - 锚点单位: 帕斯卡 (`Pa`) [共13个单位]
 
 | 序号 | 单位名称 | 符号 | 换算关系（帕斯卡） | 应用场景 |
 |------|---------|------|--------------------|----------|
-| 1 | 千克力/平方米 | KgfPerm2 | 9.807Pa | 工程技术、老旧文献 |
-| 2 | 磅力/平方英尺 | lbfPerft2 | 47.88Pa | 美国工程标准 |
+| 1 | 千克力/平方米 | Kgf/m² | 9.807Pa | 工程技术、老旧文献 |
+| 2 | 磅力/平方英尺 | lbf/ft² | 47.88Pa | 美国工程标准 |
 | 3 | 毫米汞柱 | mmHg | 133.322Pa | 医学血压测量 |
 | 4 | 托 | Torr | 133.322Pa | 真空技术、科学实验 |
 | 5 | 毫巴 | mbar | 100Pa | 气象学、低压测量 |
 | 6 | 百帕 | HPa | 100Pa | 气象学、大气压力 |
 | 7 | 千帕 | KPa | 10³Pa | 工程技术、轮胎气压 |
 | 8 | 帕斯卡 | Pa | 1Pa | 国际单位制基本单位 |
-| 9 | 磅力/平方英寸 | lbfPerin2 | 6894.76Pa | 工业、轮胎压力 |
+| 9 | 磅力/平方英寸 | lbf/in² | 6894.76Pa | 工业、轮胎压力 |
 | 10 | 巴 | bar | 10⁵Pa | 工业工程、气体压力 |
 | 11 | 标准大气压 | atm | 101325Pa | 科学标准、实验室 |
 | 12 | 兆帕 | MPa | 10⁶Pa | 高压工程、材料强度 |
 | 13 | 千磅力/平方英寸 | ksi | 6.895×10⁶Pa | 材料工程、高强度钢 |
 
-### 8. 能量 (energy) - 锚点单位: 焦耳 (J) [共17个单位]
+### 8. 能量 (energy) - 锚点单位: 焦耳 (`J`) [共17个单位]
 
 | 序号 | 单位名称 | 符号 | 换算关系（焦耳） | 应用场景 |
 |------|---------|------|------------------|----------|
@@ -236,12 +281,14 @@
 | 11 | 千焦 | KJ | 10³J | 化学反应、营养标签 |
 | 12 | 千瓦时 | KWh | 3.6×10⁶J | 电力计量、家庭用电 |
 | 13 | 兆焦 | MJ | 10⁶J | 大型能源、化学反应 |
-| 14 | 吨标准煤 | kgce | 29.31×10⁶J | 能源统计、中国标准 |
+| 14 | 千克标准煤 | kgce | 29.26×10⁶J | 能源统计、中国标准 |
 | 15 | 吨TNT当量 | tTNT | 4.184×10⁹J | 爆炸力学、军事 |
 | 16 | 吉焦 | GJ | 10⁹J | 大型工程、能源统计 |
 | 17 | 吨油当量 | toe | 41.87×10⁹J | 能源统计、国际标准 |
 
-### 9. 功率 (power) - 锚点单位: 瓦特 (W) [共19个单位]
+> 注：本库中英热单位符号统一采用 `Btn`（对应类 `UEnergy_Btn`、`UPower_BtnPers`、`UPower_BtnPerh`），即 BTU/Btu。
+
+### 9. 功率 (power) - 锚点单位: 瓦特 (`W`) [共19个单位]
 
 | 序号 | 单位名称 | 符号 | 换算关系（瓦特） | 应用场景 |
 |------|---------|------|------------------|----------|
@@ -258,14 +305,14 @@
 | 11 | 毫瓦 | mW | 10⁻³W | 小型电子设备、激光器 |
 | 12 | 公制马力 | Ps | 735.5W | 欧洲发动机功率 |
 | 13 | 马力 | Hp | 745.7W | 发动机功率、汽车工业 |
-| 14 | 英热单位/秒 | BtuPers | 1055.06W | 空调制冷 |
+| 14 | 英热单位/秒 | BtnPers | 1055.06W | 空调制冷 |
 | 15 | 瓦特 | W | 1W | 国际单位制基本单位 |
 | 16 | 千瓦 | KW | 10³W | 家用电器、小型发动机 |
 | 17 | 兆瓦 | MW | 10⁶W | 电站发电、大型设备 |
 | 18 | 吉瓦 | GW | 10⁹W | 大型电站、国家电网 |
 | 19 | 太瓦 | TW | 10¹²W | 国家电力、全球能源 |
 
-### 10. 加速度 (accelerate) - 锚点单位: 米/秒² (m/s²) [共7个单位]
+### 10. 加速度 (accelerate) - 锚点单位: 米/秒² (`m/s²`) [共7个单位]
 
 | 序号 | 单位名称 | 符号 | 换算关系（米/秒²） | 应用场景 |
 |------|---------|------|-------------------|----------|
@@ -277,7 +324,7 @@
 | 6 | 米/秒² | m/s² | 1m/s² | 国际单位制基本单位 |
 | 7 | 重力加速度 | g | 9.807m/s² | 工程技术、重力相关计算 |
 
-### 11. 速度 (velocity) - 锚点单位: 米/秒 (m/s) [共22个单位]
+### 11. 速度 (velocity) - 锚点单位: 米/秒 (`m/s`) [共19个单位]
 
 | 序号 | 单位名称 | 符号 | 换算关系（米/秒） | 应用场景 |
 |------|---------|------|------------------|----------|
@@ -295,54 +342,55 @@
 | 12 | 米/秒 | m/s | 1m/s | 国际单位制基本单位 |
 | 13 | 海里/时 | nmi/h | 0.5144m/s | 航海航空 |
 | 14 | 节 | kn | 0.5144m/s | 航海航空、船舶飞机 |
-| 15 | 英里/分 | mi/min | 26.82m/s | 高速交通 |
-| 16 | 十米/秒 | dam/s | 10m/s | 较高速度测量 |
-| 17 | 百米/秒 | hm/s | 100m/s | 高速测量 |
-| 18 | 千米/分 | Km/min | 16.67m/s | 交通运输 |
-| 19 | 马赫 | Ma | 343m/s | 航空动力学、声速 |
-| 20 | 英里/秒 | mi/s | 1609.344m/s | 高速运动 |
-| 21 | 千米/秒 | Km/s | 10³m/s | 航天飞行、高速运动 |
-| 22 | 光速 | c | 299792458m/s | 物理学、相对论 |
+| 15 | 千米/分 | Km/min | 16.67m/s | 交通运输 |
+| 16 | 马赫 | Ma | 343m/s | 航空动力学、声速 |
+| 17 | 英里/秒 | mi/s | 1609.344m/s | 高速运动 |
+| 18 | 千米/秒 | Km/s | 10³m/s | 航天飞行、高速运动 |
+| 19 | 光速 | c | 299792458m/s | 物理学、相对论 |
 
-### 12. 体积 (volume) - 锚点单位: 立方米 (m³) [共35个单位]
+> 注：“节”（kn）与“海里/时”（nmi/h）为等价单位：源码中 `UVelocity_kn` 与 `UVelocity_nmiPerh` 的因子均为 `0.514444 m/s`，即 `1 kn = 1 nmi/h ≈ 0.5144 m/s`（1 节 = 1 海里每小时）。二者可互换，仅为航海/航空场景的不同表述习惯。
+
+### 12. 体积 (volume) - 锚点单位: 立方米 (`m³`) [共33个单位]
 
 | 序号 | 单位名称 | 符号 | 换算关系（立方米） | 应用场景 |
 |------|---------|------|------------------|----------|
-| 1 | 立方纳米 | nm³ | 10⁻²⁷m³ | 纳米技术 |
-| 2 | 立方皮米 | pm³ | 10⁻³⁶m³ | 原子尺度 |
-| 3 | 立方飞米 | fm³ | 10⁻⁴⁵m³ | 核物理 |
-| 4 | 立方埃 | Å³ | 10⁻³⁰m³ | 原子物理 |
-| 5 | 立方毫米 | mm³ | 10⁻⁹m³ | 微小容积、精密测量 |
-| 6 | 液量打兰 | fl dr | 3.55×10⁻⁶m³ | 英制液体计量 |
-| 7 | 毫升 | mL | 10⁻⁶m³ | 实验室、药品 |
-| 8 | 市撮 | 撮 | 10⁻⁶m³ | 中国传统液体单位 |
-| 9 | 立方厘米 | cm³ | 10⁻⁶m³ | 实验室、小容器 |
-| 10 | 厘升 | cL | 10⁻⁵m³ | 欧洲酒类容量 |
-| 11 | 市勺 | 勺 | 10⁻⁵m³ | 中国传统液体单位 |
-| 12 | 液量盎司 | fl oz | 2.84×10⁻⁵m³ | 英制液体计量 |
-| 13 | 分升 | dL | 10⁻⁴m³ | 欧洲液体测量 |
-| 14 | 市合 | 合 | 10⁻⁴m³ | 中国传统液体单位 |
-| 15 | 立方英寸 | in³ | 1.64×10⁻⁵m³ | 美国精密测量 |
-| 16 | 升 | L | 10⁻³m³ | 日常液体测量 |
-| 17 | 市升 | 升 | 10⁻³m³ | 中国传统液体单位 |
-| 18 | 立方分米 | dm³ | 10⁻³m³ | 中等容积测量 |
-| 19 | 液量品脱 | fl pt | 4.73×10⁻⁴m³ | 英制液体计量 |
-| 20 | 干量品脱 | dry pt | 5.51×10⁻⁴m³ | 美制干量单位 |
-| 21 | 液量夸脱 | fl qt | 9.46×10⁻⁴m³ | 英制液体计量 |
-| 22 | 干量夸脱 | dry qt | 1.10×10⁻³m³ | 美制干量单位 |
-| 23 | 加仑 | gal | 3.79×10⁻³m³ | 英制液体计量 |
-| 24 | 干量加仑 | dry gal | 4.40×10⁻³m³ | 美制干量单位 |
-| 25 | 十升 | daL | 10⁻²m³ | 工业液体测量 |
-| 26 | 市斗 | 斗 | 10⁻²m³ | 中国传统液体单位 |
-| 27 | 百升 | hL | 10⁻¹m³ | 啤酒酿造 |
-| 28 | 市石 | 石 | 10⁻¹m³ | 中国传统液体单位 |
-| 29 | 立方米 | m³ | 1m³ | 国际单位制基本单位 |
-| 30 | 石油桶 | bbl | 0.159m³ | 石油工业 |
-| 31 | 立方英尺 | ft³ | 0.0283m³ | 美国工程、空间测量 |
-| 32 | 立方码 | yd³ | 0.7646m³ | 美国土木工程 |
-| 33 | 立方十米 | dam³ | 10³m³ | 较大容积测量 |
-| 34 | 立方百米 | hm³ | 10⁶m³ | 大型容积测量 |
-| 35 | 立方千米 | Km³ | 10⁹m³ | 极大容积测量 |
+| 1 | 立方毫米 | mm³ | 10⁻⁹m³ | 微小容积、精密测量 |
+| 2 | 液量打兰 | fl dr | 3.55×10⁻⁶m³ | 英制液体计量 |
+| 3 | 毫升 | mL | 10⁻⁶m³ | 实验室、药品 |
+| 4 | 市撮 | 撮 (cuō) | 10⁻⁶m³ | 中国传统液体单位 |
+| 5 | 立方厘米 | cm³ | 10⁻⁶m³ | 实验室、小容器 |
+| 6 | 厘升 | cL | 10⁻⁵m³ | 欧洲酒类容量 |
+| 7 | 市勺 | 勺 (sháo) | 10⁻⁵m³ | 中国传统液体单位 |
+| 8 | 液量盎司 | fl oz | 2.84×10⁻⁵m³ | 英制液体计量 |
+| 9 | 分升 | dL | 10⁻⁴m³ | 欧洲液体测量 |
+| 10 | 市合 | 合 (gě) | 10⁻⁴m³ | 中国传统液体单位 |
+| 11 | 立方英寸 | in³ | 1.64×10⁻⁵m³ | 美国精密测量 |
+| 12 | 升 | L | 10⁻³m³ | 日常液体测量 |
+| 13 | 市升 | 升 (shēng) | 10⁻³m³ | 中国传统液体单位 |
+| 14 | 立方分米 | dm³ | 10⁻³m³ | 中等容积测量 |
+| 15 | 液量品脱 | fl pt | 4.73×10⁻⁴m³ | 英制液体计量 |
+| 16 | 干量品脱 | dry pt | 5.51×10⁻⁴m³ | 美制干量单位 |
+| 17 | 液量夸脱 | fl qt | 9.46×10⁻⁴m³ | 英制液体计量 |
+| 18 | 干量夸脱 | dry qt | 1.10×10⁻³m³ | 美制干量单位 |
+| 19 | 加仑 | gal | 3.79×10⁻³m³ | 美制液体计量 |
+| 20 | 干量加仑 | dry gal | 4.40×10⁻³m³ | 美制干量单位 |
+| 21 | 英制加仑 | imp gal | 4.546×10⁻³m³ | 英国及英联邦液体计量 |
+| 22 | 蒲式耳 | pk | 8.81×10⁻³m³ | 美制干量（谷物） |
+| 23 | 十升 | daL | 10⁻²m³ | 工业液体测量 |
+| 24 | 市斗 | 斗 (dǒu) | 10⁻²m³ | 中国传统液体单位 |
+| 25 | 百升 | hL | 10⁻¹m³ | 啤酒酿造 |
+| 26 | 市石 | 石 (dàn) | 10⁻¹m³ | 中国传统液体单位 |
+| 27 | 立方米 | m³ | 1m³ | 国际单位制基本单位 |
+| 28 | 石油桶 | bbl | 0.159m³ | 石油工业 |
+| 29 | 立方英尺 | ft³ | 0.0283m³ | 美国工程、空间测量 |
+| 30 | 立方码 | yd³ | 0.7646m³ | 美国土木工程 |
+| 31 | 立方十米 | dam³ | 10³m³ | 较大容积测量 |
+| 32 | 立方百米 | hm³ | 10⁶m³ | 大型容积测量 |
+| 33 | 立方千米 | Km³ | 10⁹m³ | 极大容积测量 |
+
+> 注：符号列中括号内为汉字读音拼音（作为量词时，「合」读 gě、「石」读 dàn）。另需注意类名拼音与汉字读音并不总是一致：如 `UVolume_sheng` 对应的是「合」，而 `UVolume_sheng_L` 才对应「升」；`getUnit()` 请传类名（如 `UVolume_sheng`）。
+>
+> 注（加仑）：本库同时提供三种加仑，不可混用——`gal`（美制液体加仑，=231 in³ ≈ 3.785 L）、`dry gal`（美制干量加仑 ≈ 4.405 L）、`imp gal`（英制加仑，≈ 4.546 L）。英制加仑比美制液体加仑大约 20%（`1 imp gal ≈ 1.201 US gal`）。
 
 ## 核心功能特性
 
@@ -350,6 +398,14 @@
 - 支持同量纲单位间的精确转换
 - 处理温度等有偏移量的单位转换
 - 转换公式：`newValue = (value × factor + addition - destAddition) / destFactor`
+
+#### 换算值精度说明
+表格中的换算值分为两类，使用时请注意区分：
+
+- **定义精确值**：由国际协议或单位定义严格确定，无误差。例如长度 `in=2.54×10⁻²m`、`ft=0.3048m`、`mi=1609.344m`、`nmi=1852m`；质量 `lb=0.45359237kg`；压强 `atm=101325Pa`；全部 SI 词头（千、兆、纳等 10 的整数次幂）；中国传统 `尺=1/3 m`、`寸=1/30 m`、`丈=10/3 m` 等定比关系。
+- **近似值**：依赖于天文观测、物理常数或约定俗成，表格中以 `~` 或有限小数标注，仅供估算。例如时间 `月/年/世纪/千年/百万年`（回归年长度逐年微变）、`朔望月`；长度 `AU/光年/秒差距`；能量 `kgce/toe`（标准煤/油当量为约定热值）；加速度 `g`（标准重力 9.80665）、速度 `马赫`（声速随介质/温度而变，表中取 343 m/s）。
+
+> 说明：表中数值均按有效数字做了四舍五入显示；如需完全精度，请以源码中各类 `factor` 字段的字面量为准（如 `UMass_lb.factor = 0.45359237`）。
 
 ### 2. 带单位的数学运算
 - **加法/减法**：自动转换单位后计算
@@ -365,6 +421,67 @@
 - 用户可以自定义新的单位类
 - 继承`DerivedUnit`即可扩展
 - 支持工厂模式管理单位实例
+
+## API 速查表
+
+> 以下方法签名均依据源码整理。注意：减法方法名为 `sub`（非 `subtract`），幂运算方法名为 `power`（非 `pow`）。
+
+### ValueWithUnit（带单位数值，`final` 类）
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `ValueWithUnit(double value, DerivedUnit unit)` | 构造 | 绑定数值与单位 |
+| `add(ValueWithUnit vwu)` | ValueWithUnit | 同量纲相加，自动换算，结果保留当前单位 |
+| `sub(ValueWithUnit vwu)` | ValueWithUnit | 同量纲相减，自动换算，结果保留当前单位 |
+| `multiply(ValueWithUnit vwu)` | ValueWithUnit | 相乘，按基本单位组合出新复合单位（忽略偏移） |
+| `divide(ValueWithUnit vwu)` | ValueWithUnit | 相除，按基本单位组合出新复合单位（忽略偏移） |
+| `power(double pow)` | ValueWithUnit | 幂运算，数值与单位指数同步变化 |
+| `convertTo(DerivedUnit destUnit)` | ValueWithUnit | 完整转换（含偏移量），如温度 |
+| `convertToWithoutAdditional(DerivedUnit destUnit)` | ValueWithUnit | 忽略偏移的转换，用于温差等场景 |
+| `getBasicValue()` | double | 基本单位制下的数值（含偏移） |
+| `getBasicValueWithoutAdditional()` | double | 基本单位制下的数值（忽略偏移） |
+| `getValue()` | double | 获取数值部分 |
+| `getUnit()` | DerivedUnit | 获取单位部分 |
+| `toString()` | String | 调试用字符串 |
+
+### DerivedUnit（导出单位抽象基类）
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `multiply(DerivedUnit unit)` | DerivedUnit | 单位相乘，返回 `UCommon` 复合单位 |
+| `divide(DerivedUnit unit)` | DerivedUnit | 单位相除，返回 `UCommon` 复合单位 |
+| `power(double pow)` | DerivedUnit | 单位幂运算，返回 `UCommon` 复合单位 |
+| `isSameAs(DerivedUnit unit)` | boolean | 判断是否属于同一量纲（可互转） |
+| `isEqual(DerivedUnit unit)` | boolean | 判断是否完全相同（含因子/偏移） |
+| `copy()` | DerivedUnit | 深拷贝当前单位 |
+| `getStandardFormat()` | String | 标准格式串，如 `Kg*m*s^-2` |
+| `getDescription()` | String | 单位描述符号，如 `m`、`MPa` |
+| `getUnits()` | List\<UnitElement\> | 基本单位元素列表的副本 |
+| `getFactor()` | double | 相对基本单位的转换因子 |
+| `getAddition()` | double | 相对基本单位的偏移量 |
+
+### UnitUtils（单位工厂/单例管理）
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `UnitUtils.getUnit(String name)` | DerivedUnit | 按类名（如 `ULength_m`）获取单位单例，加载失败返回 `null` |
+
+### UnitElement（基本单位 + 指数）
+
+| 方法 | 返回 | 说明 |
+|------|------|------|
+| `getUnit()` | BasicUnit | 获取基本单位类型 |
+| `getExp()` | double | 获取指数 |
+| `setExp(double exp)` | void | 设置指数 |
+| `copy()` | UnitElement | 拷贝元素 |
+| `isEqual(UnitElement element)` | boolean | 比较基本单位与指数是否一致 |
+
+### 相关异常
+
+| 异常 | 触发场景 |
+|------|----------|
+| `UnitsNotSameException` | `add`/`sub`/`convertTo` 等遇到不同量纲时抛出 |
+| `BasicUnitDuplicateException` | 构造单位时 `elementList` 含重复基本单位 |
 
 ## 使用示例
 
@@ -418,6 +535,10 @@ ValueWithUnit tempF = tempC.convertTo(new UTemperature_F());
 System.out.println("Temperature: " + tempF.getValue() + "°F");
 ```
 
+> **温度转换的特殊性**：与普通单位只含倍数因子 `factor` 不同，温度类单位额外使用偏移量 `addition`（零点偏移）。以华氏度为例，其定义为 `°F = 9/5°C + 32`，换算含非零偏移，因此必须走带 `addition` 的 `convertTo()` 完整转换；若错用 `convertToWithoutAdditional()`（忽略偏移）则会得到错误结果。
+>
+> **温差 vs 温度**：`convertTo()` 用于“某个温度值”的换算（含零点偏移）；而“温差/温度变化量”只关心倍数关系，应使用 `convertToWithoutAdditional()` 或 `getBasicValueWithoutAdditional()`。例如“升高 10°C”等于“升高 18°F”（只乘 9/5），而不是按绝对温度换算后的 50°F。
+
 ### 复合单位运算
 
 ```java
@@ -431,6 +552,88 @@ ValueWithUnit velocity = distance.divide(time);
 System.out.println("Velocity: " + velocity.getValue() + " " + velocity.getUnit().getStandardFormat());
 ```
 
+```java
+// 面积计算：长 × 宽（两个长度相乘自动得到 m² 复合单位）
+ValueWithUnit length = new ValueWithUnit(5.0, new ULength_m());
+ValueWithUnit width = new ValueWithUnit(3.0, new ULength_m());
+ValueWithUnit area = length.multiply(width);
+System.out.println("Area: " + area.getValue() + " " + area.getUnit().getStandardFormat()); // 15.0 [m^2.0]
+
+// 密度计算：质量 ÷ 体积（自动得到 Kg/m³ 复合单位）
+ValueWithUnit mass = new ValueWithUnit(1000.0, new com.zishuimuyu.science.units.mass.UMass_Kg());
+ValueWithUnit vol = new ValueWithUnit(1.0, new com.zishuimuyu.science.units.volume.UVolume_m3());
+ValueWithUnit density = mass.divide(vol);
+System.out.println("Density: " + density.getValue() + " " + density.getUnit().getStandardFormat()); // 1000.0 [Kg^1.0, m^-3.0]
+```
+
+> 提示：`multiply`/`divide` 返回的是由基本单位拼合的 `UCommon` 复合单位，`getStandardFormat()` 以基本单位幂次形式展示（如 `Kg^1.0, m^-3.0`）。若需换算为某个具名单位，可再调用 `convertTo(目标单位)`。
+
+### 异常处理示例
+
+当对**不同量纲**的单位执行 `add`/`sub`/`convertTo` 时，会抛出 `UnitsNotSameException`，应捕获处理：
+
+```java
+import com.zishuimuyu.science.units.UnitsNotSameException;
+import com.zishuimuyu.science.units.length.ULength_m;
+import com.zishuimuyu.science.units.mass.UMass_Kg;
+import com.zishuimuyu.science.units.ValueWithUnit;
+
+try {
+    ValueWithUnit len = new ValueWithUnit(1.0, new ULength_m());
+    ValueWithUnit mass = new ValueWithUnit(1.0, new UMass_Kg());
+    // 长度 + 质量：量纲不匹配
+    ValueWithUnit bad = len.add(mass);
+} catch (UnitsNotSameException e) {
+    System.out.println("不能对不同量纲的单位做运算：" + e.getMessage());
+}
+```
+
+> 运算前也可用 `unit.isSameAs(otherUnit)` 主动判断量纲是否一致，避免异常。构造单位时若 `elementList` 含重复基本单位，则抛出 `BasicUnitDuplicateException`。
+
+### 自定义单位扩展示例
+
+继承 `DerivedUnit` 即可新增库内未收录的单位。以下定义“1 链 (chain) = 20.1168 m”的长度单位：
+
+```java
+package com.zishuimuyu.science.units.length;
+
+import com.zishuimuyu.science.units.BasicUnit;
+import com.zishuimuyu.science.units.DerivedUnit;
+import com.zishuimuyu.science.units.UnitElement;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ULength_chain extends DerivedUnit {
+
+    private final static List<UnitElement> elementList = new ArrayList<>();
+    private final static double factor = 20.1168;   // 1 chain = 20.1168 m
+    private final static double additional = 0.0;    // 无零点偏移
+    private final static String description = "chain";
+
+    static {
+        // 长度量纲：基本单位米，指数 1
+        elementList.add(new UnitElement(BasicUnit.m, 1.0));
+    }
+
+    public ULength_chain() {
+        super(description, elementList, factor, additional);
+    }
+}
+```
+
+使用（类名遵循 `U[物理量]_[符号]` 命名且置于对应包下时，`UnitUtils.getUnit()` 可通过反射自动定位）：
+
+```java
+import com.zishuimuyu.science.units.UnitUtils;
+import com.zishuimuyu.science.units.ValueWithUnit;
+
+ValueWithUnit len = new ValueWithUnit(10.0, UnitUtils.getUnit("ULength_chain"));
+ValueWithUnit meters = len.convertTo(UnitUtils.getUnit("ULength_m"));
+System.out.println(meters.getValue() + " m"); // 201.168 m
+```
+
+> 自定义类无需重新编译整个库即可被 `getUnit()` 加载——只要类在类路径上且命名符合包名推断规则（`getPackageName` 取 `_` 前部分、去首字母 `U`、转小写作为包名）。有偏移量的单位（如自定义温标）则将 `additional` 设为非零，参考 `UTemperature_F`。
+
 ## 设计模式
 
 ### 1. 工厂模式
@@ -441,6 +644,34 @@ System.out.println("Velocity: " + velocity.getValue() + " " + velocity.getUnit()
 
 ### 3. 单例模式
 单位实例通过工厂方法管理，避免重复创建，提高性能。
+
+**具体实现**（见 `UnitUtils`）：采用“类名 → 实例”的懒加载缓存式单例，而非传统私有构造+静态实例。核心是一个静态 `HashMap<String, DerivedUnit> unitMap`：
+
+```java
+private static final HashMap<String, DerivedUnit> unitMap = new HashMap<>();
+
+public static DerivedUnit getUnit(String name) {
+    DerivedUnit unit = unitMap.get(name);          // 1) 先查缓存
+    if (unit == null) {
+        try {
+            // 2) 未命中则反射创建（包名由类名自动推断）
+            unit = (DerivedUnit) Class.forName(
+                "com.zishuimuyu.science.units." + getPackageName(name) + "." + name
+            ).newInstance();
+            unitMap.put(name, unit);               // 3) 放入缓存，后续复用
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException ex) {
+            return null;                            // 加载失败返回 null
+        }
+    }
+    return unit;
+}
+```
+
+要点：
+- **惰性单例**：首次请求某单位时才创建并缓存，同一类名多次 `getUnit()` 返回同一实例。
+- **反射定位**：`getPackageName()` 取 `_` 前部分、去首字母 `U`、转小写作为包名（`ULength_m` → `length`）。
+- **失败静默**：类不存在或无法实例化时返回 `null`（不抛异常），调用方需自行判空。
+- **非线程安全**：`HashMap` 与懒加载未加锁；若需在并发环境共享，应在外部同步，或直接 `new UXxx()` 创建实例（各具体单位类均为 public 无参构造，实例不可变、可安全多例）。
 
 ## 技术特点
 
@@ -467,6 +698,7 @@ UnitsConvert/
 │   │               ├── accelerate/             # 加速度单位
 │   │               ├── area/                   # 面积单位
 │   │               ├── energy/                 # 能量单位
+│   │               ├── empty/                  # 空单位（UEmpty，无量纲占位）
 │   │               ├── force/                  # 力单位
 │   │               ├── length/                 # 长度单位
 │   │               ├── mass/                   # 质量单位
@@ -503,10 +735,32 @@ mvn clean install
 
 ### 运行测试
 ```bash
+# 运行全部标准 JUnit 测试
 mvn test
 # 或者运行特定测试类
-mvn test -Dtest=TestUse
+mvn test -Dtest=AccelerationUnitTest
 ```
+
+## 单元测试与覆盖率
+
+本库的测试位于 `src/test/java/com/zishuimuyu/science/units/{类别}/`，现状如下（均以实际文件为准）：
+
+| 类别 | 测试文件 | 形式 | 是否被 `mvn test` 自动执行 |
+|------|----------|------|------------------------------|
+| accelerate | `AccelerationUnitTest` | 标准 JUnit4（`@Test`） | 是 |
+| pressure | `PressureUnitTest` | 标准 JUnit4（`@Test`） | 是 |
+| area | `AreaUnitTest` | `main` 方法 + 手写断言 | 否 |
+| energy | `EnergyUnitTest` | `main` 方法 + 手写断言 | 否 |
+| force | `ForceUnitTest` | `main` 方法 + 手写断言 | 否 |
+| mass | `MassUnitTest` | `main` 方法 + 手写断言 | 否 |
+| temperature | `TemperatureUnitTest` | `main` 方法 + 手写断言 | 否 |
+| time | `TimeUnitTest` | `main` 方法 + 手写断言 | 否 |
+
+说明：
+- **已覆盖 8 个类别**；`length`、`power`、`velocity`、`volume` 四个类别**尚无测试文件**。
+- 6 个 `main` 方法形式的脚本不会被 Surefire 当作测试执行，仅能手动运行查看输出；建议改写为 `@Test` + `org.junit.Assert` 以纳入 `mvn test`。
+- **测试覆盖率**：`pom.xml` 未配置 JaCoCo 等覆盖率插件，因此**无现成覆盖率数据**；如需，可添加 `jacoco-maven-plugin` 后执行 `mvn clean test jacoco:report`。
+- **已清理的失效引用**：早期 `pom.xml` 曾将 jar 清单与 exec 插件的 `<mainClass>` 指向源码中并不存在的 `com.zishuimuyu.science.TestUse`；现已修正——作为纯库项目，产物 jar 不再声明 `Main-Class`，并移除了只为运行 `TestUse` 而保留的 `exec-maven-plugin`。
 
 ## 第三方系统集成指南
 
@@ -517,7 +771,7 @@ mvn test -Dtest=TestUse
 ```xml
 <dependency>
     <groupId>com.zishuimuyu.science</groupId>
-    <artifactId>unitsconvert</artifactId>
+    <artifactId>UnitsConvert</artifactId>
     <version>2.0.0</version>
 </dependency>
 ```
@@ -527,7 +781,7 @@ mvn test -Dtest=TestUse
 ```xml
 <dependency>
     <groupId>com.zishuimuyu.science</groupId>
-    <artifactId>unitsconvert</artifactId>
+    <artifactId>UnitsConvert</artifactId>
     <version>2.0.0</version>
     <classifier>javadoc</classifier>
     <scope>provided</scope>
@@ -550,7 +804,7 @@ mvn clean install
 
 ```gradle
 dependencies {
-    implementation 'com.zishuimuyu.science:unitsconvert:1.0.0'
+    implementation 'com.zishuimuyu.science:UnitsConvert:2.0.0'
 }
 ```
 
@@ -616,6 +870,15 @@ System.out.println("25°C = " + tempF.getValue() + "°F");
 ### 5. 常见单位类名列表
 
 以下是常用的单位类名，可以通过 `UnitUtils.getUnit("类名")` 获取：
+
+> **类命名约定**：类名统一为 `U{物理量}_{单位符号}`（如 `ULength_Km`、`UPressure_MPa`）。少数单位因符号与同类中另一单位**仅首字母大小写不同**（SI 词头 Mega=M、Yotta=Y 对应 milli=m、yocto=y），若按符号命名会在 Windows/macOS 等**大小写不敏感文件系统**上与现有类产生文件名冲突，因此这几个类改用全称：
+> - `ULength_MegaMeter`（兆米 Mm，区别于毫米 `ULength_mm`）
+> - `ULength_YottaMeter`（尧米 Ym，区别于幺米 `ULength_ym`）
+> - `UMass_MegaGram`（兆克 Mg，区别于毫克 `UMass_mg`）
+> - `UArea_SquareMegameter`（平方兆米 Mm²，区别于平方毫米 `UArea_mm2`）
+> - `UForce_MegaNewton`（兆牛顿 MN，区别于毫牛顿 `UForce_mN`）
+>
+> 此为规避文件名冲突的既定规则（非疏漏）；另 `UTime_megaannum`（百万年）本身符号即为单词，不属于例外。`getUnit()` 传入类名时**区分大小写**。
 
 **长度单位：**
 - `ULength_m` - 米
@@ -689,7 +952,7 @@ System.out.println("25°C = " + tempF.getValue() + "°F");
 - `UPower_TW` - 太瓦
 - `UPower_Hp` - 马力
 - `UPower_Ps` - 公制马力
-- `UPower_BtuPers` - 英热单位/秒
+- `UPower_BtnPers` - 英热单位/秒
 - `UPower_calPers` - 卡路里/秒
 - `UPower_KcalPers` - 千卡/秒
 - `UPower_KcalPerh` - 千卡/小时
@@ -775,7 +1038,7 @@ STK主要服务于石油、化工、核电、建筑等传统企业，致力于�
 ## 更新日志
 
 ### 当前版本
-- 支持11个物理量类别的单位转换
+- 支持12个物理量类别的单位转换
 - 包含国际单位制、英制单位、中国传统单位
 - 提供完整的单位运算功能
 - 支持自定义单位扩展

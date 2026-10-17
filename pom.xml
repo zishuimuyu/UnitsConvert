@@ -11,7 +11,15 @@
     <packaging>jar</packaging>
 
         <name>UnitsConvert</name>
-    <description>UnitsConvert - 一个专业的Java单位转换库，支持长度、质量、时间、温度、力、压强、能量、功率、加速度、速度、体积等11个物理量类别的单位转换，包含国际单位制、英制单位和中国传统单位，适用于石油、化工、核电、建筑等传统行业的工程计算需求。</description>
+    <description>UnitsConvert - 一个专业的Java单位转换库，支持长度、面积、质量、时间、温度、力、压强、能量、功率、加速度、速度、体积等12个物理量类别的单位转换，包含国际单位制、英制单位和中国传统单位，适用于石油、化工、核电、建筑等传统行业的工程计算需求。</description>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -50,7 +58,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.zishuimuyu.science.TestUse</mainClass>
+                            <!-- 纯库项目，产物 jar 不指定 Main-Class -->
                         </manifest>
                     </archive>
                     <!-- 只包含编译后的类文件，不包含源代码 -->
@@ -98,15 +106,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <!-- Exec 插件，用于运行主类 -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <mainClass>com.zishuimuyu.science.TestUse</mainClass>
-                </configuration>
             </plugin>
         </plugins>
     </build>
